@@ -44,8 +44,9 @@
 
                 <div class="card-body">
 
-                    <div class="tab-content">
-                        <div class="tab-pane container active" id="addsingleuser">
+                    <div class="tab-content" >
+                        <div class="tab-pane container-fluid active" id="addsingleuser">
+
                             <form action="">
                                  <div class="row">
                                     <div class="col-md-4">
@@ -159,14 +160,14 @@
                             </form>
 
                         </div>
-                        <div class="tab-pane container fade" id="uploadexcel">
-                            <div class="container">
+                        <div class="tab-pane container-fluid fade" id="uploadexcel">
+                            <div class="container-fluid">
                                 <div class="panel panel-default">
                                   <div class="panel-heading"><strong>Upload excel file</strong></div>
                                   <div class="panel-body">
 
                                     <!-- Standar Form -->
-                                    <h5>Select files from your computer</h5>
+                                    <h5>Select file from your computer</h5>
                                     <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
                                       <div class="form-inline">
                                         <div class="form-group">

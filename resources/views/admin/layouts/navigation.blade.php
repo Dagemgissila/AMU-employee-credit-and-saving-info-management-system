@@ -76,13 +76,13 @@
             <ul class="nav nav-treeview ml-3">
               <li class="nav-item">
                 <a href="members.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                    <i class="far fas fa-align-justify nav-icon"></i>
                   <p>saving list</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                    <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>make deposit</p>
                 </a>
               </li>
