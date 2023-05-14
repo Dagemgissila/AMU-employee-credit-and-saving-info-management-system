@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Forgot Password</title>
+  <title>AMU CSIMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -13,8 +13,43 @@
   <link rel="stylesheet" href="{{asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+   body{
+       font-family: 'Poppins', sans-serif;
+background-color: rgb(41, 41, 245);
+
+  background-repeat: no-repeat;
+  height: 100vh;
+
+   }
+   .left {
+animation: slide-in-left 1s ease-out;
+}
+.right {
+animation: slide-in-right 1s ease-out;
+}
+@keyframes slide-in-left {
+from {
+  transform: translateX(-100%);
+}
+to {
+  transform: translateX(0);
+}
+}
+
+@keyframes slide-in-right {
+from {
+  transform: translateX(100%);
+}
+to {
+  transform: translateX(0);
+}
+}   /*------------ Login container ------------*/
+
+   </style>
 </head>
-<body class="hold-transition login-page">
+<body>
 
 @yield('content')
 

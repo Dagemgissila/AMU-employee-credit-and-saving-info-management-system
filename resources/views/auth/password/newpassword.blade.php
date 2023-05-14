@@ -21,27 +21,30 @@
           <hr style="border:1px solid rgb(38, 38, 38);width:100%">
 
          <div class="w-100 my-3">
-            <h2 class="text-primary float-left">Forget Your password?</h2>
+            <h2 class="text-primary float-left">Reset Password</h2>
          </div>
 
-         <p>We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
+
 
 
          <div class="w-100">
-            <form>
-
+            <form action="/addmembers" method="get">
+                @csrf
+              <div class="form-group">
+                <label for="exampleInputEmail1">new password</label>
+                <input type="password" class="form-control form-control"  placeholder="Enter new password">
+              </div>
 
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <label for="exampleInputEmail1">confirm password</label>
+                <input type="password" class="form-control form-control"   placeholder="Confirm password">
               </div>
 
-
+              <div class="input-group mb-5">
+                <button class="btn btn-lg btn-primary w-100 fs-6">continue</button>
+              </div>
 
             </form>
-            <div class="input-group mb-5">
-                <a type="button" href="/new-password" class="btn btn-lg btn-primary w-100 fs-6">reset password</a>
-              </div>
           </div>
 
 
@@ -51,7 +54,7 @@
        <div class=" col-md-6 right rounded-4 d-flex justify-content-center align-items-center flex-column ">
 
            <div class="featured-image mb-3 d-none d-md-block">
-            <img src="img/Forgot password.gif" class="img-fluid" style="width:100%;height:100%;">
+            <img src="img/Reset password.gif" class="img-fluid" style="width:100%;height:100%;">
 
            </div>
 
