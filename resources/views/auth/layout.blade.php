@@ -23,6 +23,7 @@ background-color: rgb(41, 41, 245);
   height: 100vh;
 
    }
+
    .left {
 animation: slide-in-left 1s ease-out;
 }

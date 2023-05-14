@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InstallController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
@@ -19,7 +20,8 @@ use App\Http\Controllers\Auth\ForgetpasswordController;
 
 
 
-
+Route::get('/admin/register',[InstallController::class,'index'])->name('install');
+Route::post('/install',[InstallController::class,'create'])->name('admin.register');
 Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/forget-password',[ForgetpasswordController::class,'index'])->name('forget-password');

@@ -28,19 +28,25 @@
          <div class="w-100">
             <form action="{{ route('login.userlogin')}}" method="POST">
                 @csrf
-                @if(session()->has('error'))
+                @if(session()->has('message'))
                 <div class="bg-danger text-white">
-                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
+                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
                 </div>
                 @endif
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" name="email" class="form-control form-control-lg"  placeholder="Enter email">
               </div>
+              @if ($errors->has('email'))
+              <div class="text-danger">{{ $errors->first('email') }}</div>
+          @endif
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter Password">
               </div>
+              @if ($errors->has('password'))
+              <div class="text-danger">{{ $errors->first('password') }}</div>
+          @endif
               <div class="input-group mb-5 d-flex justify-content-between">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="formCheck">

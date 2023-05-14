@@ -38,7 +38,7 @@
       </li>
 
       <li class="nav-item d-flex align-items-center">
-        <img src="{{ asset('img/ArbaMinchUniversity-logo_0.gif')}}" alt="" class="rounded-circle" style="width: 35px; height: 35px;">
+        <img src="{{ asset('img/avator.avif')}}" alt="" class="rounded-circle" style="width: 40px; height: 40px;">
       </li>
 
     <li class="nav-item">

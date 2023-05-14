@@ -33,7 +33,7 @@ class LoginController extends Controller
         }
 
         else{
-            return redirect('/')->with('error','invalid login detail');
+            return redirect()->back()->with('message','invalid login detail');
         }
 
     }
