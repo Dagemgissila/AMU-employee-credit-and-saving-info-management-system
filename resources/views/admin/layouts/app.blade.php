@@ -33,18 +33,18 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake " src="{{asset('img/loading.gif')}}" alt="" style="height:50%;width:50%">
+      </div>
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake " src="{{asset('img/loading.gif')}}" alt="" style="height:50%;width:50%">
-  </div>
+
 
   <!-- Navbar -->
-@include('manager.layouts.topnav')
+@include('admin.layouts.topnav')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-@include('manager.layouts.navigation')
+@include('admin.layouts.navigation')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -127,37 +127,37 @@
 <!-- Page specific script -->
 <script>
 
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [
+$(function () {
+    $("#example1").DataTable({
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "buttons": [
 
-                {
-                    "extend": "csv",
-                    "className": "btn-success  mr-3"
-                },
-                {
-                    "extend": "excel",
-                    "className": "btn-warning  mr-3"
-                },
-                {
-                    "extend": "pdf",
-                    "className": "btn-info  mr-3"
-                },
-                {
-                    "extend": "print",
-                    "className": "btn-danger  mr-3"
-                },
+            {
+                "extend": "csv",
+                "className": "btn-success  mr-3"
+            },
+            {
+                "extend": "excel",
+                "className": "btn-warning  mr-3"
+            },
+            {
+                "extend": "pdf",
+                "className": "btn-info  mr-3"
+            },
+            {
+                "extend": "print",
+                "className": "btn-danger  mr-3"
+            },
 
-            ]
+        ]
 
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)').parent().addClass('mb-3');
-    });
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)').parent().addClass('mb-3');
+});
 
 
-    </script>
+</script>
 
 </body>
 </html>

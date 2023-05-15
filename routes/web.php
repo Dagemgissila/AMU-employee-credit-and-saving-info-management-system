@@ -38,11 +38,19 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
+    Route::get('/admin/manage-account/create-account',function(){
+        return view('admin.create');
+    })->name('admin.create');
+
+    Route::get('/admin/manage-account/list-of-user',function(){
+        return view('admin.listofuser');
+    })->name('admin.listofuser');
+
 });
 
 //the following code allow the pages accesed only by manager
 Route::middleware(['auth', 'user-role:manager'])->group(function () {
-    Route::get('/',function(){
+    Route::get('/manager/manage-member/add-member',function(){
         return view('manager.ManageMember.addmembers');
     });
 

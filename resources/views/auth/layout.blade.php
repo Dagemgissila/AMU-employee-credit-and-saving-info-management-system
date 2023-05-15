@@ -24,29 +24,7 @@ background-color: rgb(41, 41, 245);
 
    }
 
-   .left {
-animation: slide-in-left 1s ease-out;
-}
-.right {
-animation: slide-in-right 1s ease-out;
-}
-@keyframes slide-in-left {
-from {
-  transform: translateX(-100%);
-}
-to {
-  transform: translateX(0);
-}
-}
-
-@keyframes slide-in-right {
-from {
-  transform: translateX(100%);
-}
-to {
-  transform: translateX(0);
-}
-}   /*------------ Login container ------------*/
+  /*------------ Login container ------------*/
 
    </style>
 </head>
