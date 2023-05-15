@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
     public function index(){
+        $userCount = DB::table('users')->count();
+
+        if ($userCount == 0) {
+            if ($userCount == 0) {
+                return redirect()->route('install');
+            }
+        }
         return view('auth.login');
     }
 

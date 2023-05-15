@@ -22,7 +22,7 @@ Route::redirect('/', '/login');
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::Class,'UserLogin'])->name('login.userlogin');
 
-Route::get('/admin/register',[InstallController::class,'index'])->name('install');
+Route::get('/install',[InstallController::class,'index'])->name('install');
 Route::post('/install',[InstallController::class,'create'])->name('admin.register');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/forget-password',[ForgetpasswordController::class,'index'])->name('forget-password');
