@@ -18,17 +18,18 @@ use App\Http\Controllers\Auth\ForgetpasswordController;
 |
 */
 
-
+Route::redirect('/', '/login');
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login',[LoginController::Class,'UserLogin'])->name('login.userlogin');
 
 Route::get('/admin/register',[InstallController::class,'index'])->name('install');
 Route::post('/install',[InstallController::class,'create'])->name('admin.register');
-Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/forget-password',[ForgetpasswordController::class,'index'])->name('forget-password');
 Route::get('/reset-password',[ResetpasswordController::class,'index'])->name('reset-password');
 Route::get('/new-password',[NewpasswordController::class,'index'])->name('new-password');
 
-Route::post('/login',[LoginController::Class,'UserLogin'])->name('login.userlogin');
+
 
 
 //the following code allow the pages accesed only by admin
