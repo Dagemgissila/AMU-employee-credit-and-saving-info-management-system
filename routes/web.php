@@ -1,11 +1,15 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\AdminUserConroller;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
 use App\Http\Controllers\Auth\ForgetpasswordController;
+use App\Http\Controllers\Manager\ManagerDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,27 +39,24 @@ Route::get('/new-password',[NewpasswordController::class,'index'])->name('new-pa
 //the following code allow the pages accesed only by admin
 Route::middleware(['auth', 'user-role:admin'])->group(function () {
 
-    Route::get('/admin/dashboard',function(){
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
-    Route::get('/admin/manage-account/create-account',function(){
-        return view('admin.create');
-    })->name('admin.create');
-
-    Route::get('/admin/manage-account/list-of-user',function(){
-        return view('admin.listofuser');
-    })->name('admin.listofuser');
-
+    Route::get('/admin/dashboard', [DashboardController::class,'index'])->name('admin.dashboard');
+    Route::get('/admin/manage-account/create-account', [AdminUserConroller::class,'index'])->name('admin.create');
+    Route::post('/admin/manage-account/create-account', [AdminUserConroller::class,'create'])->name('admin.create');
+    Route::get('/admin/manage-account/list-of-user', [AdminUserConroller::class,'listofuser'])->name('admin.listofuser');
+  Route::post('/status-update/{id}',[AdminUserConroller::class,'updateStatus'])->name('status-update');
+  Route::get('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpageview'])->name('admin.resetpassword');
+  Route::post('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpassword'])->name('admin.resetpassword');
+Route::delete('/users/{user}',[AdminUserConroller::class,'destroy'])->name('users.destroy');
+Route::post('/updateaccount/{id}',[AdminUserConroller::class,'updateaccount'])->name('admin.updateaccount');
 });
+
 
 //the following code allow the pages accesed only by manager
 Route::middleware(['auth', 'user-role:manager'])->group(function () {
-    Route::get('/manager/manage-member/add-member',function(){
-        return view('manager.ManageMember.addmembers');
-    });
 
-    Route::get('/manager/addmembers',function(){
+    Route::get('/manager/dashboard', [ManagerDashboardController::class,'index'])->name('manager.dashboard');
+
+    Route::get('/manager/manage-member/addmembers',function(){
         return view('manager.ManageMember.addmembers');
     })->name('manager.addmembers');
 

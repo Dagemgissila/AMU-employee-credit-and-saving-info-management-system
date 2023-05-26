@@ -25,8 +25,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="/dashboard" class="nav-link">
+          <li class="nav-item @if(Request::is('manager/dashboard'))  bg-primary @endif">
+            <a href="{{route('manager.dashboard')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -38,23 +38,23 @@
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @if(Request::is('manager/manage-member/*')) active @endif">
               <i class="nav-icon fas  fa-users"></i>
               <p>
-                members
+                manage members
                 <i class="fas fa-angle-left right"></i>
 
               </p>
             </a>
-            <ul class="nav nav-treeview ml-3">
-              <li class="nav-item">
-                <a href="/admin/addmembers" class="nav-link">
+            <ul class="nav @if(!Request::is('manager/manage-member/*')) nav-treeview  @endif ml-3">
+              <li class="nav-item  @if(Request::is('manager/manage-member/addmembers')) bg-secondary @endif">
+                <a href="{{route('manager.addmembers')}}" class="nav-link">
                   <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>add member</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="listofmembers" class="nav-link">
+              <li class="nav-item @if(Request::is('manager/manage-member/view-member-info')) bg-secondary @endif">
+                <a href="" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
                   <p>view member info</p>
                 </a>
@@ -65,7 +65,7 @@
 
 
  <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="" class="nav-link @if(Request::is('manager/saving-account/*')) active @endif">
               <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Saving Account

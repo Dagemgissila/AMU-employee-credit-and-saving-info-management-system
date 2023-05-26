@@ -24,6 +24,8 @@ class User extends Authenticatable
         'role'
     ];
 
+
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -41,5 +43,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at'=>'datetime',
+        'updated_at'=>'datetime'
     ];
+
+    public function getCreatedAt(){
+        return $this->created_at->format(' F j Y H:i');
+        }
+
+        public function getUpdatedAt(){
+            return $this->updated_at->format('F j Y H:i');
+        }
 }

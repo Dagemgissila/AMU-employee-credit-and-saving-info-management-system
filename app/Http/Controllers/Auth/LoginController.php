@@ -28,7 +28,7 @@ class LoginController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
            if(auth()->user()->role == 'manager'){
-              return redirect()->route('manager.addmembers');
+              return redirect()->route('manager.dashboard');
            }
 
            else if(auth()->user()->role == "admin"){

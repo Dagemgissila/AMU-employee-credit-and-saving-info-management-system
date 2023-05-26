@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('admin');
+            //boolean=1 account is active boolean=0 account is restricted
+            $table->boolean('account_status')->default(1);
+            // boolean=0 the user must change password after login to system
+            $table->boolean('password_status')->default(0);
             $table->rememberToken();
             $table->timestamps();
+
+
         });
     }
 

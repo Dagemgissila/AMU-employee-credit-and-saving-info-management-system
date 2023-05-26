@@ -156,8 +156,19 @@ $(function () {
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)').parent().addClass('mb-3');
 });
 
+$(document).ready(function() {
+    $('#usertable').DataTable({
+        "order": [[ 2, "desc" ]],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "pageLength": 10
+    });
+});
+
+
 
 </script>
+
+
 
 </body>
 </html>
