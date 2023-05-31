@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class InstallController extends Controller
 {
@@ -28,11 +29,12 @@ class InstallController extends Controller
         $user = new User;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user->password = Hash::make($request->password);
         $user->account_status=1;
+        $user->password_status=1;
         $user->save();
 
 
-        return redirect('/login')->with('message','you register succesfully');
+        return redirect('/login')->with('success','you register succesfully');
     }
 }

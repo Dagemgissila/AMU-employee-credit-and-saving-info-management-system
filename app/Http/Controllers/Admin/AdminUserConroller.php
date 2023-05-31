@@ -78,24 +78,48 @@ class AdminUserConroller extends Controller
        return redirect()->route('admin.listofuser')->with('message','password is reset succefully');
     }
 
-    public function destroy(User $user)
+
+    public function deleteaccount($id){
+        $user=User::find($id);
+    return response()->json(
+        [
+            'status'=>200,
+            'user'=>$user
+        ]
+    );
+    }
+
+    public function destroy(Request $request)
 {
+    $user=User::find($request->user_id);
     $user->delete();
 
     return redirect()->route('admin.listofuser')->with('message', 'user deleted successfully.');
 }
 
-public function updateaccount(Request $request,$id){
-    $this->validate($request,[
-        'username' => 'required|min:4',
-        'email' => 'email|unique:users,email,'.$id
+public function edit($id){
+    $user=User::find($id);
+    return response()->json(
+        [
+            'status'=>200,
+            'user'=>$user
+        ]
+    );
+
+}
+
+public function updateaccount(Request $request){
+    $this->validate($request, [
+        'username' => 'required|min:4|unique:users,username,'.$request->user_id,
+        'email' => 'email|unique:users,email,'.$request->user_id,
     ]);
 
-    $user=User::find($id);
+    $user=User::find($request->user_id);
     $user->username=$request->username;
     $user->email=$request->email;
-    $user->save();
+    $user->update();
 
-    return redirect()->route('admin.listofuser')->with('message','account succefully updated');
+    return redirect()->route('admin.listofuser')->with('message', 'user account updated successfully.');
+
 }
 }

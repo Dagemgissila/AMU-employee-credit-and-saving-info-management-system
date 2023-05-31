@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
 use App\Http\Controllers\Auth\ForgetpasswordController;
 use App\Http\Controllers\Manager\ManagerDashboardController;
+use App\Http\Controllers\Admin\AdminChangepasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,14 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
   Route::get('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpageview'])->name('admin.resetpassword');
   Route::post('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpassword'])->name('admin.resetpassword');
 Route::delete('/users/{user}',[AdminUserConroller::class,'destroy'])->name('users.destroy');
-Route::post('/updateaccount/{id}',[AdminUserConroller::class,'updateaccount'])->name('admin.updateaccount');
+Route::get('/updateaccount/{id}',[AdminUserConroller::class,'edit']);
+Route::put('update-account',[AdminUserConroller::class,'updateaccount'])->name('updateaccount');
+
+Route::get('/deleteaccount/{id}',[AdminUserConroller::class,'deleteaccount']);
+Route::delete('deleteuser',[AdminUserConroller::class,'destroy'])->name('deleteaccount');
+
+Route::get('/admin/change-password',[AdminChangepasswordController::class,'index'])->name('admin.changepassword');
+Route::post('/admin/change-password',[AdminChangepasswordController::class,'changepassword'])->name('admin.changepassword');
 });
 
 

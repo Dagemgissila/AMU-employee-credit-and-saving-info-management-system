@@ -28,7 +28,7 @@
 <div class="card-body">
     <div class="row ">
         <div class="col-6">
-            <h3 class="font-weight-bold">Username : {{$user->id}}</h3>
+            <h3 class="font-weight-bold">Username : {{$user->username}}</h3>
             <p class="font-weight-bold font-style-italic lead text-info p=3">Please note that the password you choose must be at least 8 characters long and can be any  password.
           However, please keep in mind that the user must change their password immediately  by login in  to the systen.
 </p>

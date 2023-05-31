@@ -13,9 +13,7 @@ class LoginController extends Controller
         $userCount = DB::table('users')->count();
 
         if ($userCount == 0) {
-            if ($userCount == 0) {
                 return redirect()->route('install');
-            }
         }
         return view('auth.login');
     }
@@ -28,6 +26,7 @@ class LoginController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
            if(auth()->user()->role == 'manager'){
+
               return redirect()->route('manager.dashboard');
            }
 

@@ -8,8 +8,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard v1</li>
+            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
+
           </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
@@ -25,14 +25,14 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>150</h3>
+          <h3>{{$totaluser->count()}}</h3>
 
           <p>Total users</p>
         </div>
         <div class="icon">
-          <i class="ion ion-bag"></i>
+            <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
       </div>
     </div>
     <!-- ./col -->
@@ -40,14 +40,14 @@
       <!-- small box -->
       <div class="small-box bg-success">
         <div class="inner">
-          <h3>53</h3>
+          <h3>{{$member->count()}}</h3>
 
           <p>members</p>
         </div>
         <div class="icon">
-          <i class="ion ion-stats-bars"></i>
+            <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
       </div>
     </div>
     <!-- ./col -->
@@ -55,14 +55,14 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>100</h3>
+          <h3>{{$manager->count()}}</h3>
 
           <p>manager</p>
         </div>
         <div class="icon">
-          <i class="ion ion-person-add"></i>
+            <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
       </div>
     </div>
 
@@ -70,14 +70,14 @@
         <!-- small box -->
         <div class="small-box bg-primary">
           <div class="inner">
-            <h3>100</h3>
+            <h3>{{$admin->count()}}</h3>
 
             <p>admins</p>
           </div>
           <div class="icon">
             <i class="ion ion-person-add"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
         </div>
       </div>
     <!-- ./col -->
@@ -85,14 +85,14 @@
       <!-- small box -->
       <div class="small-box bg-danger">
         <div class="inner">
-          <h3>65</h3>
+          <h3>{{$blockuser->count()}}</h3>
 
           <p>Block user</p>
         </div>
         <div class="icon">
-          <i class="ion ion-pie-graph"></i>
+            <i class="ion ion-person-add"></i>
         </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
       </div>
     </div>
     <!-- ./col -->

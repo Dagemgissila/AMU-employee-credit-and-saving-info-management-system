@@ -25,7 +25,7 @@
          </div>
          <div class="w-100">
             <p class="text-danger float-left font-weight-bold">this page can not display again once you create account,
-                please fill the follwing carefully</p>
+                please fill the following form carefully</p>
          </div>
 
 
@@ -55,6 +55,9 @@
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" name="password" value="{{ old('password') }}" class="form-control form-control" placeholder="Enter Password">
+              </div>
+              <div>
+                <p class="font-italic">the password must be at least 8 character, it must contain at least 1 uppercase,1 lowercase ,1 number and 1 speacial character</p>
               </div>
               @if ($errors->has('password'))
               <div class="text-danger">{{ $errors->first('password') }}</div>

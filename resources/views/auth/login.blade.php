@@ -14,7 +14,7 @@
        <div class="col-md-6 left d-flex align-items-center  flex-column p-3 p-sm-4 my-5">
 
         <div class="header-text d-flex  justify-content-around align-items-center mt-3" style="width:100%;">
-            <img src="img/ArbaMinchUniversity-logo_0.gif" class="img-fluid" style="width:90px;height:90px;">
+            <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:90px;height:90px;">
             <p class="text-wrap text-left" style="width: 22rem;font-weight:bold;margin:0;">AMU employee credit and saving information management system</p>
           </div>
 
@@ -31,6 +31,12 @@
                 @if(session()->has('message'))
                 <div class="bg-danger text-white">
                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
+                </div>
+                @endif
+
+                @if(session()->has('success'))
+                <div class="bg-success text-white">
+                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('success')}}</p>
                 </div>
                 @endif
               <div class="form-group">
