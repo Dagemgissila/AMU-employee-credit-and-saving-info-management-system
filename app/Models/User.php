@@ -3,10 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\SavingDetail;
+use App\Models\SavingAccount;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -54,4 +57,12 @@ class User extends Authenticatable
         public function getUpdatedAt(){
             return $this->updated_at->format('F j Y H:i');
         }
+
+
+        public function member()
+    {
+        return $this->hasOne(Member::class);
+    }
+
+
 }

@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">List of user</h1>
+          <h1 class="m-0">Saving Account</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -98,10 +98,10 @@
 
             </div>
             @if(session()->has('message'))
-            <div class="bg-success text-white">
-              <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
-            </div>
-            @endif
+                             <div class="bg-success text-white">
+                               <p class="p-2 d-flex justify-content-center font-weight-bold align-items-center lead">   {{session('message')}}</p>
+                             </div>
+                             @endif
 
                              @if ($errors->has('email'))
                              <div class="bg-danger text-white">
@@ -116,61 +116,55 @@
                          @endif
             <!-- /.card-header -->
             <div class="card-body table-responsive">
-              <table class="table table-hover"  id="membertable">
+              <table class="table table-hover"  id="savinglist">
 
                 <thead>
                     <tr>
-                        <th>firstname</th>
-                        <th>middlename</th>
-                        <th>lastname</th>
+
                         <th>username</th>
-                        <th>phone number </th>
-                        <th>saving percent</th>
-                        <th>bank account</th>
-                        <th>salary</th>
-                        <th>saving percent</th>
-                        <th>campus</th>
-                        <th>colleage</th>
-                        <th>sex </th>
-                        <th>martial status</th>
-                        <th>registered date</th>
-                        <th>action</th>
+                        <th>Fullname </th>
+                        <th>saving_percent</th>
+
+                        <th>saving amount</th>
+                        <th>saving month</th>
+
+
+
 
                       </tr>
                 </thead>
                 <tbody>
 
-                    @if ($members->count() >0)
+                    @if ($savingdetail->count() >0)
 
-                    @foreach ($members as $member)
 
+                    @foreach ($savingdetail as $saving)
                     <tr>
-                        <td>{{$member->firstname}}</td>
-                        <td>{{$member->middlename}}</td>
-                        <td>{{$member->lastname}}</td>
-                        <td>{{$member->user->username}}</td>
-                        <td>{{$member->phone_number}}</td>
-                        <td>{{$member->saving_percent}}</td>
-                        <td>{{$member->bank_account}}</td>
-                        <td>{{$member->salary}}</td>
-                        <td>{{ $member->savingAccounts()->latest()->first()->saving_percent }}</td>
-                        <td>{{$member->campus}}</td>
-                        <td>{{$member->colleage}}</td>
-                        <td>{{$member->sex}}</td>
-                        <td>{{$member->martial_status}}</td>
-                        <td>{{$member->registered_date}}</td>
-                        <td class="d-flex">
-                            <a href="{{route('manager.editMember',$member->id)}}"  type="button" class="btn btn-primary d-flex align-items-center editbtn btn-sm mx-1 " >
-                                <i class="fa fa-edit"></i> Edit
-                            </a>
-                            <button type="button" class="btn btn-danger d-flex align-items-center deletebtn btn-sm mx-1" data-toggle="modal">
-                                <i class="fa fa-trash"></i> Delete
-                            </button>
-                        </td>
-                     </tr>
 
+                        @if ($saving->member && $saving->member->user)
+                        <td>{{ $saving->member->user->username }}</td>
+                    @elseif ($saving->member)
+                        <td>N/A</td>
+                    @else
+                        <td>Invalid member</td>
+                    @endif
+
+                    @if ($saving->member)
+                        <td>{{ $saving->member->firstname }} {{ $saving->member->middlename }}</td>
+                    @else
+                        <td>N/A</td>
+                    @endif
+
+                    <td>{{$saving->member->saving_percent}}</td>
+
+                        <td>{{ $saving->saving_amount }}</td>
+                        <td>{{$saving->saving_month}}</td>
+
+
+                    </tr>
                 @endforeach
-              @endif
+
+@endif
                    </tbody>
               </table>
             </div>

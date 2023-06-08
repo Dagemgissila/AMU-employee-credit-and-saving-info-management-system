@@ -5,7 +5,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add members</h1>
+          <h1 class="m-0">Edit</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -30,25 +30,16 @@
             <div class="col-md-12">
 
               <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>ADD single member</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#uploadexcel">UPLOAD excel sheet</a>
-                        </li>
 
-                      </ul>
-                 </div>
 
                 <div class="card-body">
 
                     <div class="tab-content" >
                         <div class="tab-pane container-fluid active" id="addsingleuser">
 
-                            <form action="{{route('manager.addmembers')}}" method="POST">
+                            <form action="{{route('manager.editMember',$member->id)}}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 @if(session()->has('message'))
                                 <div class="bg-success text-white">
                                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
@@ -59,11 +50,13 @@
                                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
                                 </div>
                                 @endif
+
+
                                  <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="firstname">Fisrt Name</label>
-                                            <input type="text" name="firstname" value="{{ old('firstname') }}" required class="form-control" id="firstname" placeholder="first name">
+                                            <input type="text" name="firstname" value="{{$member->firstname}}" required class="form-control" id="firstname" placeholder="first name">
                                           </div>
                                           @if ($errors->has('firstname'))
                                               <div class="text-danger">{{ $errors->first('firstname') }}</div>
@@ -73,7 +66,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middlename">Middle Name</label>
-                                            <input type="text" name="middlename" value="{{ old ('middlename')}}" required class="form-control" id="middlename" placeholder="middle name">
+                                            <input type="text" name="middlename" value="{{$member->middlename}}" required class="form-control" id="middlename" placeholder="middle name">
                                           </div>
                                           @if ($errors->has('middlename'))
                                           <div class="text-danger">{{ $errors->first('middlename') }}</div>
@@ -82,7 +75,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="lastname">Last Name</label>
-                                            <input type="text" name="lastname" value="{{ old ('lastname') }}" required class="form-control" id="lastname" placeholder="last name">
+                                            <input type="text" name="lastname" value="{{$member->lastname}}" required class="form-control" id="lastname" placeholder="last name">
                                           </div>
                                           @if ($errors->has('lastname'))
                                           <div class="text-danger">{{ $errors->first('lastname') }}</div>
@@ -91,11 +84,20 @@
                                  </div>
 
                                  <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="username">Saving percent</label>
+                                            <input type="text" name="SavingPercent" value="{{ $member->saving_percent}}" required class="form-control" id="username" placeholder="e.g. 1364">
 
+                                          </div>
+                                          @if ($errors->has('SavingPercent'))
+                                          <div class="text-danger">{{ $errors->first('SavingPercent') }}</div>
+                                       @endif
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="accountnumber">Bank Account Number</label>
-                                            <input type="number" name="bankaccount" value="{{ old ('bankaccount')}}" required class="form-control" id="accountnumber" placeholder=" e.g 1000356...">
+                                            <input type="number" name="bankaccount" value="{{ $member->bank_account}}" required class="form-control" id="accountnumber" placeholder=" e.g 1000356...">
                                           </div>
                                           @if ($errors->has('bankaccount'))
                                           <div class="text-danger">{{ $errors->first('bankaccount') }}</div>
@@ -104,32 +106,58 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="phonenumber">Phone Number</label>
-                                            <input type="number" name="phonenumber" value="{{ old ('phonenumber')}}" required class="form-control" id="lastname" placeholder=" e.g 09547***">
+                                            <input type="number" name="phonenumber" value="{{ $member->phone_number}}" required class="form-control" id="lastname" placeholder=" e.g 09547***">
                                           </div>
                                           @if ($errors->has('phonenumber'))
                                           <div class="text-danger">{{ $errors->first('phonenumber') }}</div>
                                        @endif
                                     </div>
+                                 </div>
+                                 <hr>
+
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="salary">Salary</label>
+                                            <input type="number"name="salary" required  value="{{ $member->salary}}"  class="form-control" id="salary" placeholder=" e.g 15000.00">
+                                          </div>
+                                          @if ($errors->has('salary'))
+                                          <div class="text-danger">{{ $errors->first('salary') }}</div>
+                                       @endif
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="campus">campus</label>
-                                            <select class="form-control " required name="campus" required style="width: 100%;">
+                                            <select class="form-control" required name="campus" style="width: 100%;">
                                                 <option value="">-- Please select a campus --</option>
-                                                <option value="main">main</option>
-                                                <option value="kulfo">kulfo</option>
-                                                <option value="nechsar">nechsar</option>
-                                                <option value="abaya">abaya</option>
-                                                <option value="chamo">chamo</option>
-                                                <option value="sawula">sawula</option>
-                                              </select>
+                                                <option value="main" {{ $member->campus == 'main' ? 'selected' : '' }}>Main</option>
+                                                <option value="kulfo" {{ $member->campus == 'kulfo' ? 'selected' : '' }}>Kulfo</option>
+                                                <option value="nechsar" {{ $member->campus == 'nechsar' ? 'selected' : '' }}>Nechsar</option>
+                                                <option value="abaya" {{ $member->campus == 'abaya' ? 'selected' : '' }}>Abaya</option>
+                                                <option value="chamo" {{ $member->campus == 'chamo' ? 'selected' : '' }}>Chamo</option>
+                                                <option value="sawula" {{ $member->campus == 'sawula' ? 'selected' : '' }}>Sawula</option>
+                                            </select>
                                           </div>
                                           @if ($errors->has('campus'))
                                           <div class="text-danger">{{ $errors->first('campus') }}</div>
                                        @endif
                                     </div>
-                                 </div>
-                                 <hr>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="colleage">colleage</label>
+                                            <select class="form-control " required name="colleage" style="width: 100%;">
+                                                <option value="">-- Please select a colleage --</option>
+                                                <option value="AMIT" {{$member->colleage == "AMIT"? ' selected' : ''}}>AMIT</option>
+                                                <option value="AWIT" {{$member->colleage == 'AWIT' ? 'selected' : ''}}>AWIT</option>
+                                                <option value="MEDICAL" {{$member->colleage == 'MEDICAL' ? 'selected' : ''}}>MEDICAL</option>
+                                              </select>
+                                          </div>
+                                          @if ($errors->has('colleage'))
+                                          <div class="text-danger">{{ $errors->first('colleage') }}</div>
+                                       @endif
+                                    </div>
 
+                                 </div>
 
                                  <div class="row">
                                     <div class="col-md-4">
@@ -137,8 +165,8 @@
                                             <label for="sex">sex</label>
                                             <select class="form-control" required name="sex" style="width: 100%;">
                                                 <option value="">-- Please select a sex --</option>
-                                                <option value="female">Female</option>
-                                                <option value="male">Male</option>
+                                                <option value="female" {{ $member->sex == 'female' ? 'selected' :''}}>Female</option>
+                                                <option value="male" {{$member->sex == 'male' ? 'selected' : ''}}>Male</option>
 
 
                                               </select>
@@ -152,8 +180,8 @@
                                             <label for="marriage">martial status</label>
                                             <select class="form-control" required  name="martial_status" style="width: 100%;">
                                                 <option value="">-- Please select a martial status --</option>
-                                                <option value="married">married</option>
-                                                <option value="single">Single</option>
+                                                <option value="married" {{ $member->martial_status == 'married' ? 'selected' :''}}>married</option>
+                                                <option value="single" {{ $member->martial_status == 'single' ? 'selected' :''}}>Single</option>
                                               </select>
                                               @if ($errors->has('martial_status'))
                                               <div class="text-danger">{{ $errors->first('martial_status') }}</div>
@@ -161,89 +189,26 @@
                                           </div>
                                     </div>
 
-
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="colleage">colleage</label>
-                                            <select class="form-control " required name="colleage" style="width: 100%;">
-                                                <option value="">-- Please select a colleage --</option>
-                                                <option value="AMIT">AMIT</option>
-                                                <option value="AWIT">AWIT</option>
-                                                <option value="MEDICAL">MEDICAL</option>
-                                              </select>
-                                          </div>
-                                          @if ($errors->has('colleage'))
-                                          <div class="text-danger">{{ $errors->first('colleage') }}</div>
-                                       @endif
-                                    </div>
-
-                                 </div>
-
-                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="salary">Salary</label>
-                                            <input type="number"name="salary" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 15000.00">
-                                          </div>
-                                          @if ($errors->has('salary'))
-                                          <div class="text-danger">{{ $errors->first('salary') }}</div>
-                                       @endif
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="salary">Saving Percent</label>
-                                            <input type="number"name="SavingPercent" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 10">
-                                          </div>
-                                          @if ($errors->has('SavingPercent'))
-                                          <div class="text-danger">{{ $errors->first('SavingPercent') }}</div>
-                                       @endif
-                                    </div>
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="date">Registered Date</label>
-                                            <input type="date" name="registered_date" value="{{old('date')}}" required class="form-control" id="date">
+                                            <input type="date" name="registered_date" value="{{ date('Y-m-d', strtotime($member->registered_date)) }}" required class="form-control" id="date">
                                             @if ($errors->has('registered_date'))
-                                            <div class="text-danger">{{ $errors->first('registered_date') }}</div>
-                                         @endif
+                                                <div class="text-danger">{{ $errors->first('registered_date') }}</div>
+                                            @endif
                                         </div>
                                     </div>
 
                                   <div class="col-md-2">
                                     <div class="input-group my-3">
-                                        <button class="btn  btn-primary w-100 fs-6">Add member</button>
+                                        <button class="btn btn-primary w-100 fs-6">Update member</button>
                                       </div>
                                   </div>
                                  </div>
                             </form>
 
                         </div>
-                        <div class="tab-pane container-fluid fade" id="uploadexcel">
-                            <div class="container-fluid">
-                                <div class="panel panel-default">
-                                  <div class="panel-heading"><strong>Upload excel file</strong></div>
-                                  <div class="panel-body">
 
-                                    <!-- Standar Form -->
-                                    <h5>Select file from your computer</h5>
-                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                                      <div class="form-inline">
-                                        <div class="form-group">
-                                          <input type="file" name="files[]" id="js-upload-files" multiple>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-                                      </div>
-                                    </form>
-
-
-
-
-
-                                  </div>
-                                </div>
-                              </div> <!-- /container -->
-                        </div>
 
                       </div>
 

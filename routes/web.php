@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminUserConroller;
+use App\Http\Controllers\Manager\MemberController;
+use App\Http\Controllers\Manager\SavingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
 use App\Http\Controllers\Auth\ForgetpasswordController;
 use App\Http\Controllers\Manager\ManagerDashboardController;
 use App\Http\Controllers\Admin\AdminChangepasswordController;
+use App\Http\Controllers\Manager\ManagerChangepasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,10 +66,23 @@ Route::post('/admin/change-password',[AdminChangepasswordController::class,'chan
 Route::middleware(['auth', 'user-role:manager'])->group(function () {
 
     Route::get('/manager/dashboard', [ManagerDashboardController::class,'index'])->name('manager.dashboard');
+    Route::get('/manager/changepassword',[ManagerChangepasswordController::class,'index'])->name('manager.changepassword');
+    Route::post('/manager/changepassword',[ManagerChangepasswordController::class,'changepassword'])->name('manager.changepasswsord');
+    Route::get('/manager/manage-member/addmembers',[MemberController::class,'index'])->name('manager.addmembers');
+    Route::post('/manager/manage-member/addmembers',[MemberController::class,'store'])->name('manager.addmembers');
+    Route::get('/manager/manage-member/view-member-info',[MemberController::class,'ViewMemberInfo'])->name('manager.viewmember');
+    Route::get('/manager/manage-member/edit-member/{id}',[MemberController::class,'show'])->name('manager.editMember');
+    Route::put('/manager/manage-member/edit-member/{id}',[MemberController::class,'editmember'])->name('manager.editMember');
+    Route::get('/manager/manage-saving/saving-list',[SavingController::class,'savinglist'])->name('manager.savinglist');
+    Route::get('manager/manage-saving/view-detail/{id}',[SavingController::class,'viewdetail'])->name('saving.viewdetail');
+    Route::get('/manager/manage-saving/create-saving-account',[SavingController::class,'CreateSavingForm'])->name('manager.createsaving');
+    Route::post('/manager/manage-saving/create-saving-account',[SavingController::class,'CreateSaving'])->name('manager.createsaving');
+    Route::get('/manager/manage-saving/make-deposit',[SavingController::class,'deposit'])->name('manager.makedeposit');
+    Route::post('manager/manage-saving/make-deposit',[SavingController::class,'storemoney'])->name('manager.makedeposit');
 
-    Route::get('/manager/manage-member/addmembers',function(){
-        return view('manager.ManageMember.addmembers');
-    })->name('manager.addmembers');
+
+
+
 
 });
 

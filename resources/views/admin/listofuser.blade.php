@@ -98,8 +98,8 @@
 
             </div>
             @if(session()->has('message'))
-                             <div class="bg-success text-white">
-                               <p class="p-2 d-flex justify-content-center font-weight-bold align-items-center lead">   {{session('message')}}</p>
+                             <div class="bg-success p-1 d-flex justify-content-center  align-items-center text-white">
+                               <p class=" ">   {{session('message')}}</p>
                              </div>
                              @endif
 
@@ -248,4 +248,4 @@
 
 
 
-                   {
+

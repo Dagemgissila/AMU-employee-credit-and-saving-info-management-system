@@ -1,10 +1,11 @@
-@extends('admin.layouts.app')
+@extends('manager.layouts.app')
+
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Create Account</h1>
+          <h1 class="m-0">Create Saving Account</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -16,8 +17,13 @@
     </div><!-- /.container-fluid -->
  </div>
 
+
+
+  <!-- Tab panes -->
+
+
    <!-- Main content -->
-   <section class="content">
+  <section class="content">
     <div class="container-fluid">
 
         <div class="row">
@@ -27,7 +33,7 @@
                 <div class="card-header">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>Create Single User</a>
+                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>ADD single member</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" data-toggle="pill" href="#uploadexcel">UPLOAD excel sheet</a>
@@ -41,63 +47,61 @@
                     <div class="tab-content" >
                         <div class="tab-pane container-fluid active" id="addsingleuser">
 
-                            <form action="{{ route('admin.create')}}" method="POST" >
-                             @csrf
-                             @if(session()->has('error'))
-                             <div class="bg-danger text-white">
-                               <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
-                             </div>
-                             @endif
-                             @if(session()->has('message'))
-                             <div class="bg-success text-white">
-                               <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
-                             </div>
-                             @endif
+                            <form action="{{route('manager.createsaving')}}" method="POST">
+                                @csrf
+                                @if(session()->has('message'))
+                                <div class="bg-success text-white">
+                                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
+                                </div>
+                                @endif
+                                @if(session()->has('error'))
+                                <div class="bg-danger text-white">
+                                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
+                                </div>
+                                @endif
                                  <div class="row">
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="username">User Name</label>
-                                            <input type="text" class="form-control" value="{{ old('username') }}" name="username" id="username" placeholder=" enter user name" >
+                                            <label for="firstname">User name</label>
+                                            <input type="text" name="firstname" value="{{ old('username') }}" required class="form-control" id="username" placeholder="username">
                                           </div>
                                           @if ($errors->has('username'))
-                                          <div class="text-danger">{{ $errors->first('username') }}</div>
-                                      @endif
+                                              <div class="text-danger">{{ $errors->first('username') }}</div>
+                                           @endif
                                     </div>
-
 
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="accountnumber">email address</label>
-                                            <input type="email" class="form-control" value="{{old('email')}}" name="email" id="accountnumber" placeholder=" enter user email address">
+                                            <label for="middlename">Saving percent</label>
+                                            <input type="text" name="saving_percent" min="10" max="30" value="{{ old ('middlename')}}" required class="form-control" id="saving_percent" placeholder="saving percent">
                                           </div>
-                                          @if ($errors->has('email'))
-                                          <div class="text-danger">{{ $errors->first('email') }}</div>
-                                      @endif
+                                          @if ($errors->has('saving_percent'))
+                                          <div class="text-danger">{{ $errors->first('saving_percent') }}</div>
+                                       @endif
                                     </div>
-
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="campus">Role</label>
-                                            <select name="role" value="{{old('role')}}" class="form-control" style="width: 100%;" id="role-select" required>
-                                                <option value="">-- Please select a role --</option>
-                                                <option value="admin">Admin</option>
-                                                <option value="manager">Manager</option>
-                                            </select>
-
-                                        </div>
+                                            <label for="lastname">Saving Month</label>
+                                            <input type="date" name="saving_month" value="{{ old ('lastname') }}" required class="form-control" id="lastname" placeholder="last name">
+                                          </div>
+                                          @if ($errors->has('lastname'))
+                                          <div class="text-danger">{{ $errors->first('lastname') }}</div>
+                                       @endif
                                     </div>
                                  </div>
 
+                                 <div class="col-md-2">
+                                    <div class="input-group my-3">
+                                        <button class="btn btn-primary w-100 fs-6">create saving account</button>
+                                      </div>
+                                  </div>
 
 
-                                 <button class="btn btn-primary">create account</button>
+
+
+
                             </form>
 
-                        </div>
-
-                        <div class="my-3">
-                            <p class="font-italic font-weight-bold">The system automatically creates a password for the user, which is initially set as 12345678. However, for security purposes, the system mandates users to change this password after logging in for the first time</p>
                         </div>
                         <div class="tab-pane container-fluid fade" id="uploadexcel">
                             <div class="container-fluid">
@@ -116,12 +120,18 @@
                                       </div>
                                     </form>
 
+
+
+
+
                                   </div>
                                 </div>
                               </div> <!-- /container -->
                         </div>
 
                       </div>
+
+
                 </div>
                 <!-- /.card-body -->
               </div>

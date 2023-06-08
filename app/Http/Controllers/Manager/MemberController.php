@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Http\Controllers\Manager;
+
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Member;
+use App\Models\Saving;
+use Illuminate\Http\Request;
+use App\Models\SavingAccount;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+
+class MemberController extends Controller
+{
+    public function index(){
+        if(auth()->user()->password_status == 0){
+            return redirect()->route('manager.changepassword');
+        }
+        return view('manager.ManageMember.addmembers');
+    }
+
+    public function store(Request $request){
+        $this->validate($request,[
+            'firstname'=>'required',
+            'middlename'=>'required',
+            'lastname'=>'required',
+            'bankaccount'=>'required|unique:members,bank_account',
+            'phonenumber'=>'required|unique:members,phone_number',
+            'SavingPercent'=>'required',
+            'salary'=>'required',
+            'campus'=>'required',
+            'colleage'=>'required',
+            'sex'=>'required',
+            'martial_status'=>'required',
+            'registered_date'=>'required'
+                 ],[
+
+                    'bank_account'=>'the bank account number is already exists',
+                    'phone_number'=>'the phone number is already exists'
+                 ]);
+                 DB::beginTransaction();
+
+                 try {
+                    $username = $request->firstname . '/' . substr($request->phonenumber, -4);
+                    $baseUsername = $username;
+                    $suffix = 1;
+
+                    // Check if the base username already exists in the database
+                    while (User::where('username', $username)->exists()) {
+                    // If it does, append a unique suffix to the username and try again
+                    $suffix++;
+                    $username = $baseUsername ."/". $suffix;
+                     }
+
+                     // insert a new user
+                     $user = new User();
+                     $user->username = $username;
+                     $user->password = Hash::make(1234567);
+                     $user->role = 'member';
+                     $user->save();
+
+                     // insert a new member
+                     $member = new Member;
+                     $member->firstname = $request->firstname;
+                     $member->middlename = $request->middlename;
+                     $member->lastname = $request->lastname;
+                     $member->saving_percent = $request->SavingPercent;
+                     $member->bank_account = $request->bankaccount;
+                     $member->phone_number = $request->phonenumber;
+                     $member->salary = $request->salary;
+                     $member->campus = $request->campus;
+                     $member->sex = $request->sex;
+                     $member->colleage = $request->colleage;
+                     $member->martial_status = $request->martial_status;
+                     $member->registered_date = $request->registered_date;
+                     $member->user_id = $user->id; // set the user_id foreign key
+                     $member->save();
+
+                     // insert a new savings account
+                     $saving = new SavingAccount;
+                     $saving->member_id = $member->id;
+                     $saving->saving_amount = 0;
+                     $saving->saving_month = Carbon::now();
+                     $saving->save();
+
+                     DB::commit();
+
+                     return redirect()->back()->with('message', 'Member registered successfully');
+
+                 } catch (\Exception $e) {
+                     DB::rollback();
+
+                       return redirect()->back()->with('error', $e->getMessage());
+                 }
+
+
+    }
+
+    public function ViewMemberInfo(){
+        if(auth()->user()->password_status == 0){
+            return redirect()->route('manager.changepassword');
+        }
+        $members=Member::query()
+        ->orderBy('registered_date','desc')
+        ->get();
+        return view('manager.ManageMember.listofmembers',compact('members'));
+    }
+
+
+    public function show($id){
+        if(auth()->user()->password_status == 0){
+            return redirect()->route('manager.changepassword');
+        }
+        $member=Member::find($id);
+        return view('manager.ManageMember.edit',compact('member'));
+    }
+
+    public function editmember(Request $request,$id){
+        $member=Member::find($id);
+        $this->validate($request, [
+            'firstname' => 'required',
+            'middlename' => 'required',
+            'lastname' => 'required',
+            'bankaccount' => 'required|unique:members,bank_account,' . $member->id,
+            'phonenumber' => 'required|unique:members,phone_number,' . $member->id,
+            'salary' => 'required',
+            'SavingPercent'=>'required',
+            'campus' => 'required',
+            'colleage' => 'required',
+            'sex' => 'required',
+            'martial_status' => 'required',
+            'registered_date' => 'required',
+        ], [
+            'username.unique' => 'The username is already in use.',
+        ]);
+
+
+
+                 $member->firstname = $request->firstname;
+                 $member->middlename=$request->middlename;
+                 $member->lastname=$request->lastname;
+                 $member->bank_account=$request->bankaccount;
+                 $member->phone_number=$request->phonenumber;
+                 $member->salary=$request->salary;
+                 $member->saving_percent=$request->SavingPercent;
+                 $member->campus=$request->campus;
+                 $member->sex=$request->sex;
+                 $member->colleage=$request->colleage;
+                 $member->martial_status=$request->martial_status;
+                 $member->registered_date=$request->registered_date;
+
+                // Update the related User model's username value
+                $baseUsername = $request->firstname . '/' . substr($request->phonenumber, -4);
+                $suffix = 1;
+                $username = $baseUsername;
+
+                // Check if the base username already exists in the database
+                while (User::where('username', $username)->where('id', '!=', $member->user->id)->exists()) {
+                    // If it does, append a unique suffix to the username and try again
+                    $suffix++;
+                    $username = $baseUsername ."/". $suffix;
+                }
+
+                // If the final username is unique, update the related User model's username value
+                if ($username !== $member->user->username) {
+                    $member->user->username = $username;
+                    $member->user->save();
+                }
+                 $member->save();
+                return redirect()->route('manager.viewmember')->with('message','member update  succesfully');
+    }
+}

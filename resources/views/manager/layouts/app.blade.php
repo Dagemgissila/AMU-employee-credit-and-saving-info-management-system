@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -126,35 +127,64 @@
 <script src="{{asset('dist/js/demo.js')}}"></script>
 <!-- Page specific script -->
 <script>
+$(document).ready(function() {
+  // Add buttons to DataTable
+  $('#membertable').DataTable( {
+    dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f><"col-sm-12"B>>' +
+         '<"row"<"col-sm-12"tr>>' +
+         '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+    buttons: [
+      { extend: 'pdf', className: 'btn btn-danger mx-1 mt-1' },
+      { extend: 'print', className: 'btn btn-success mx-1 mt-1' },
+      { extend: 'excel', className: 'btn btn-info mx-1 mt-1' }
+    ],
+    lengthMenu: [[10, 20, 50, 100], [10, 20, 50, 100]],
+    pageLength: 10
+  });
 
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": [
+  // Make table responsive
+  $('#membertable').wrap('<div class="table-responsive"></div>');
 
-                {
-                    "extend": "csv",
-                    "className": "btn-success  mr-3"
-                },
-                {
-                    "extend": "excel",
-                    "className": "btn-warning  mr-3"
-                },
-                {
-                    "extend": "pdf",
-                    "className": "btn-info  mr-3"
-                },
-                {
-                    "extend": "print",
-                    "className": "btn-danger  mr-3"
-                },
 
-            ]
+});
 
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)').parent().addClass('mb-3');
-    });
+
+$(document).ready(function() {
+  // Add buttons to DataTable
+  $('#savinglist').DataTable( {
+    dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
+         '<"row"<"col-sm-12"tr>>' +
+         '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+
+    lengthMenu: [[10, 20, 50, 100], [10, 20, 50, 100]],
+    pageLength: 10,
+    order: [[1, 'desc']]
+  });
+
+  // Make table responsive
+  $('#savinglist').wrap('<div class="table-responsive"></div>');
+});
+
+$(document).ready(function() {
+  // Add buttons to DataTable
+  $('#savingdetail').DataTable( {
+    dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f><"col-sm-12"B>>' +
+         '<"row"<"col-sm-12"tr>>' +
+         '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+    buttons: [
+      { extend: 'pdf', className: 'btn btn-danger mx-1 mt-1' },
+      { extend: 'print', className: 'btn btn-success mx-1 mt-1' },
+      { extend: 'excel', className: 'btn btn-info mx-1 mt-1' }
+    ],
+    lengthMenu: [[10, 20, 50, 100], [10, 20, 50, 100]],
+    pageLength: 10
+  });
+
+  // Make table responsive
+  $('#membertable').wrap('<div class="table-responsive"></div>');
+
+
+});
 
 
     </script>

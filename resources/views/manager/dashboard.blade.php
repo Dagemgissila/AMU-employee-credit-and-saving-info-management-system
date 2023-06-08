@@ -16,6 +16,12 @@
     </div><!-- /.container-fluid -->
  </div>
 
+ @if(session()->has('message'))
+ <div class="bg-success text-white">
+   <p class="p-3 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
+ </div>
+ @endif
+
    <!-- Main content -->
   <section class="content">
     <div class="container-fluid">

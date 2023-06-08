@@ -1,8 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      {{-- <img src="" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-      <span class="brand-text font-weight-light">AMU saving</span>
+    <a href="{{route('manager.dashboard')}}" class="brand-link py-3">
+        <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:70px;height:70px" alt="ArbaMinch University Logo">
+
+      <span class="brand-text font-weight-light">AMU CSIMS</span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +15,7 @@
            alt="User Image"> --}}
         </div>
         <div class="info">
-          <a href="#" class="d-block">admin</a>
+          <a href="" class="d-block">Manager</a>
         </div>
       </div>
 
@@ -54,7 +55,7 @@
                 </a>
               </li>
               <li class="nav-item @if(Request::is('manager/manage-member/view-member-info')) bg-secondary @endif">
-                <a href="" class="nav-link">
+                <a href="{{route('manager.viewmember')}}" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
                   <p>view member info</p>
                 </a>
@@ -65,7 +66,7 @@
 
 
  <li class="nav-item">
-            <a href="" class="nav-link @if(Request::is('manager/saving-account/*')) active @endif">
+            <a href="" class="nav-link @if(Request::is('manager/manage-saving/*')) active @endif">
               <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Saving Account
@@ -73,52 +74,25 @@
 
               </p>
             </a>
-            <ul class="nav nav-treeview ml-3">
-              <li class="nav-item">
-                <a href="members.html" class="nav-link">
+            <ul class="nav @if(!Request::is('manager/manage-saving/*')) nav-treeview  @endif ml-3">
+
+              <li class="nav-item @if(Request::is('manager/manage-saving/saving-list')) bg-secondary @endif">
+                <a href="{{route('manager.savinglist')}}" class="nav-link">
                     <i class="far fas fa-align-justify nav-icon"></i>
                   <p>saving list</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+              <li class="nav-item @if(Request::is('manager/manage-saving/make-deposit')) bg-secondary @endif">
+                <a href="{{route('manager.makedeposit')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>make deposit</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>make withdraw</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon far fa-money-bill-alt"></i>
-              <p>
-                Manage share
-                <i class="fas fa-angle-left right"></i>
 
-              </p>
-            </a>
-            <ul class="nav nav-treeview ml-3">
-              <li class="nav-item">
-                <a href="/addmembers" class="nav-link">
-                  <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>sell share</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="listofmembers" class="nav-link">
-                  <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view sold share</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
@@ -162,29 +136,42 @@
             </ul>
           </li>
 
-      <li class="nav-item">
+
+          <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas  fas fa-unlock-alt"></i>
+                <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
-                Manage Account
+                Manage share
                 <i class="fas fa-angle-left right"></i>
 
               </p>
             </a>
             <ul class="nav nav-treeview ml-3">
               <li class="nav-item">
-                <a href="members.html" class="nav-link">
-                  <i class="far fas fa-user-shield nav-icon"></i>
-                  <p>Members account</p>
+                <a href="/addmembers" class="nav-link">
+                  <i class="far fa fa-plus-circle nav-icon"></i>
+                  <p>sell share</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fas fa-user-lock nav-icon"></i>
-                  <p>Admin account</p>
+                <a href="listofmembers" class="nav-link">
+                  <i class="far fas fa-align-justify nav-icon"></i>
+                  <p>view sold share</p>
                 </a>
               </li>
             </ul>
+          </li>
+
+
+          <li class="nav-item ">
+            <a href="{{route('manager.changepassword')}}" class="nav-link @if(Request::is('manager/changepassword')) bg-primary @endif">
+                <i class="nav-icon fas  fas fa-unlock-alt"></i>
+              <p>
+                 change password
+
+              </p>
+            </a>
+
           </li>
           <li class="nav-item ">
             <a href="#" class="nav-link ">
