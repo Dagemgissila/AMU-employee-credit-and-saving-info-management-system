@@ -65,7 +65,7 @@
 
 
 
- <li class="nav-item">
+        <li class="nav-item">
             <a href="" class="nav-link @if(Request::is('manager/manage-saving/*')) active @endif">
               <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
@@ -93,22 +93,26 @@
           </li>
 
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-hand-holding-usd"></i>
+
+
+        <li class="nav-item">
+            <a href="" class="nav-link @if(Request::is('manager/manage-credit/*')) active @endif">
+                <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Manage Loans
                 <i class="fas fa-angle-left right"></i>
 
               </p>
             </a>
-            <ul class="nav nav-treeview ml-3">
-              <li class="nav-item">
-                <a href="members.html" class="nav-link">
+            <ul class="nav @if(!Request::is('manager/manage-credit/*')) nav-treeview  @endif ml-3">
+
+              <li class="nav-item @if(Request::is('manager/manage-credit/addcredit')) bg-secondary @endif">
+                <a href="{{route('manager.creditform')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>add new credit</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
                    <i class="far fas fa-align-justify nav-icon"></i>
@@ -133,8 +137,11 @@
                   <p>add credit repayment</p>
                 </a>
               </li>
+
             </ul>
           </li>
+
+
 
 
           <li class="nav-item">

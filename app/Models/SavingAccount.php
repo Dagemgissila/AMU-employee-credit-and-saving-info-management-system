@@ -11,7 +11,6 @@ class SavingAccount extends Model
 {
     use HasFactory;
 
-
     protected $fillable = ['member_id', 'saving_amount', 'saving_month', 'saving_percent'];
 
     public function member()

@@ -24,17 +24,7 @@
             <div class="col-md-12">
 
               <div class="card">
-                <div class="card-header">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>Create Single User</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#uploadexcel">UPLOAD excel sheet</a>
-                        </li>
 
-                      </ul>
-                 </div>
 
                 <div class="card-body">
 
@@ -99,27 +89,7 @@
                         <div class="my-3">
                             <p class="font-italic font-weight-bold">The system automatically creates a password for the user, which is initially set as 12345678. However, for security purposes, the system mandates users to change this password after logging in for the first time</p>
                         </div>
-                        <div class="tab-pane container-fluid fade" id="uploadexcel">
-                            <div class="container-fluid">
-                                <div class="panel panel-default">
-                                  <div class="panel-heading"><strong>Upload excel file</strong></div>
-                                  <div class="panel-body">
 
-                                    <!-- Standar Form -->
-                                    <h5>Select file from your computer</h5>
-                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                                      <div class="form-inline">
-                                        <div class="form-group">
-                                          <input type="file" name="files[]" id="js-upload-files" multiple>
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
-                                      </div>
-                                    </form>
-
-                                  </div>
-                                </div>
-                              </div> <!-- /container -->
-                        </div>
 
                       </div>
                 </div>

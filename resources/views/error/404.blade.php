@@ -39,7 +39,10 @@
 
            </div>
            <div style="text-align:center;">
-            <a href="{{}}" type="button" class="btn btn-primary">BACK</a>
+
+
+                <a href="{{route('manager.dashboard')}}" type="button" class="btn btn-primary">BACK HOME</a>
+
             </div>
     </div>
 </body>

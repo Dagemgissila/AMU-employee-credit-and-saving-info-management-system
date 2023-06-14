@@ -7,10 +7,13 @@ use App\Models\User;
 use App\Models\Member;
 use App\Models\Saving;
 use Illuminate\Http\Request;
+use Excel;
 use App\Models\SavingAccount;
+use App\Imports\MembersImport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+
 
 class MemberController extends Controller
 {
@@ -20,8 +23,16 @@ class MemberController extends Controller
         }
         return view('manager.ManageMember.addmembers');
     }
+    public function UploadMemberExcel(Request $request) {
+        $this->validate($request,[
+            'member_excel_data'=>'required|mimes:xlsx,xls'
+        ]);
+      Excel::import(new MembersImport,$request->file('member_excel_data'));
+      return back();
 
-    public function store(Request $request){
+    }
+
+    public function addmember(Request $request){
         $this->validate($request,[
             'firstname'=>'required',
             'middlename'=>'required',
@@ -57,7 +68,7 @@ class MemberController extends Controller
                      // insert a new user
                      $user = new User();
                      $user->username = $username;
-                     $user->password = Hash::make(1234567);
+                     $user->password = Hash::make(12345678);
                      $user->role = 'member';
                      $user->save();
 
@@ -103,8 +114,10 @@ class MemberController extends Controller
             return redirect()->route('manager.changepassword');
         }
         $members=Member::query()
-        ->orderBy('registered_date','desc')
+        ->orderBy('created_at','desc')
         ->get();
+
+
         return view('manager.ManageMember.listofmembers',compact('members'));
     }
 
@@ -171,4 +184,8 @@ class MemberController extends Controller
                  $member->save();
                 return redirect()->route('manager.viewmember')->with('message','member update  succesfully');
     }
+
+
+
+
 }

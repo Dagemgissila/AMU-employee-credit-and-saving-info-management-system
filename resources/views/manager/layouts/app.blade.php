@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AMU credit and saving management system</title>
+  <title>AMU CSIMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="{{asset('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback')}}">
@@ -36,9 +36,9 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  {{-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake " src="{{asset('img/loading.gif')}}" alt="" style="height:50%;width:50%">
-  </div>
+  </div> --}}
 
   <!-- Navbar -->
 @include('manager.layouts.topnav')
@@ -55,12 +55,15 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    <strong>Copyright &copy;
+        <?php
+            use Carbon\Carbon;
+            echo Carbon::now()->format('Y');
+        ?>
+        <a href="https://www.amu.edu.et/" target="_blank">Arbaminch university</a>.
+    </strong>
     All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.2.0
-    </div>
-  </footer>
+</footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

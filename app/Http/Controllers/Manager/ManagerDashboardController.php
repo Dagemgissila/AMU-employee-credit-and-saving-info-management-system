@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Manager;
 
-use App\Http\Controllers\Controller;
+use App\Models\Credit;
+use App\Models\Member;
 use Illuminate\Http\Request;
+use App\Models\SavingAccount;
+use App\Http\Controllers\Controller;
 
 class ManagerDashboardController extends Controller
 {
@@ -11,6 +14,16 @@ class ManagerDashboardController extends Controller
         if(auth()->user()->password_status == 0){
             return redirect()->route('manager.changepassword');
         }
-        return view('manager.dashboard');
+        $totalmember=Member::all();
+        $totalcredit=Credit::all();
+        $totalSavingAmount=SavingAccount::sum('saving_amount');
+        $paidCredit=Credit::query()->where('credit_status',1)->get();
+        $unpaidCredit=Credit::query()->where('credit_status',0)->get();
+        $totalAmountCredit=Credit::sum('credit_amount');
+        $totalPaidCredit=Credit::query()->where('credit_status',1)->sum('credit_amount');
+        $totalUnPaidCredit=Credit::query()->where('credit_status',0)->sum('credit_amount');
+        return view('manager.dashboard',
+        compact('totalmember','totalcredit','totalSavingAmount'
+        ,'paidCredit','unpaidCredit','totalAmountCredit','totalPaidCredit','totalUnPaidCredit'));
     }
 }

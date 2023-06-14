@@ -157,8 +157,8 @@
 
                     <td>{{$saving->member->saving_percent}}</td>
 
-                        <td>{{ $saving->saving_amount }}</td>
-                        <td>{{$saving->saving_month}}</td>
+                        <td>{{ $saving->saving_amount }}  birr</td>
+                        <td>{{$saving->saving_month}}  </td>
 
 
                     </tr>

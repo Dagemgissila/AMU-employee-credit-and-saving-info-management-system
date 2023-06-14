@@ -40,11 +40,11 @@
                 </div>
                 @endif
               <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" name="email" class="form-control form-control-lg"  placeholder="Enter email">
+                <label for="exampleInputEmail1">User name</label>
+                <input type="text" name="username" class="form-control form-control-lg"  placeholder="Enter username">
               </div>
-              @if ($errors->has('email'))
-              <div class="text-danger">{{ $errors->first('email') }}</div>
+              @if ($errors->has('username'))
+              <div class="text-danger">{{ $errors->first('username') }}</div>
           @endif
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>

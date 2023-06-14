@@ -21,6 +21,11 @@
 
   <!-- Tab panes -->
 
+  @if(session()->has('error'))
+  <div class="bg-danger text-white">
+    <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
+  </div>
+  @endif
 
    <!-- Main content -->
   <section class="content">
@@ -54,10 +59,20 @@
                                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
                                 </div>
                                 @endif
+                                @if($errors->any())
+
+
+                                  <div class="bg-danger text-white">
+                                    @foreach ($errors->all() as $error)
+                                    <p class="px-2 py-1 my-0 d-flex justify-content-center align-items-center">   {{$error}}</p>
+                                    @endforeach
+                                  </div>
+
+
+
+                                @endif
                                 @if(session()->has('error'))
-                                <div class="bg-danger text-white">
-                                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
-                                </div>
+
                                 @endif
                                  <div class="row">
                                     <div class="col-md-4">
@@ -227,10 +242,16 @@
 
                                     <!-- Standar Form -->
                                     <h5>Select file from your computer</h5>
-                                    <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
+                                    <form action="{{route('manager.uploadmember')}}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+
                                       <div class="form-inline">
                                         <div class="form-group">
-                                          <input type="file" name="files[]" id="js-upload-files" multiple>
+                                            <label for="member_excel_data">Member Data Excel File:</label>
+                                            <input type="file" name="member_excel_data"  class="form-control-file" accept=".xlsx,.xls,.csv" required>
+                                            @error('member_excel_data')
+                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
                                       </div>

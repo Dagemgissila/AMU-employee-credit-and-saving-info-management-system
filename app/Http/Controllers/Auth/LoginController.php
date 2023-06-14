@@ -20,11 +20,11 @@ class LoginController extends Controller
 
     public function UserLogin(Request $request){
         $this->validate($request,[
-            'email'=>'required',
+            'username'=>'required',
             'password'=>'required'
         ]);
 
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
+        if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
            if(auth()->user()->role == 'manager'){
 
                if(auth()->user()->password_status == 0){
@@ -41,7 +41,7 @@ class LoginController extends Controller
            }
 
            else if(auth()->user()->role == "member"){
-            return redirect()->route('members.home');
+            return redirect()->route('member.dashboard');
            }
         }
 

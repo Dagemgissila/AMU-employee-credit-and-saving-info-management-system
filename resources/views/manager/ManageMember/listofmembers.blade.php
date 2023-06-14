@@ -18,38 +18,7 @@
 
 
 
-                {{-- edit user model --}}
-                <div class="modal fade" id="edituser" tabindex="-1" role="dialog"  aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="{{route('updateaccount')}}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="user_id" id="user_id" value=""/>
-                            <div class="form-group">
-                              <label for="name">username</label>
-                              <input type="text" name="username" id="username" required class="form-control"  placeholder="Enter name">
-                            </div>
-                            <div class="form-group">
-                              <label for="email">Email address</label>
-                              <input type="email" name="email" required class="form-control"  id="email"  placeholder="Enter email">
-                            </div>
 
-                            <button type="submit" class="btn btn-primary">update</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                {{-- end edit user model --}}
 
 
                 <div class="modal fade" id="delete-user" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -90,13 +59,7 @@
           <!-- /.card -->
 
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">
 
-              </h3>
-
-
-            </div>
             @if(session()->has('message'))
             <div class="bg-success text-white">
               <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
@@ -120,15 +83,17 @@
 
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>firstname</th>
                         <th>middlename</th>
                         <th>lastname</th>
                         <th>username</th>
                         <th>phone number </th>
-                        <th>saving percent</th>
+
                         <th>bank account</th>
                         <th>salary</th>
                         <th>saving percent</th>
+                        <th>saving balance</th>
                         <th>campus</th>
                         <th>colleage</th>
                         <th>sex </th>
@@ -142,18 +107,29 @@
 
                     @if ($members->count() >0)
 
+                    @php
+                        $i=0;
+                    @endphp
+
                     @foreach ($members as $member)
 
                     <tr>
+                        <td>{{++$i}}</td>
                         <td>{{$member->firstname}}</td>
                         <td>{{$member->middlename}}</td>
                         <td>{{$member->lastname}}</td>
                         <td>{{$member->user->username}}</td>
                         <td>{{$member->phone_number}}</td>
-                        <td>{{$member->saving_percent}}</td>
                         <td>{{$member->bank_account}}</td>
                         <td>{{$member->salary}}</td>
-                        <td>{{ $member->savingAccounts()->latest()->first()->saving_percent }}</td>
+                        <td>{{ $member->saving_percent }}  %</td>
+
+                        <td>
+                            @php
+                              $totalBalance = $member->savingAccounts->sum('saving_balance');
+                              echo $totalBalance;
+                            @endphp
+                          </td>
                         <td>{{$member->campus}}</td>
                         <td>{{$member->colleage}}</td>
                         <td>{{$member->sex}}</td>

@@ -31,12 +31,12 @@
       <!-- small box -->
       <div class="small-box bg-info">
         <div class="inner">
-          <h3>150</h3>
+          <h3>{{$totalmember->count()}}</h3>
 
           <p>Total members</p>
         </div>
         <div class="icon">
-          <i class="ion ion-bag"></i>
+          <i class="fas fa-users"></i>
         </div>
         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -44,44 +44,14 @@
     <!-- ./col -->
     <div class="col-lg-3 col-6">
       <!-- small box -->
-      <div class="small-box bg-success">
+      <div class="small-box bg-primary">
         <div class="inner">
-          <h3>53</h3>
+          <h3>{{$totalcredit->count()}}</h3>
 
-          <p>Borrowers</p>
+          <p>Total Loan</p>
         </div>
         <div class="icon">
-          <i class="ion ion-stats-bars"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-      <!-- small box -->
-      <div class="small-box bg-warning">
-        <div class="inner">
-          <h3>100</h3>
-
-          <p>Message</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-person-add"></i>
-        </div>
-        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-      </div>
-    </div>
-    <!-- ./col -->
-    <div class="col-lg-3 col-6">
-      <!-- small box -->
-      <div class="small-box bg-danger">
-        <div class="inner">
-          <h3>65</h3>
-
-          <p>Block user</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-pie-graph"></i>
+          <i class="fas fa-money-bill"></i>
         </div>
         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
@@ -89,14 +59,29 @@
 
     <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-danger">
+        <div class="small-box bg-success">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{$paidCredit->count()}}</h3>
 
-            <p>Total members</p>
+            <p>Paid Credit</p>
           </div>
           <div class="icon">
-            <i class="ion ion-bag"></i>
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+          <div class="inner">
+            <h3>{{$unpaidCredit->count()}}</h3>
+
+            <p>Unpaid Credit</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-exclamation-triangle"></i>
           </div>
           <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -106,12 +91,12 @@
         <!-- small box -->
         <div class="small-box bg-secondary">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{$totalAmountCredit}}</h3>
 
-            <p>Total members</p>
+            <p>Total Amount Given Credit</p>
           </div>
           <div class="icon">
-            <i class="ion ion-bag"></i>
+            <i class="fas fa-hand-holding-usd"></i>
           </div>
           <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -119,14 +104,14 @@
 
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-primary">
+        <div class="small-box bg-success">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{$totalPaidCredit}}</h3>
 
-            <p>Total members</p>
+            <p>Total Amount paid Credit</p>
           </div>
           <div class="icon">
-            <i class="ion ion-bag"></i>
+            <i class="fas fa-money-bill-wave"></i>
           </div>
           <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
@@ -134,11 +119,11 @@
 
       <div class="col-lg-3 col-6">
         <!-- small box -->
-        <div class="small-box bg-info">
+        <div class="small-box bg-danger">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{$totalUnPaidCredit}}</h3>
 
-            <p>Total members</p>
+            <p>Total Amount UnPaid Credit</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
@@ -146,21 +131,28 @@
           <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+      <!-- small box -->
+      <div class="small-box bg-warning">
+        <div class="inner">
+          <h3>{{$totalSavingAmount}} </h3>
 
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>150</h3>
-
-            <p>Total members</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <p>Total Member SavingAmount</p>
         </div>
+        <div class="icon">
+            <i class="fas fa-dollar-sign"></i>
+        </div>
+        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
       </div>
+    </div>
+
+
+
+
+
+
+
 
 
 
