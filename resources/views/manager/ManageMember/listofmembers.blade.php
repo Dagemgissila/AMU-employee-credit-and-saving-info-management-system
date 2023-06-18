@@ -126,7 +126,8 @@
 
                         <td>
                             @php
-                              $totalBalance = $member->savingAccounts->sum('saving_balance');
+                            //Updated sum('saving_balance') to sum('saving_amount')
+                              $totalBalance = $member->savingAccounts->sum('saving_amount');
                               echo $totalBalance;
                             @endphp
                           </td>
