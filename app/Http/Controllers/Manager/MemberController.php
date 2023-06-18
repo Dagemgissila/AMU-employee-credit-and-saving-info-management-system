@@ -48,8 +48,8 @@ class MemberController extends Controller
             'registered_date'=>'required'
                  ],[
 
-                    'bank_account'=>'the bank account number is already exists',
-                    'phone_number'=>'the phone number is already exists'
+                    'bank_account'=>'the bank account number already exists',
+                    'phone_number'=>'the phone number already exists'
                  ]);
                  DB::beginTransaction();
 
@@ -92,7 +92,8 @@ class MemberController extends Controller
                      // insert a new savings account
                      $saving = new SavingAccount;
                      $saving->member_id = $member->id;
-                     $saving->saving_amount = 0;
+                     //$saving->saving_amount = 0;
+                     $saving->saving_amount=($member->salary* ($member->saving_percent/100));
                      $saving->saving_month = Carbon::now();
                      $saving->save();
 

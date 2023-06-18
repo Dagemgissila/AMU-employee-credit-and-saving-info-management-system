@@ -30,7 +30,7 @@
                   <!-- small box -->
                   <div class="small-box bg-info">
                     <div class="inner">
-                      <h3>{{$savingbalance}}</h3>
+                      <h3>{{$totalAmount}}</h3>
 
                       <p>My  Saving Balance</p>
                     </div>
@@ -75,7 +75,7 @@
                   <!-- small box -->
                   <div class="small-box bg-danger">
                     <div class="inner">
-                      <h3>10</h3>
+                      <h3>{{$savingPercent->saving_percent}}</h3>
 
                       <p>Saving Percent</p>
                     </div>
