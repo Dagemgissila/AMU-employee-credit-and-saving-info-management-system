@@ -60,6 +60,21 @@
                                 </div>
                                 @endif
                                  <div class="row">
+                                   <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="firstname">Member Name</label>
+                                            <select name="zmember" id="zmember" class="form-control">
+                                              <option value="">--select--</option>
+                                               //show all members
+                                              @if($members->count()>0)
+                                              @foreach($members as $member)
+                                                <option value="{{$member->user_id}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
+                                              @endforeach
+                                              @endif
+                                            </select>
+                                          </div>
+                                    </div>
+                                     <!--
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="firstname">User name</label>
@@ -69,16 +84,17 @@
                                               <div class="text-danger">{{ $errors->first('username') }}</div>
                                            @endif
                                     </div>
-
+                                   
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middlename">Saving Amount</label>
-                                            <input type="text" name="saving_amount"  value="{{ old ('saving_amount')}}" required class="form-control" id="saving_percent" placeholder="saving percent">
+                                            <input type="text" name="saving_amount"  value="{{ old ('saving_amount')}}" required class="form-control" id="saving_percent" placeholder="saving amount">
                                           </div>
                                           @if ($errors->has('saving_amount'))
                                           <div class="text-danger">{{ $errors->first('saving_amount') }}</div>
                                        @endif
                                     </div>
+                                      -->
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="lastname">Saving Month</label>
@@ -92,7 +108,7 @@
 
                                  <div class="col-md-2">
                                     <div class="input-group my-1">
-                                        <button class="btn btn-primary w-100 fs-6">Deposit</button>
+                                        <button class="btn btn-primary w-100 fs-6">Submit Deposit</button>
                                       </div>
                                   </div>
 
