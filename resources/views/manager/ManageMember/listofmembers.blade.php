@@ -125,7 +125,11 @@
                         <td>{{ $member->saving_percent }}  %</td>
 
                         <td>
-                            {{ $total_savings->get($member->id)->total_saving ?? 0 }} birr
+                            @php
+                            //Updated sum('saving_balance') to sum('saving_amount')
+                              $totalBalance = $member->savingAccounts->sum('saving_amount');
+                              echo $totalBalance;
+                            @endphp
                           </td>
                         <td>{{$member->campus}}</td>
                         <td>{{$member->colleage}}</td>

@@ -62,45 +62,47 @@ class SavingController extends Controller
         if(auth()->user()->password_status == 0){
             return redirect()->route('manager.savingdetail');
         }
-
-        return view('manager.ManageSaving.deposit');
+        //to display all members as drop down
+         $members=Member::all();
+        return view('manager.ManageSaving.deposit', compact('members'));
 
     }
 
     public function storemoney(Request $request){
 
         $validatedData = $request->validate([
-            'username' => 'required|exists:users,username',
-            'saving_amount' => 'required|numeric|min:0',
+            'zmember' => 'required',
             'saving_month' =>"required|date"
          ]);
-        $user=User::where('username',$validatedData['username'])->first();
+        $user=User::where('id',$validatedData['zmember'])->first();
 
         $member=Member::where('user_id',$user->id)->first();
 
 
 
             // Create a new SavingAccount record
-            $user = User::where('username', $validatedData['username'])->first();
+            $user = User::where('id', $validatedData['zmember'])->first();
             $member = Member::where('user_id', $user->id)->first();
 
-
+            //calculated saving monthly amount
+            $monthly_saving_amount=$member->salary*($member->saving_percent/100);
+    
             // Create a new SavingAccount record
             $savingAccount = new SavingAccount();
             $savingAccount->member_id = $member->id;
-            $savingAccount->saving_amount = $validatedData['saving_amount'];
+            //$savingAccount->saving_amount = $validatedData['saving_amount'];
+            $savingAccount->saving_amount =$monthly_saving_amount;
             $savingAccount->saving_month = $validatedData['saving_month'];
              // Set the default saving percent here
             $savingAccount->save();
 
-
-
+       
             // Access the related User object
             $fullname = $user->member->firstname . " ". $user->member->middlename;
 
 
     // Redirect back to the form with a success message
-    return redirect()->back()->with('message', 'you  deposit money successfully for '. $fullname);
+    return redirect()->back()->with('message', 'You  saved deposit successfully for '. $fullname);
     }
 
       public function uploaddeposit(Request $request){

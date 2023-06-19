@@ -13,9 +13,16 @@ class MemberDashboardController extends Controller
         if(auth()->user()->password_status == 0){
             return view('members.changepassword');
         }
-         $salary=Member::where('user_id',auth()->user()->id)->first();
-        $savingbalance=SavingAccount::query()->where('member_id','==',auth()->user()->member->id)->sum('saving_amount');
+        //to bring saving balance total
+        $user = auth()->user();
+        $member = $user->member;
+        $savingAccounts = $member->savingAccounts()->orderBy('saving_month')->get();
+        $totalAmount=$savingAccounts->sum('saving_amount');
 
-        return view('members.dashboard',compact('savingbalance','salary'));
+         $salary=Member::where('user_id',auth()->user()->id)->first();
+         //$savingbalance=SavingAccount::query()->where('member_id','==',auth()->user()->member->id)->sum('saving_amount');
+         //to display saving percent on dashboard
+         $savingPercent=Member::where('user_id',auth()->user()->id)->first();
+        return view('members.dashboard',compact('salary','savingPercent','totalAmount'));
     }
 }

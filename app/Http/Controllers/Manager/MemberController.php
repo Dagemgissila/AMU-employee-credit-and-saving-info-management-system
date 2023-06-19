@@ -32,7 +32,10 @@ class MemberController extends Controller
       return back();
 
     }
+    public function addSaving(Request $request){
 
+        //return redirect()->with('message','Saving Saved  Succesfully');
+    }
     public function addmember(Request $request){
         $this->validate($request,[
             'firstname'=>'required',
@@ -49,8 +52,8 @@ class MemberController extends Controller
             'registered_date'=>'required'
                  ],[
 
-                    'bank_account'=>'the bank account number is already exists',
-                    'phone_number'=>'the phone number is already exists'
+                    'bank_account'=>'the bank account number already exists',
+                    'phone_number'=>'the phone number already exists'
                  ]);
                  DB::beginTransaction();
 
@@ -91,11 +94,12 @@ class MemberController extends Controller
                      $member->save();
 
                      // insert a new savings account
-                     $saving = new SavingAccount;
+                    /* $saving = new SavingAccount;
                      $saving->member_id = $member->id;
-                     $saving->saving_amount = 0;
+                     //$saving->saving_amount = 0;
+                     $saving->saving_amount=($member->salary* ($member->saving_percent/100));
                      $saving->saving_month = Carbon::now();
-                     $saving->save();
+                     $saving->save();*/
 
                      $share=new Share;
                      $share->$member_id=$member_id;
