@@ -69,40 +69,108 @@ class SavingController extends Controller
     }
 
     public function storemoney(Request $request){
-
+  
         $validatedData = $request->validate([
             'zmember' => 'required',
-            'saving_month' =>"required|date"
+            'saving_month' =>'required|date'
          ]);
         $user=User::where('id',$validatedData['zmember'])->first();
 
         $member=Member::where('user_id',$user->id)->first();
+         $member2=SavingAccount::where('member_id',$member->id)->first();
+         //get registered date
+         //dd($member2);
+        $reg_date=$member->registered_date;
 
-
-
-            // Create a new SavingAccount record
-            $user = User::where('id', $validatedData['zmember'])->first();
-            $member = Member::where('user_id', $user->id)->first();
-
+        //access previous month - recorded saving date
+        if($member2!=null)
+        {
+            $previous_saving_date=$member2->saving_month;
+            $prev_month_year=date('m-Y', strtotime($previous_saving_date));
+            //dd($prev_month_year);
+            $user_input_month=date('m-Y',strtotime($validatedData['saving_month']));
+            //dd($user_input_month);
+            if( $prev_month_year!= $user_input_month){
+            if($validatedData['saving_month']<=Carbon::now()){
+            if($validatedData['saving_month']>=$reg_date){
             //calculated saving monthly amount
             $monthly_saving_amount=$member->salary*($member->saving_percent/100);
-    
+
             // Create a new SavingAccount record
             $savingAccount = new SavingAccount();
             $savingAccount->member_id = $member->id;
             //$savingAccount->saving_amount = $validatedData['saving_amount'];
             $savingAccount->saving_amount =$monthly_saving_amount;
             $savingAccount->saving_month = $validatedData['saving_month'];
-             // Set the default saving percent here
+            // Set the default saving percent here
             $savingAccount->save();
 
-       
+
             // Access the related User object
             $fullname = $user->member->firstname . " ". $user->member->middlename;
 
 
-    // Redirect back to the form with a success message
-    return redirect()->back()->with('message', 'You  saved deposit successfully for '. $fullname);
+            // Redirect back to the form with a success message
+            return redirect()->back()->with('message', 'You  saved deposit successfully for '. $fullname);
+            }
+            else{
+            //if user is trying to deposit for past month/year / le Tinant
+            return redirect()->back()->with('error', 'Please select date equal to or after '.$reg_date);
+            }
+            }
+            else{
+            //if user tries to deposit for future month/year  / le Nege
+            return redirect()->back()->with('error', 'Please select date equal to or before '.Carbon::now());
+            }
+            }
+            else{
+            //if deposit is already done for the selected month and year
+            return redirect()->back()->with('error', 'Already deposited for this month '.$user_input_month);
+            }
+            }
+    else{
+           if($validatedData['saving_month']<=Carbon::now()){
+            if($validatedData['saving_month']>=$reg_date){
+            //calculated saving monthly amount
+            $monthly_saving_amount=$member->salary*($member->saving_percent/100);
+
+            // Create a new SavingAccount record
+            $savingAccount = new SavingAccount();
+            $savingAccount->member_id = $member->id;
+            //$savingAccount->saving_amount = $validatedData['saving_amount'];
+            $savingAccount->saving_amount =$monthly_saving_amount;
+            $savingAccount->saving_month = $validatedData['saving_month'];
+            // Set the default saving percent here
+            $savingAccount->save();
+
+
+            // Access the related User object
+            $fullname = $user->member->firstname . " ". $user->member->middlename;
+
+
+            // Redirect back to the form with a success message
+            return redirect()->back()->with('message', 'You  saved deposit successfully for '. $fullname);
+            }
+            else{
+            //if user is trying to deposit for past month/year / le Tinant
+            return redirect()->back()->with('error', 'Please select date equal to or after '.$reg_date);
+            }
+            }
+            else{
+            //if user tries to deposit for future month/year  / le Nege
+            return redirect()->back()->with('error', 'Please select date equal to or before '.Carbon::now());
+            }   
+    }
+
+
+
+
+            // Create a new SavingAccount record
+           /* $user = User::where('id', $validatedData['zmember'])->first();
+            $member = Member::where('user_id', $user->id)->first();*/
+            
+           
+            
     }
 
       public function uploaddeposit(Request $request){
