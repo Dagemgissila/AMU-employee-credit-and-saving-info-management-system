@@ -125,16 +125,13 @@
                         <td>{{ $member->saving_percent }}  %</td>
 
                         <td>
-                            @php
-                              $totalBalance = $member->savingAccounts->sum('saving_balance');
-                              echo $totalBalance;
-                            @endphp
+                            {{ $total_savings->get($member->id)->total_saving ?? 0 }} birr
                           </td>
                         <td>{{$member->campus}}</td>
                         <td>{{$member->colleage}}</td>
                         <td>{{$member->sex}}</td>
                         <td>{{$member->martial_status}}</td>
-                        <td>{{$member->registered_date}}</td>
+                        <td>{{date('M,j Y,',strtotime($member->registered_date))}}</td>
                         <td class="d-flex">
                             <a href="{{route('manager.editMember',$member->id)}}"  type="button" class="btn btn-primary d-flex align-items-center editbtn btn-sm mx-1 " >
                                 <i class="fa fa-edit"></i> Edit

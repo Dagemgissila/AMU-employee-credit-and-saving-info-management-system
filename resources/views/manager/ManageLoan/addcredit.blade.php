@@ -88,7 +88,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="firstname">Interest Rate</label>
-                                            <input type="text" name="interest_rate" value="{{ old('interest_rate') }}" required class="form-control"  placeholder="interest rate in percent">
+                                            <input type="" name="interest_rate" value="{{ old('interest_rate') }}" required class="form-control"  placeholder="interest rate in percent">
                                           </div>
                                           @if ($errors->has('interest_rate'))
                                               <div class="text-danger">{{ $errors->first('interest_rate') }}</div>

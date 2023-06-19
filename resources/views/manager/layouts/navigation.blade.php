@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('manager.dashboard')}}" class="brand-link py-3">
-        <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:70px;height:70px" alt="ArbaMinch University Logo">
+        <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:60px;height:60px" alt="ArbaMinch University Logo">
 
       <span class="brand-text font-weight-light">AMU CSIMS</span>
     </a>
@@ -9,12 +9,10 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          {{-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2"
-           alt="User Image"> --}}
-        </div>
+      <div class="user-panel mt-1 pb-3 mb-1 d-flex justify-content-center align-items-center">
+
         <div class="info">
+
           <a href="" class="d-block">Manager</a>
         </div>
       </div>
@@ -145,7 +143,7 @@
 
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link  @if(Request::is('manager/manage-share/*')) active @endif">
                 <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Manage share
@@ -153,17 +151,42 @@
 
               </p>
             </a>
-            <ul class="nav nav-treeview ml-3">
+            <ul class="nav @if(!Request::is('manager/manage-share/*')) nav-treeview  @endif ml-3 ml-3">
               <li class="nav-item">
-                <a href="/addmembers" class="nav-link">
+                <a href="/addmembers" class="nav-link @if(Request::is('manager/manage-share/sell-share')) bg-secondary @endif">
                   <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>sell share</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="listofmembers" class="nav-link">
+              <li class="nav-item @if(Request::is('manager/manage-share/view-share')) bg-secondary @endif">
+                <a href="{{route('manager.viewshare')}}" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
                   <p>view sold share</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item ">
+            <a href="#" class="nav-link @if(Request::is('manager/manage-account/*')) bg-primary @endif">
+              <i class="nav-icon fas  fas fa-unlock-alt"></i>
+              <p>
+                Manage Account
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav  @if(!Request::is('admin/manage-account/*')) nav-treeview  @endif ml-3">
+              <li class="nav-item @if(Request::is('admin/manage-account/create-account')) bg-secondary @endif">
+                <a href="{{'manager.createaccount'}}" class="nav-link">
+                  <i class="far fas fa-user-shield nav-icon"></i>
+                  <p>create account</p>
+                </a>
+              </li>
+              <li class="nav-item  @if(Request::is('manage/manage-account/list-of-user')) bg-secondary @endif">
+                <a href="" class="nav-link">
+                  <i class="far fas fa-user-lock nav-icon"></i>
+                  <p>list of user</p>
                 </a>
               </li>
             </ul>

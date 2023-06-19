@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use Excel;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Member;
@@ -10,25 +11,24 @@ use App\Models\SavingDetail;
 use Illuminate\Http\Request;
 use App\Models\SavingAccount;
 use Illuminate\Validation\Rule;
+use App\Imports\DepositmoneyImport;
 use App\Http\Controllers\Controller;
+
 
 class SavingController extends Controller
 {
-    public function savinglist(){
-        if(auth()->user()->password_status == 0){
+    public function savinglist()
+    {
+        if (auth()->user()->password_status == 0) {
             return redirect()->route('manager.changepassword');
         }
-       $savingdetail = SavingAccount::query()
-    ->with('member.user')
-    ->orderByDesc('id')
-    ->get();
 
+        $savingdetail = SavingAccount::query()
+            ->with('member.user')
+            ->orderBy('created_at', 'desc') // order by saving_month column in descending order
+            ->get();
 
-
-
-        return view('manager.ManageSaving.savinglist',compact('savingdetail'));
-
-
+        return view('manager.ManageSaving.savinglist', compact('savingdetail'));
     }
 
     public function viewdetail($id){
@@ -48,7 +48,7 @@ class SavingController extends Controller
 
     public function CreateSavingForm(){
         if(auth()->user()->password_status == 0){
-            return redirect()->route('manager.savingdetail');
+            return redirect()->route('manager.changepassword');
         }
 
         return view('manager.ManageSaving.createsaving');
@@ -103,60 +103,24 @@ class SavingController extends Controller
     return redirect()->back()->with('message', 'you  deposit money successfully for '. $fullname);
     }
 
-    public function calculateLoanSchedule(Request $request)
-    {
-        $loanAmount = 90000;
-        $loanTermInMonths = 60;
-        $interestRate = 10.5; // 10.5% per year
-        $principal = $loanAmount / $loanTermInMonths;//1500
+      public function uploaddeposit(Request $request){
+             $this->validate($request,[
+                'upload_deposit'=>'required|mimes:xlsx,xls,csv'
+             ]);
 
-        $monthlyInterestRate = ($interestRate / 12) / 100; //0.000
 
-        $loanSchedule = [];
+             Excel::import(new DepositmoneyImport,$request->file('upload_deposit'));
+             return back();
 
-        $balance = $loanAmount;
-        $totalInterest = 0;
-        $interestCount = 0;
-        for ($i = 1; $i <= $loanTermInMonths; $i++) {
-            $interest = $balance * $monthlyInterestRate;
-            $dueDate = Carbon::now()->addMonths($i)->format('m/d/Y');
-            $description = 'Repayment';
-            $due = $principal + $interest;
-            $principalBalance = $balance - $principal;
 
-            $loanSchedule[] = [
-                'due_date' => $dueDate,
-                'description' => $description,
-                'principal' => $principal,
-                'interest' => number_format($interest, 2),
-                'due' => number_format($due, 2),
-                'principal_balance' => number_format($principalBalance, 2),
-            ];
+      }
 
-            $balance = $principalBalance;
-            $totalInterest += $interest;
-            $interestCount++;
+      public function deletesaving(Request $request){
+        $saving=SavingAccount::find($request->saving_id);
+        $saving->delete();
 
-            // Calculate yearly average interest rate and monthly payment with interest rate
-            if ($i % 12 == 0) {
-                $averageInterestRate = ($totalInterest / $loanAmount) * 100;
-                $monthlyPaymentWithInterest = $principal + ($totalInterest / $interestCount);
-                $year = $i / 12;
+        return back()->with('message','successfully deleted');
 
-                echo "Year $year: Average Interest Rate - $averageInterestRate%, Monthly Payment With Interest Rate - $monthlyPaymentWithInterest<br>";
-
-                $totalInterest = 0;
-                $interestCount = 0;
-            }
-        }
-
-        return view('loan-schedule', [
-            'loanAmount' => $loanAmount,
-            'loanTermInMonths' => $loanTermInMonths,
-            'interestRate' => $interestRate,
-            'principal' => $principal,
-            'loanSchedule' => $loanSchedule,
-        ]);
-    }
+      }
 
 }

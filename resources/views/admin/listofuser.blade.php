@@ -220,12 +220,10 @@
 
 
 
-
     $(document).ready(function (){
             $(document).on('click','.deletebtn',function(){
                 var userr_id=$(this).val();
                 $('#delete-user').modal('show');
-
 
                 $.ajax({
                   type:"GET",

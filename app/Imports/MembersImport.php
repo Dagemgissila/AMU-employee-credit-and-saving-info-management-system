@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Share;
 use App\Models\Member;
 use App\Models\SavingAccount;
 use Illuminate\Support\Collection;
@@ -65,6 +66,11 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
                 $saving->saving_month=Carbon::now();
                 $saving->status=0;
                 $saving->save();
+
+                $share=new Share;
+                $share->member_id=$member->id;
+                $share->share_amount=100;
+                $share->save();
 
                 DB::commit();
             } catch (\Exception $e) {

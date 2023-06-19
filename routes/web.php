@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Manager\ShareController;
 use App\Http\Controllers\Admin\AdminUserConroller;
 use App\Http\Controllers\Manager\CreditController;
 use App\Http\Controllers\Manager\MemberController;
@@ -55,16 +56,14 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
     Route::get('/admin/manage-account/list-of-user', [AdminUserConroller::class,'listofuser'])->name('admin.listofuser');
     Route::post('/status-update/{id}',[AdminUserConroller::class,'updateStatus'])->name('status-update');
     Route::get('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpageview'])->name('admin.resetpassword');
-     Route::post('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpassword'])->name('admin.resetpassword');
+    Route::post('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpassword'])->name('admin.resetpassword');
     Route::delete('/users/{user}',[AdminUserConroller::class,'destroy'])->name('users.destroy');
     Route::get('/updateaccount/{id}',[AdminUserConroller::class,'edit']);
     Route::put('update-account',[AdminUserConroller::class,'updateaccount'])->name('updateaccount');
-
    Route::get('/deleteaccount/{id}',[AdminUserConroller::class,'deleteaccount']);
    Route::delete('deleteuser',[AdminUserConroller::class,'destroy'])->name('deleteaccount');
-
    Route::get('/admin/change-password',[AdminChangepasswordController::class,'index'])->name('admin.changepassword');
-Route::post('/admin/change-password',[AdminChangepasswordController::class,'changepassword'])->name('admin.changepassword');
+   Route::post('/admin/change-password',[AdminChangepasswordController::class,'changepassword'])->name('admin.changepassword');
 });
 
 
@@ -86,13 +85,13 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::post('/manager/manage-saving/create-saving-account',[SavingController::class,'CreateSaving'])->name('manager.createsaving');
     Route::get('/manager/manage-saving/make-deposit',[SavingController::class,'deposit'])->name('manager.makedeposit');
     Route::post('manager/manage-saving/make-deposit',[SavingController::class,'storemoney'])->name('manager.makedeposit');
+    Route::post('/manager/manage-saving/delete-saving',[SavingController::class,'deletesaving'])->name('delete.saving');
+    Route::post('/manager/manage-saving/upload-deposit',[SavingController::class,'uploaddeposit'])->name('manager.uploaddeposit');
     Route::get('manager/manage-credit/addcredit',[CreditController::class,'index'])->name('manager.creditform');
     Route::post('manager/manage-credit/addcredit',[CreditController::class,'addcredit'])->name('manager.addcredit');
     Route::post('manager/manage-credit/loan-calculate',[CreditController::class,'calculateLoanSchedule'])->name('manager.loancalculator');
-
-
-
-
+    Route::get('manager/manage-share/view-share',[ShareController::class,'index'])->name('manager.viewshare');
+    Route::get('manager/create-account',[ManagerUserController::class,'createAccount'])->name('manager.createaccount');
 
 });
 
@@ -101,10 +100,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
 //the following code allow the pages accesed only by members
 Route::middleware(['auth', 'user-role:member'])->group(function () {
 
-
-
     Route::get('/users/dashboard',[MemberDashboardController::class,'index'])->name('member.dashboard');
-
     Route::get('/users/changepassword',[MemberChangepasswordController::class,'index'])->name('member.changepassword');
     Route::post('/users/changepassword',[MemberChangepasswordController::class,'changepassword'])->name('member.changepassword');
     Route::get('/users/saving-account',[SavingAccountController::class,'index'])->name('member.savingaccount');

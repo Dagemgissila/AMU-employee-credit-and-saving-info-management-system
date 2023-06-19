@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Share;
 use App\Models\Credit;
 use App\Models\SavingAccount;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,10 @@ class Member extends Model
     public function credits()
     {
         return $this->hasMany(Credit::class);
+    }
+
+    public function shares(){
+        return $this->hasMany(Share::class);
     }
 
 }

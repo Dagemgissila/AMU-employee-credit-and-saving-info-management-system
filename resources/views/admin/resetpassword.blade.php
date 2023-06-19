@@ -22,7 +22,7 @@
 
        <div class="card">
 <div class="card-header">
-    <h1>reset password</h1>
+    <h1>Reset Password</h1>
 </div>
 
 <div class="card-body">

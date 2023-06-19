@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Manager;
 
+use Excel;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Share;
 use App\Models\Member;
 use App\Models\Saving;
 use Illuminate\Http\Request;
-use Excel;
 use App\Models\SavingAccount;
 use App\Imports\MembersImport;
 use Illuminate\Support\Facades\DB;
@@ -96,6 +97,10 @@ class MemberController extends Controller
                      $saving->saving_month = Carbon::now();
                      $saving->save();
 
+                     $share=new Share;
+                     $share->$member_id=$member_id;
+                     $share->save();
+
                      DB::commit();
 
                      return redirect()->back()->with('message', 'Member registered successfully');
@@ -109,16 +114,25 @@ class MemberController extends Controller
 
     }
 
-    public function ViewMemberInfo(){
-        if(auth()->user()->password_status == 0){
+    public function ViewMemberInfo()
+    {
+        if (auth()->user()->password_status == 0) {
             return redirect()->route('manager.changepassword');
         }
-        $members=Member::query()
-        ->orderBy('created_at','desc')
-        ->get();
 
+        $members = Member::query()
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('manager.ManageMember.listofmembers',compact('members'));
+        // Get the total saving amount for each member
+        $total_savings = SavingAccount::query()
+            ->selectRaw('member_id, SUM(saving_amount) as total_saving')
+            ->groupBy('member_id')
+            ->get()
+            ->keyBy('member_id');
+
+        return view('manager.ManageMember.listofmembers', compact('members', 'total_savings'));
     }
 
 

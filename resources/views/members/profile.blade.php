@@ -1,6 +1,7 @@
 @extends('members.layouts.app')
 @section('content')
 <div class="wrapper">
+   <div class="content-wrapper">
     <div class="content">
         <div class="container">
             <div class="row mt-2 p-2">
@@ -69,5 +70,6 @@
               </div>
         </div>
     </div>
+   </div>
 </div>
 @endsection

@@ -38,7 +38,7 @@
       </li>
 
       <li class="nav-item d-flex align-items-center">
-        <img src="{{ asset('img/avator.avif')}}" alt="" class="rounded-circle" style="width: 40px; height: 40px;">
+        <img src="{{ asset('img/pp.png')}}" alt="" class="rounded-circle" style="width: 30px; height: 30px;">
       </li>
 
     <li class="nav-item">

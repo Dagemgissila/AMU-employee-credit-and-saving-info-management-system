@@ -33,9 +33,7 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake " src="{{asset('img/loading.gif')}}" alt="" style="height:50%;width:50%">
-      </div>
+
   <!-- Preloader -->
 
 

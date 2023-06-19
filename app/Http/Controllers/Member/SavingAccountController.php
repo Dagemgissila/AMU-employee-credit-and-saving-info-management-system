@@ -14,7 +14,7 @@ class SavingAccountController extends Controller
 
         $user = auth()->user();
         $member = $user->member;
-        $savingAccounts = $member->savingAccounts()->orderBy('saving_month')->get();
+        $savingAccounts = $member->savingAccounts()->orderBy('saving_month','desc')->get();
         $totalAmount=$savingAccounts->sum('saving_amount');
 
         return view('members.savingaccount', [

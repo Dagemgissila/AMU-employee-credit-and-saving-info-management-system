@@ -132,6 +132,27 @@
 <script>
 $(document).ready(function() {
   // Add buttons to DataTable
+  $('#savinglist').DataTable( {
+    dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f><"col-sm-12"B>>' +
+         '<"row"<"col-sm-12"tr>>' +
+         '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
+    buttons: [
+      { extend: 'pdf', className: 'btn btn-danger mx-1 mt-1' },
+      { extend: 'print', className: 'btn btn-success mx-1 mt-1' },
+      { extend: 'excel', className: 'btn btn-info mx-1 mt-1' }
+    ],
+    lengthMenu: [[10, 20, 50, 100,200,500], [10, 20, 50, 100,200,500]],
+    pageLength: 10
+  });
+
+  // Make table responsive
+  $('#savinglist').wrap('<div class="table-responsive"></div>');
+
+
+});
+
+$(document).ready(function() {
+  // Add buttons to DataTable
   $('#membertable').DataTable( {
     dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f><"col-sm-12"B>>' +
          '<"row"<"col-sm-12"tr>>' +
@@ -152,21 +173,7 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
-  // Add buttons to DataTable
-  $('#savinglist').DataTable( {
-    dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>' +
-         '<"row"<"col-sm-12"tr>>' +
-         '<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>',
 
-    lengthMenu: [[10, 20, 50, 100], [10, 20, 50, 100]],
-    pageLength: 10,
-    order: [[1, 'desc']]
-  });
-
-  // Make table responsive
-  $('#savinglist').wrap('<div class="table-responsive"></div>');
-});
 
 $(document).ready(function() {
   // Add buttons to DataTable
@@ -191,6 +198,8 @@ $(document).ready(function() {
 
 
     </script>
+
+    @yield('scripts')
 
 </body>
 </html>
