@@ -92,8 +92,8 @@ class MemberController extends Controller
                      $member->user_id = $user->id; // set the user_id foreign key
                      $member->save();
 
-                     // insert a new savings account
-                    /* $saving = new SavingAccount;
+                     //insert a new savings account
+                    /*$saving = new SavingAccount;
                      $saving->member_id = $member->id;
                      //$saving->saving_amount = 0;
                      $saving->saving_amount=($member->salary* ($member->saving_percent/100));
