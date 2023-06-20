@@ -176,15 +176,15 @@
 
               </p>
             </a>
-            <ul class="nav  @if(!Request::is('admin/manage-account/*')) nav-treeview  @endif ml-3">
-              <li class="nav-item @if(Request::is('admin/manage-account/create-account')) bg-secondary @endif">
-                <a href="{{'manager.createaccount'}}" class="nav-link">
+            <ul class="nav  @if(!Request::is('manager/manage-account/*')) nav-treeview  @endif ml-3">
+              <li class="nav-item @if(Request::is('manager/manage-account/create-account')) bg-secondary @endif">
+                <a href="{{route('manager.createaccount')}}" class="nav-link">
                   <i class="far fas fa-user-shield nav-icon"></i>
                   <p>create account</p>
                 </a>
               </li>
-              <li class="nav-item  @if(Request::is('manage/manage-account/list-of-user')) bg-secondary @endif">
-                <a href="" class="nav-link">
+              <li class="nav-item  @if(Request::is('manager/manage-account/user-account')) bg-secondary @endif">
+                <a href="{{route('manager.viewaccount')}}" class="nav-link">
                   <i class="far fas fa-user-lock nav-icon"></i>
                   <p>list of user</p>
                 </a>

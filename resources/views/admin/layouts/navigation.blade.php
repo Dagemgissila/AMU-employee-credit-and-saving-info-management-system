@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link py-3">
-        <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:70px;height:70px" alt="ArbaMinch University Logo">
+        <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:60px;height:60px" alt="ArbaMinch University Logo">
 
       <span class="brand-text font-weight-light">AMU CSIMS</span>
     </a>
@@ -62,16 +62,7 @@
             </ul>
           </li>
 
-          <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon far fa-bell"></i>
-              <p>
-                Notification
 
-              </p>
-            </a>
-
-          </li>
           <li class="nav-item  @if(Request::is('admin/change-password')) bg-primary @endif">
             <a href="{{route('admin.changepassword')}}" class="nav-link ">
               <i class="nav-icon far fa-comments"></i>
