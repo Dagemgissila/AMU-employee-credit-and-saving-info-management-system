@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('manager.layouts.app')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -22,13 +22,13 @@
 
        <div class="card">
 <div class="card-header">
-    <h1>Reset Password</h1>
+    <h2 class="card-title">Reset Password</h2>
 </div>
 
 <div class="card-body">
     <div class="row ">
         <div class="col-6">
-
+            <h4 class="font-weight-bold">Fullname : {{$user->member->firstname}} {{$user->member->middlename}}  {{$user->member->lastname}}</h4>
             <h4 class="font-weight-bold">Username : {{$user->username}}</h4>
 
 <div class="my-3">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-6">
-            <form action="{{route('admin.resetpassword',$user->id)}}" method="post">
+            <form action="{{route('manager.resetpassword',$user->id)}}" method="post">
                 @if(session()->has('error'))
                 <div class="bg-danger text-white">
                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>

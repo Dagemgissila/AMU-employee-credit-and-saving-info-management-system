@@ -51,11 +51,11 @@ class User extends Authenticatable
     ];
 
     public function getCreatedAt(){
-        return $this->created_at->format(' F j Y H:i');
+        return $this->created_at->format(' F j Y ');
         }
 
         public function getUpdatedAt(){
-            return $this->updated_at->format('F j Y H:i');
+            return $this->updated_at->format('F j Y ');
         }
 
 

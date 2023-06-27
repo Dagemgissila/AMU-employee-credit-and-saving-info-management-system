@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('manager.layouts.app')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -15,42 +15,6 @@
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
  </div>
-
-
-
-                {{-- edit user model --}}
-                <div class="modal fade" id="edituser" tabindex="-1" role="dialog"  aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          <form action="{{route('updateaccount')}}" method="post">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="user_id" id="user_id" value=""/>
-                            <div class="form-group">
-                              <label for="name">username</label>
-                              <input type="text" name="username" id="username" required class="form-control"  placeholder="Enter name">
-                            </div>
-                            <div class="form-group">
-                              <label for="email">Email address</label>
-                              <input type="email" name="email" required class="form-control"  id="email"  placeholder="Enter email">
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">update</button>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                {{-- end edit user model --}}
-
 
                 <div class="modal fade" id="delete-user" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog">
@@ -90,7 +54,13 @@
           <!-- /.card -->
 
           <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
 
+              </h3>
+
+
+            </div>
             @if(session()->has('message'))
                              <div class="bg-success p-1 d-flex justify-content-center  align-items-center text-white">
                                <p class=" ">   {{session('message')}}</p>
@@ -153,14 +123,19 @@
                   {{-- action --}}
                   <td class="d-flex">
                      <!-- Update button with edit icon -->
-                <button  type="button" value="{{$user->id}}" class="btn btn-primary editbtn btn-sm mx-1" data-toggle="modal" >
-                    <i class="fa fa-edit"></i> Edit
-                </button>
-                <button type="button" value="{{$user->id}}" class="btn btn-danger deletebtn btn-sm"  data-toggle="modal" >
+
+                @if ($user->role== 'member')
+                <button type="button" value="{{$user->id}}" disabled class="btn btn-danger deletebtn btn-sm"  data-toggle="modal" >
                     <i class="fa fa-trash"></i> Delete
                   </button>
 
-                    <a href="{{route('admin.resetpassword',$user->id)}}" type="button" class="btn btn-warning btn-sm mx-1">
+                  @else
+                  <button type="button" value="{{$user->id}}" class="btn btn-danger deletebtn btn-sm"  data-toggle="modal" >
+                    <i class="fa fa-trash"></i> Delete
+                  </button>
+                @endif
+
+                    <a href="{{route('manager.resetpassword',$user->id)}}" type="button" class="btn btn-warning btn-sm mx-1">
                         <i class="fas fa-key"></i> Reset Password
                     </a>
 
@@ -193,26 +168,6 @@
 
 @section('scripts')
 <script>
-    $(document).ready(function (){
-            $(document).on('click','.editbtn',function(){
-                var user_id=$(this).val();
-                $('#edituser').modal('show');
-
-                $.ajax({
-                  type:"GET",
-                  url: "/updateaccount/"+user_id,
-                  success: function (response) {
-                    $('#username').val(response.user.username);
-                    $('#email').val(response.user.email);
-                    $('#user_id').val(user_id);
-
-                    }
-
-                });
-            });
-    });
-
-
 
     $(document).ready(function (){
             $(document).on('click','.deletebtn',function(){
@@ -221,7 +176,7 @@
 
                 $.ajax({
                   type:"GET",
-                  url: "/deleteaccount/"+userr_id,
+                  url: "/manager/manage-account-deleteuser/"+userr_id,
                   success: function (response) {
 
                     $('#userr_id').val(userr_id);

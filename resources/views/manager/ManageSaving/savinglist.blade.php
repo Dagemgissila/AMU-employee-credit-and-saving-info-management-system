@@ -53,9 +53,7 @@
           <!-- /.card -->
 
           <div class="card">
-            <div class="card-header">
-              <h3 class="card-title"></h3>
-            </div>
+
             @if(session()->has('message'))
               <div class="bg-success text-white">
                 <p class="p-2 d-flex justify-content-center  align-items-center ">{{session('message')}}</p>

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
 use App\Http\Controllers\Auth\ForgetpasswordController;
+use App\Http\Controllers\Manager\ManagerUserController;
 use App\Http\Controllers\Member\MemberCreditController;
 use App\Http\Controllers\Member\MemberProfileController;
 use App\Http\Controllers\Member\SavingAccountController;
@@ -91,7 +92,15 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::post('manager/manage-credit/addcredit',[CreditController::class,'addcredit'])->name('manager.addcredit');
     Route::post('manager/manage-credit/loan-calculate',[CreditController::class,'calculateLoanSchedule'])->name('manager.loancalculator');
     Route::get('manager/manage-share/view-share',[ShareController::class,'index'])->name('manager.viewshare');
-    Route::get('manager/create-account',[ManagerUserController::class,'createAccount'])->name('manager.createaccount');
+    Route::get('/manager/manage-account/create-account',[ManagerUserController::class,'index'])->name('manager.createaccount');
+    Route::post('manager/manage-account/create-account',[ManagerUserController::class,'createAccount'])->name('manager.createaccount');
+    Route::get('/manager/manage-account/user-account',[ManagerUserController::class,'listOfAccount'])->name('manager.viewaccount');
+    Route::post('/status-update/{id}',[ManagerUserController::class,'updateStatus'])->name('status-update');
+    Route::get('/manager/manage-account-deleteuser/{id}',[ManagerUserController::class,'deleteaccount']);
+    Route::delete('/manager/manage-account-deleteuser',[ManagerUserController::class,'destroy'])->name('deleteaccount');
+    Route::get('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpageview'])->name('manager.resetpassword');
+    Route::post('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpassword'])->name('manager.resetpassword');
+
 
 });
 
