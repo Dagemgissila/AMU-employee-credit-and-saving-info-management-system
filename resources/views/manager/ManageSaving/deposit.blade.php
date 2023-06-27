@@ -75,15 +75,15 @@
                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="firstname">Member Name</label>
-                                            <select name="zmember" id="zmember" class="form-control">
-                                              <option value="">--select--</option>
+                                            <input type="text" name="zmember" id="zmember" class="form-control" list="mems">
+                                            <datalist id="mems">
                                                //show all members
                                               @if($members->count()>0)
                                               @foreach($members as $member)
                                                 <option value="{{$member->user_id}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
                                               @endforeach
                                               @endif
-                                            </select>
+                                            </datalist>
                                           </div>
                                     </div>
                                      <!--

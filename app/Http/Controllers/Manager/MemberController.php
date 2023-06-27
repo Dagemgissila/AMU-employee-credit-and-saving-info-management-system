@@ -100,10 +100,10 @@ class MemberController extends Controller
                      $saving->saving_amount=($member->salary* ($member->saving_percent/100));
                      $saving->saving_month = Carbon::now();
                      $saving->save();*/
-
-                     $share=new Share;
-                     $share->$member_id=$member_id;
-                     $share->save();
+                     
+                    /* $share=new Share;
+                     $share->$member_id=$member->user_id;
+                     $share->save();*/
 
                      DB::commit();
 

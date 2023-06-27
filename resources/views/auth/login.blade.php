@@ -6,21 +6,21 @@
   <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <!----------------------- Login Container -------------------------->
 
-       <div class="row rounded bg-white w-100" >
-    <!--------------------------- Left Box ----------------------------->
+       <div class="row rounded bg-white w-50">
+    <!--------------------------- Left Box style="width: 22rem;font-weight:bold;margin:0;"----------------------------->
 
     <!-------------------- ------ Right Box ---------------------------->
 
-       <div class="col-md-6 left d-flex align-items-center  flex-column p-3 p-sm-4 my-5">
-
+       <div class="col-md-12 d-flex align-items-center  flex-column p-3 p-sm-4 my-2">
+             
         <div class="header-text d-flex  justify-content-around align-items-center mt-3" style="width:100%;">
-            <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:90px;height:90px;">
-            <p class="text-wrap text-left" style="width: 22rem;font-weight:bold;margin:0;">AMU employee credit and saving information management system</p>
-          </div>
+            <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:16vw;height:17vh;">
+            <h2 class="text-primary" style="margin-left:1.3em">A.M.U Workers Saving & Credit Association</h2>
+        </div>
 
           <hr style="border:1px solid rgb(38, 38, 38);width:100%">
 
-         <div class="w-100 my-3">
+         <div class="w-100 my-2">
             <h2 class="text-primary float-left">Sign In</h2>
          </div>
 
@@ -40,20 +40,20 @@
                 </div>
                 @endif
               <div class="form-group">
-                <label for="exampleInputEmail1">User name</label>
-                <input type="text" name="username" class="form-control form-control-lg"  placeholder="Enter username">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" name="username" class="form-control form-control-lg"  placeholder="Username">
               </div>
               @if ($errors->has('username'))
               <div class="text-danger">{{ $errors->first('username') }}</div>
           @endif
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter Password">
+                <input type="password" name="password" class="form-control form-control-lg" placeholder="Password">
               </div>
               @if ($errors->has('password'))
               <div class="text-danger">{{ $errors->first('password') }}</div>
           @endif
-              <div class="input-group mb-5 d-flex justify-content-between">
+              <div class="input-group mb-3 d-flex justify-content-between">
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" id="formCheck">
                   <label for="formCheck" class="form-check-label text-secondary"><small>Remember Me</small></label>
@@ -62,8 +62,8 @@
                   <small><a href="/forget-password">Forgot Password?</a></small>
                 </div>
               </div>
-              <div class="input-group mb-5">
-                <button class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+              <div class="input-group mb-1.7">
+                <button class="btn btn-lg btn-primary w-50 fs-6">Sign In</button>
               </div>
 
             </form>
@@ -71,16 +71,10 @@
 
 
 
-       </div>
+         </div>
 
-       <div class=" col-md-6 right rounded-4 d-flex justify-content-center align-items-center flex-column ">
-
-           <div class="featured-image mb-3 d-none d-md-block">
-            <img src="img/My password.gif" class="img-fluid" style="width:100%;height:100%;">
-
-           </div>
-
-       </div>
+       
+      
       </div>
     </div>
 
