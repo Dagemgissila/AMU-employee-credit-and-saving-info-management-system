@@ -35,7 +35,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">Share</a>
+            <a href="{{route('member.share')}}" class="nav-link">Share</a>
           </li>
 
           <li class="nav-item">

@@ -25,4 +25,15 @@ class SavingAccountController extends Controller
 
 
     }
+    public function share(){
+      if(auth()->user()->password_status == 0){
+          return view('members.changepassword');
+      }
+      $user = auth()->user();
+      $member = $user->member;
+      return view('members.share',[
+        'member'=>$member,
+        'share'=>100
+      ]);
+    }
 }

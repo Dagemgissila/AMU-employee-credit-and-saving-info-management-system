@@ -113,8 +113,8 @@ Route::middleware(['auth', 'user-role:member'])->group(function () {
     Route::get('/users/changepassword',[MemberChangepasswordController::class,'index'])->name('member.changepassword');
     Route::post('/users/changepassword',[MemberChangepasswordController::class,'changepassword'])->name('member.changepassword');
     Route::get('/users/saving-account',[SavingAccountController::class,'index'])->name('member.savingaccount');
+    Route::get('/users/share',[SavingAccountController::class,'share'])->name('member.share');
     Route::get('users/user-credit',[MemberCreditController::class,'index'])->name('member.mycredit');
     Route::get('users/user-profile',[MemberProfileController::class,'index'])->name('member.profile');
 
 });
-
