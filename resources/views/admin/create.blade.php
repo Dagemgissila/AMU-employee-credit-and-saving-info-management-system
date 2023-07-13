@@ -19,18 +19,12 @@
    <!-- Main content -->
    <section class="content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-md-12">
-
               <div class="card">
-
-
                 <div class="card-body">
-
                     <div class="tab-content" >
                         <div class="tab-pane container-fluid active" id="addsingleuser">
-
                             <form action="{{ route('admin.create')}}" method="POST" >
                              @csrf
                              @if(session()->has('error'))
@@ -78,28 +72,17 @@
                                         </div>
                                     </div>
                                  </div>
-
-
-
                                  <button class="btn btn-primary">create account</button>
                             </form>
-
                         </div>
-
                         <div class="my-3">
                             <p class="font-italic font-weight-bold">The system automatically creates a password for the user, which is initially set as 12345678. However, for security purposes, the system mandates users to change this password after logging in for the first time</p>
                         </div>
-
-
                       </div>
                 </div>
                 <!-- /.card-body -->
               </div>
               <!-- /.card -->
-
-
-              <!-- /.card -->
-
             </div>
 
             <!-- /.col (right) -->

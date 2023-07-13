@@ -45,4 +45,9 @@ class Member extends Model
         return $this->hasMany(Share::class);
     }
 
+    public function getFullnameAttribute()
+    {
+        return "{$this->firstname} {$this->middlename} {$this->lastname}";
+    }
+
 }

@@ -130,12 +130,12 @@
                                             <label for="campus">campus</label>
                                             <select class="form-control" required name="campus" style="width: 100%;">
                                                 <option value="">-- Please select a campus --</option>
-                                                <option value="main" {{ $member->campus == 'main' ? 'selected' : '' }}>Main</option>
-                                                <option value="kulfo" {{ $member->campus == 'kulfo' ? 'selected' : '' }}>Kulfo</option>
-                                                <option value="nechsar" {{ $member->campus == 'nechsar' ? 'selected' : '' }}>Nechsar</option>
-                                                <option value="abaya" {{ $member->campus == 'abaya' ? 'selected' : '' }}>Abaya</option>
-                                                <option value="chamo" {{ $member->campus == 'chamo' ? 'selected' : '' }}>Chamo</option>
-                                                <option value="sawula" {{ $member->campus == 'sawula' ? 'selected' : '' }}>Sawula</option>
+                                                <option value="Main" {{ $member->campus == 'Main' ? 'selected' : '' }}>Main</option>
+                                                <option value="Kulfo" {{ $member->campus == 'Kulfo' ? 'selected' : '' }}>Kulfo</option>
+                                                <option value="Nechsar" {{ $member->campus == 'Nechsar' ? 'selected' : '' }}>Nechsar</option>
+                                                <option value="Abaya" {{ $member->campus == 'Abaya' ? 'selected' : '' }}>Abaya</option>
+                                                <option value="Chamo" {{ $member->campus == 'Chamo' ? 'selected' : '' }}>Chamo</option>
+                                                <option value="sawula" {{ $member->campus == 'Sawula' ? 'selected' : '' }}>Sawula</option>
                                             </select>
                                           </div>
                                           @if ($errors->has('campus'))
@@ -147,16 +147,15 @@
                                             <label for="colleage">colleage</label>
                                             <select class="form-control " required name="colleage" style="width: 100%;">
                                                 <option value="">-- Please select a colleage --</option>
-                                                <option value="AMIT" {{$member->colleage == "AMIT"? ' selected' : ''}}>AMIT</option>
-                                                <option value="AWIT" {{$member->colleage == 'AWIT' ? 'selected' : ''}}>AWIT</option>
-                                                <option value="MEDICAL" {{$member->colleage == 'MEDICAL' ? 'selected' : ''}}>MEDICAL</option>
+                                                <option value="Amit" {{$member->colleage == "Amit"? ' selected' : ''}}>Amit</option>
+                                                <option value="Awit" {{$member->colleage == 'Awit' ? 'selected' : ''}}>Awit</option>
+                                                <option value="Medical" {{$member->colleage == 'Medical' ? 'selected' : ''}}>Medical</option>
                                               </select>
                                           </div>
                                           @if ($errors->has('colleage'))
                                           <div class="text-danger">{{ $errors->first('colleage') }}</div>
                                        @endif
                                     </div>
-
                                  </div>
 
                                  <div class="row">
@@ -165,10 +164,8 @@
                                             <label for="sex">sex</label>
                                             <select class="form-control" required name="sex" style="width: 100%;">
                                                 <option value="">-- Please select a sex --</option>
-                                                <option value="female" {{ $member->sex == 'female' ? 'selected' :''}}>Female</option>
-                                                <option value="male" {{$member->sex == 'male' ? 'selected' : ''}}>Male</option>
-
-
+                                                <option value="Female" {{ $member->sex == 'Female' ? 'selected' :''}}>Female</option>
+                                                <option value="Male" {{$member->sex == 'Male' ? 'selected' : ''}}>Male</option>
                                               </select>
                                               @if ($errors->has('sex'))
                                               <div class="text-danger">{{ $errors->first('sex') }}</div>
@@ -180,8 +177,8 @@
                                             <label for="marriage">martial status</label>
                                             <select class="form-control" required  name="martial_status" style="width: 100%;">
                                                 <option value="">-- Please select a martial status --</option>
-                                                <option value="married" {{ $member->martial_status == 'married' ? 'selected' :''}}>married</option>
-                                                <option value="single" {{ $member->martial_status == 'single' ? 'selected' :''}}>Single</option>
+                                                <option value="Married" {{ $member->martial_status == 'Married' ? 'selected' :''}}>Married</option>
+                                                <option value="Single" {{ $member->martial_status == 'Single' ? 'selected' :''}}>Single</option>
                                               </select>
                                               @if ($errors->has('martial_status'))
                                               <div class="text-danger">{{ $errors->first('martial_status') }}</div>
@@ -206,12 +203,9 @@
                                   </div>
                                  </div>
                             </form>
-
                         </div>
 
-
                       </div>
-
 
                 </div>
                 <!-- /.card-body -->

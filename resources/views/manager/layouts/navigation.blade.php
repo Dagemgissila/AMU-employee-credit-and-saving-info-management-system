@@ -46,7 +46,7 @@
               </p>
             </a>
             <ul class="nav @if(!Request::is('manager/manage-member/*')) nav-treeview  @endif ml-3">
-              <li class="nav-item  @if(Request::is('manager/manage-member/addmembers')) bg-secondary @endif">
+              <li class="nav-item  @if(Request::is('manager/manage-member/addmember')) bg-secondary @endif">
                 <a href="{{route('manager.addmembers')}}" class="nav-link">
                   <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>add member</p>

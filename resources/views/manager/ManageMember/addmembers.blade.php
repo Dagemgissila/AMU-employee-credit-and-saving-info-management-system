@@ -127,15 +127,15 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="campus">campus</label>
+                                            <label for="campus">Campus</label>
                                             <select class="form-control " required name="campus" required style="width: 100%;">
                                                 <option value="">-- Please select a campus --</option>
-                                                <option value="main">main</option>
-                                                <option value="kulfo">kulfo</option>
-                                                <option value="nechsar">nechsar</option>
-                                                <option value="abaya">abaya</option>
-                                                <option value="chamo">chamo</option>
-                                                <option value="sawula">sawula</option>
+                                                <option value="Main">Main</option>
+                                                <option value="Kulfo">Kulfo</option>
+                                                <option value="Nechsar">Nechsar</option>
+                                                <option value="Abaya">Abaya</option>
+                                                <option value="Chamo">Chamo</option>
+                                                <option value="Sawula">Sawula</option>
                                               </select>
                                           </div>
                                           @if ($errors->has('campus'))
@@ -152,8 +152,8 @@
                                             <label for="sex">sex</label>
                                             <select class="form-control" required name="sex" style="width: 100%;">
                                                 <option value="">-- Please select a sex --</option>
-                                                <option value="female">Female</option>
-                                                <option value="male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Male">Male</option>
 
 
                                               </select>
@@ -167,8 +167,8 @@
                                             <label for="marriage">martial status</label>
                                             <select class="form-control" required  name="martial_status" style="width: 100%;">
                                                 <option value="">-- Please select a martial status --</option>
-                                                <option value="married">married</option>
-                                                <option value="single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Single">Single</option>
                                               </select>
                                               @if ($errors->has('martial_status'))
                                               <div class="text-danger">{{ $errors->first('martial_status') }}</div>
@@ -180,11 +180,11 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="colleage">colleage</label>
-                                            <select class="form-control " required name="colleage" style="width: 100%;">
+                                            <select class="form-control " name="colleage" style="width: 100%;">
                                                 <option value="">-- Please select a colleage --</option>
-                                                <option value="AMIT">AMIT</option>
-                                                <option value="AWIT">AWIT</option>
-                                                <option value="MEDICAL">MEDICAL</option>
+                                                <option value="Amit">Amit</option>
+                                                <option value="Awit">Awit</option>
+                                                <option value="Medical">Medical</option>
                                               </select>
                                           </div>
                                           @if ($errors->has('colleage'))
@@ -207,7 +207,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="salary">Saving Percent</label>
-                                            <input type="number"name="SavingPercent" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 10">
+                                            <input type="number"name="savingpercent" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 10">
                                           </div>
                                           @if ($errors->has('SavingPercent'))
                                           <div class="text-danger">{{ $errors->first('SavingPercent') }}</div>
@@ -263,7 +263,36 @@
 
                                   </div>
                                 </div>
+                                <hr>
                               </div> <!-- /container -->
+                             <div class="container-fluid p-4">
+                                <h3>The GuideLine To Upload Excel File to Add Members</h3>
+                                <ul>
+                                    <li> the excel file must be in .xlsx,.xls,.csv  format</li>
+                                    <li>the firts row the Excel File Contain header column</li>
+                                    <li>
+                                        The columns in the Excel file should be organized as follows:</li>
+                                        <ol>
+                                            <li>FirstName</li>
+<li>MiddleName</li>
+<li>LastName</li>
+<li>PhoneNumber</li>
+<li>BankAccount</li>
+<li>Salary</li>
+<li>SavingPercent</li>
+<li>Campus</li>
+<li>College <i>(optional)</i> </li>
+<li>Sex</li>
+<li>MartialStatus</li>
+<li>RegisteredDate</li>
+
+                                        </ol>
+                                        <li>RegisteredDate column format is mm/dd/yyyy  . month/date/year</li>
+                                        <h1>Here Sample File</h1>
+                                        <a href="{{route('download.samplefile')}}" type="button" class="btn btn-primary my-3">Download Sample File</a>
+                             <img src="{{asset('img/excelsample.PNG')}}" class='img-fluid' alt="">
+                                </ul>
+                             </div>
                         </div>
 
                       </div>

@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('phone_number');
             $table->float('salary');
             $table->string('campus');
-            $table->string('colleage');
+            $table->string('colleage')->nullable();
             $table->string('sex');
             $table->string('martial_status');
-            $table->date('registered_date');
+            $table->datetime('registered_date');
             $table->timestamps();
         });
 

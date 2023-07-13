@@ -107,8 +107,8 @@
                           <td>N/A</td>
                         @endif
 
-                        <td>{{ $saving->saving_amount }} birr</td>
-                        <td>{{ date('M,j Y', strtotime($saving->saving_month)) }}</td>
+                        <td>{{ $saving->saving_amount }} Birr</td>
+                        <td>{{ date('M,j Y', strtotime($saving->saving_month)) }} </td>
                         <td class="d-flex">
                           <a href="" type="button" class="btn btn-primary d-flex align-items-center editbtn btn-sm mx-1">
                             <i class="fa fa-edit"></i> Edit

@@ -84,22 +84,21 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>firstname</th>
-                        <th>middlename</th>
-                        <th>lastname</th>
-                        <th>username</th>
-                        <th>phone number </th>
-
-                        <th>bank account</th>
-                        <th>salary</th>
-                        <th>saving percent</th>
-                        <th>saving balance</th>
-                        <th>campus</th>
-                        <th>colleage</th>
-                        <th>sex </th>
-                        <th>martial status</th>
-                        <th>registered date</th>
-                        <th>action</th>
+                        <th>FirstName</th>
+                        <th>MiddleName</th>
+                        <th>LastName</th>
+                        <th>UserName</th>
+                        <th>PhoneNumber </th>
+                        <th>BankAccount</th>
+                        <th> Salary </th>
+                        <th>SavingPercent</th>
+                        <th>SavingBalance</th>
+                        <th>Campus</th>
+                        <th>Colleage</th>
+                        <th>Sex</th>
+                        <th>MartialStatus</th>
+                        <th>RegisteredDate</th>
+                        <th>Action</th>
 
                       </tr>
                 </thead>
@@ -121,15 +120,17 @@
                         <td>{{$member->user->username}}</td>
                         <td>{{$member->phone_number}}</td>
                         <td>{{$member->bank_account}}</td>
-                        <td>{{$member->salary}}</td>
+                        <td>{{$member->salary}} Birr</td>
                         <td>{{ $member->saving_percent }}  %</td>
 
                         <td>
                             @php
                             //Updated sum('saving_balance') to sum('saving_amount')
                               $totalBalance = $member->savingAccounts->sum('saving_amount');
-                              echo $totalBalance;
+                              echo $totalBalance ;
                             @endphp
+
+                            Birr
                           </td>
                         <td>{{$member->campus}}</td>
                         <td>{{$member->colleage}}</td>

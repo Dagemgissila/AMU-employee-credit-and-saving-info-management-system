@@ -21,10 +21,11 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
     {
         foreach ($collection as $row) {
 
+
             DB::beginTransaction();
 
             try {
-                $username = $row['firstname'] . '/' . substr($row['phonenumber'], -4);
+                $username = ucfirst(strtolower($row['firstname'])) . '/' . substr($row['phonenumber'], -4);
                 $baseUsername = $username;
                 $suffix = 1;
 
@@ -44,28 +45,33 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
 
                 // insert a new member
                 $member = new Member;
-                $member->firstname = $row['firstname'];
-                $member->middlename = $row['middlename'];
-                $member->lastname = $row['lastname'];
+                $member->firstname = ucfirst(strtolower($row['firstname']));
+                $member->middlename = ucfirst(strtolower($row['middlename']));
+                $member->lastname = ucfirst(strtolower($row['lastname']));
                 $member->saving_percent = $row['savingpercent'];
                 $member->bank_account = $row['bankaccount'];
                 $member->phone_number = $row['phonenumber'];
                 $member->salary = $row['salary'];
-                $member->campus = $row['campus'];
-                $member->colleage = $row['colleage'];
-                $member->sex = $row['sex'];
-                $member->martial_status = $row['martialstatus'];
-                $member->registered_date =Carbon::now();
+                $member->campus = ucfirst(strtolower($row['campus']));
+                $member->colleage = ucfirst(strtolower($row['colleage']));
+                $member->sex = ucfirst(strtolower($row['sex']));
+                $member->martial_status = ucfirst(strtolower($row['martialstatus']));
+
+                $dateValue = $row['registereddate'];
+                $unixTimestamp = ($dateValue - 25569) * 86400;
+                $date = Carbon::createFromFormat('U', $unixTimestamp)->format('Y-m-d H:i:s');
+                $member->registered_date = $date;
+
                 $member->user_id = $user->id; // set the user_id foreign key
                 $member->save();
 
-                // insert a new savings account
-                $saving = new SavingAccount;
-                $saving->member_id = $member->id;
-                $saving->saving_amount = 0;
-                $saving->saving_month=Carbon::now();
-                $saving->status=0;
-                $saving->save();
+                //
+                // $saving = new SavingAccount;
+                // $saving->member_id = $member->id;
+                // $saving->saving_amount = 0;
+                // $saving->saving_month=Carbon::now();
+                // $saving->status=0;
+                // $saving->save();
 
                 $share=new Share;
                 $share->member_id=$member->id;
@@ -84,18 +90,20 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
 
     public function rules():array
     {
+
         return [
-            'firstname'=>'required',
-            'middlename'=>'required',
-            'lastname'=>'required',
-            'bankaccount'=>'required|unique:members,bank_account',
-            'phonenumber'=>'required|unique:members,phone_number',
-            'savingpercent'=>'required',
-            'salary'=>'required',
-            'campus'=>'required',
-            'colleage'=>'required',
-            'sex'=>'required',
-            'martialstatus'=>'required',
+            'firstname' => 'required|string',
+            'middlename' => 'required|string',
+            'lastname' => 'required|string',
+            'bankaccount'=>'required|numeric|unique:members,bank_account',
+            'phonenumber'=>'required|numeric|unique:members,phone_number',
+            'savingpercent'=>'required|numeric|min:10|max:30',
+            'salary'=>'required|numeric',
+            'campus'=>'required|string',
+            'colleage'=>'string',
+            'sex'=>'required|string',
+            'martialstatus'=>'required|string',
+            'registereddate' => 'required',
 
         ];
     }

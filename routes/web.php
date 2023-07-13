@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InstallController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Manager\ShareController;
 use App\Http\Controllers\Admin\AdminUserConroller;
@@ -100,7 +101,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::delete('/manager/manage-account-deleteuser',[ManagerUserController::class,'destroy'])->name('deleteaccount');
     Route::get('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpageview'])->name('manager.resetpassword');
     Route::post('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpassword'])->name('manager.resetpassword');
-
+    Route::get('download/sample-file',[DownloadController::class,'download'])->name('download.samplefile');
 
 });
 

@@ -16,19 +16,7 @@
     </div><!-- /.container-fluid -->
 </div>
 
-@if($errors->any())
-<div class="bg-danger text-white p-2 m-3">
-    @foreach ($errors->all() as $error)
-    <p class="px-2 py-1 my-0 d-flex justify-content-center align-items-center">{{$error}}</p>
-    @endforeach
-</div>
-@endif
 
-@if(session()->has('message'))
-<div class="bg-success text-white m-2">
-    <p class="p-2 d-flex justify-content-center align-items-center">{{session('message')}}</p>
-</div>
-@endif
 
 
 <!-- Main content -->

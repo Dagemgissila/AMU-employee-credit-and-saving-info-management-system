@@ -26,7 +26,7 @@ class MemberController extends Controller
     }
     public function UploadMemberExcel(Request $request) {
         $this->validate($request,[
-            'member_excel_data'=>'required|mimes:xlsx,xls'
+            'member_excel_data'=>'required|mimes:xlsx,xls,.csv'
         ]);
       Excel::import(new MembersImport,$request->file('member_excel_data'));
       return back();
@@ -38,17 +38,17 @@ class MemberController extends Controller
     }
     public function addmember(Request $request){
         $this->validate($request,[
-            'firstname'=>'required',
-            'middlename'=>'required',
-            'lastname'=>'required',
-            'bankaccount'=>'required|unique:members,bank_account',
-            'phonenumber'=>'required|unique:members,phone_number',
-            'SavingPercent'=>'required',
-            'salary'=>'required',
-            'campus'=>'required',
-            'colleage'=>'required',
-            'sex'=>'required',
-            'martial_status'=>'required',
+            'firstname'=>'required|string',
+            'middlename'=>'required|string',
+            'lastname'=>'required|string',
+            'bankaccount'=>'required|numeric|unique:members,bank_account',
+            'phonenumber'=>'required|numeric|unique:members,phone_number',
+            'savingpercent'=>'required|numeric',
+            'salary'=>'required|numeric',
+            'campus'=>'required|string',
+            'colleage'=>'string',
+            'sex'=>'required|string',
+            'martial_status'=>'required|string',
             'registered_date'=>'required'
                  ],[
 
@@ -58,7 +58,7 @@ class MemberController extends Controller
                  DB::beginTransaction();
 
                  try {
-                    $username = $request->firstname . '/' . substr($request->phonenumber, -4);
+                    $username = ucfirst(strtolower($request->firstname)) . '/' . substr($request->phonenumber, -4);
                     $baseUsername = $username;
                     $suffix = 1;
 
@@ -78,17 +78,17 @@ class MemberController extends Controller
 
                      // insert a new member
                      $member = new Member;
-                     $member->firstname = $request->firstname;
-                     $member->middlename = $request->middlename;
-                     $member->lastname = $request->lastname;
-                     $member->saving_percent = $request->SavingPercent;
+                     $member->firstname = ucfirst(strtolower($request->firstname));
+                     $member->middlename = ucfirst(strtolower($request->middlename));
+                     $member->lastname = ucfirst(strtolower($request->lastname));
+                     $member->saving_percent = $request->savingpercent;
                      $member->bank_account = $request->bankaccount;
                      $member->phone_number = $request->phonenumber;
                      $member->salary = $request->salary;
                      $member->campus = $request->campus;
-                     $member->sex = $request->sex;
-                     $member->colleage = $request->colleage;
-                     $member->martial_status = $request->martial_status;
+                     $member->sex =ucfirst(strtolower($request->sex));
+                     $member->colleage = ucfirst(strtolower($request->colleage));
+                     $member->martial_status = ucfirst(strtolower($request->martial_status));
                      $member->registered_date = $request->registered_date;
                      $member->user_id = $user->id; // set the user_id foreign key
                      $member->save();
@@ -100,7 +100,7 @@ class MemberController extends Controller
                      $saving->saving_amount=($member->salary* ($member->saving_percent/100));
                      $saving->saving_month = Carbon::now();
                      $saving->save();*/
-                     
+
                     /* $share=new Share;
                      $share->$member_id=$member->user_id;
                      $share->save();*/
@@ -151,17 +151,17 @@ class MemberController extends Controller
     public function editmember(Request $request,$id){
         $member=Member::find($id);
         $this->validate($request, [
-            'firstname' => 'required',
-            'middlename' => 'required',
-            'lastname' => 'required',
-            'bankaccount' => 'required|unique:members,bank_account,' . $member->id,
-            'phonenumber' => 'required|unique:members,phone_number,' . $member->id,
-            'salary' => 'required',
-            'SavingPercent'=>'required',
-            'campus' => 'required',
-            'colleage' => 'required',
-            'sex' => 'required',
-            'martial_status' => 'required',
+            'firstname' => 'required|string',
+            'middlename' => 'required|string',
+            'lastname' => 'required|string',
+            'bankaccount' => 'required|numeric|unique:members,bank_account,' . $member->id,
+            'phonenumber' => 'required|numeric|unique:members,phone_number,' . $member->id,
+            'salary' => 'required|numeric',
+            'SavingPercent'=>'required|numeric|',
+            'campus' => 'required|string',
+            'colleage' => 'string',
+            'sex' => 'required|string',
+            'martial_status' => 'required|string',
             'registered_date' => 'required',
         ], [
             'username.unique' => 'The username is already in use.',
@@ -169,21 +169,21 @@ class MemberController extends Controller
 
 
 
-                 $member->firstname = $request->firstname;
-                 $member->middlename=$request->middlename;
-                 $member->lastname=$request->lastname;
+                 $member->firstname = ucfirst(strtolower($request->firstname));
+                 $member->middlename = ucfirst(strtolower($request->middlename));
+                 $member->lastname = ucfirst(strtolower($request->lastname));
                  $member->bank_account=$request->bankaccount;
                  $member->phone_number=$request->phonenumber;
                  $member->salary=$request->salary;
                  $member->saving_percent=$request->SavingPercent;
                  $member->campus=$request->campus;
-                 $member->sex=$request->sex;
-                 $member->colleage=$request->colleage;
-                 $member->martial_status=$request->martial_status;
+                 $member->sex=ucfirst(strtolower($request->sex));
+                 $member->colleage = ucfirst(strtolower($request->colleage));
+                 $member->martial_status = ucfirst(strtolower($request->martial_status));
                  $member->registered_date=$request->registered_date;
 
                 // Update the related User model's username value
-                $baseUsername = $request->firstname . '/' . substr($request->phonenumber, -4);
+                $baseUsername = ucfirst(strtolower($request->firstname)). '/' . substr($request->phonenumber, -4);
                 $suffix = 1;
                 $username = $baseUsername;
 
