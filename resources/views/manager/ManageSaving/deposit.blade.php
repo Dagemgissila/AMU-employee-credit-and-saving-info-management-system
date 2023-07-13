@@ -50,6 +50,15 @@
                                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
                                 </div>
                                 @endif
+                                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                                 @if(session()->has('error'))
                                 <div class="bg-danger text-white">
                                   <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
@@ -64,7 +73,8 @@
                                                //show all members
                                               @if($members->count()>0)
                                               @foreach($members as $member)
-                                                <option value="{{$member->user_id}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
+                                              //show username instead id
+                                                <option value="{{$member->user->username}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
                                               @endforeach
                                               @endif
                                             </datalist>
@@ -118,7 +128,7 @@
                                                 @csrf
                                                 <div class="">
                                                     <div class="form-group">
-                                                        <input type="file" name="upload_deposit" id="js-upload-files" multiple accept=".xlsx, .xls, .csv" required>
+                                                        <input type="file" name="upload_deposit"  multiple accept=".xlsx, .xls, .csv" required>
                                                     </div>
 
                                                     <div>
@@ -129,6 +139,28 @@
                                         </div>
 
                                 </div>
+                                <hr>
+                                <div class="container-fluid p-4">
+                                    <h3>The GuideLine To Upload Excel File to deposit Money</h3>
+                                    <ul>
+                                        <li> the excel file must be in .xlsx,.xls,.csv  format</li>
+
+                                        <li>the firts row the Excel File Contain header column</li>
+                                        <li>the amount monthly saving amount is calculated automatically by the system</li>
+                                        <li>
+                                            The columns in the Excel file should be organized as follows:</li>
+                                            <ol>
+                                                <li>Username</li>
+                                                <li>Fullname <i>optional</i></li>
+
+                                            </ol>
+
+
+                                            <h1>Here Sample File</h1>
+                                            <a href="{{route('download2.samplefile')}}" type="button" class="btn btn-primary my-3">Download Sample File</a>
+                                 <img src="{{asset('img/depsotimg.PNG')}}" class='img-fluid' alt="">
+                                    </ul>
+                                 </div>
                             </div>
                         </div>
                     </div><!-- /.card-body -->

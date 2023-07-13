@@ -69,13 +69,18 @@ class SavingController extends Controller
     }
 
     public function storemoney(Request $request){
-  
+
         $validatedData = $request->validate([
             'zmember' => 'required',
             'saving_month' =>'required|date'
          ]);
-        $user=User::where('id',$validatedData['zmember'])->first();
+        $user=User::where('username',$validatedData['zmember'])->first();
 
+        //validate username
+
+        if(!$user){
+            return back()->with('error','the member is not found');
+        }
         $member=Member::where('user_id',$user->id)->first();
          $member2=SavingAccount::where('member_id',$member->id)->first();
          //get registered date
@@ -159,7 +164,7 @@ class SavingController extends Controller
             else{
             //if user tries to deposit for future month/year  / le Nege
             return redirect()->back()->with('error', 'Please select date equal to or before '.Carbon::now());
-            }   
+            }
     }
 
 
@@ -168,9 +173,9 @@ class SavingController extends Controller
             // Create a new SavingAccount record
            /* $user = User::where('id', $validatedData['zmember'])->first();
             $member = Member::where('user_id', $user->id)->first();*/
-            
-           
-            
+
+
+
     }
 
       public function uploaddeposit(Request $request){

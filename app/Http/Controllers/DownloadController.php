@@ -11,5 +11,9 @@ class DownloadController extends Controller
 
         return response()->download($file);
     }
+    public function download2(){
+        $file = public_path('excelfiles/depositsample.xlsx');
 
+        return response()->download($file);
+    }
 }

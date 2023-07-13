@@ -110,9 +110,7 @@
                         <td>{{ $saving->saving_amount }} Birr</td>
                         <td>{{ date('M,j Y', strtotime($saving->saving_month)) }} </td>
                         <td class="d-flex">
-                          <a href="" type="button" class="btn btn-primary d-flex align-items-center editbtn btn-sm mx-1">
-                            <i class="fa fa-edit"></i> Edit
-                          </a>
+
                           <button type="button" value="{{$saving->id}}" class="btn btn-danger deletebtn btn-sm" data-toggle="modal">
                             <i class="fa fa-trash"></i> Delete
                           </button>

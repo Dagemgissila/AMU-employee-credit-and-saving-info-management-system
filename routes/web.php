@@ -102,6 +102,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::get('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpageview'])->name('manager.resetpassword');
     Route::post('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpassword'])->name('manager.resetpassword');
     Route::get('download/sample-file',[DownloadController::class,'download'])->name('download.samplefile');
+    Route::get('download2/sample-file',[DownloadController::class,'download2'])->name('download2.samplefile');
 
 });
 
