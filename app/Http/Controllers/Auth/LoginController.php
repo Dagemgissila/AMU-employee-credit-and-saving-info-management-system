@@ -33,7 +33,6 @@ class LoginController extends Controller
                else{
                 return redirect()->route('manager.dashboard');
                }
-
            }
 
            else if(auth()->user()->role == "admin"){
@@ -42,6 +41,10 @@ class LoginController extends Controller
 
            else if(auth()->user()->role == "member"){
             return redirect()->route('member.dashboard');
+           }
+
+           else if(auth()->user()->role == "credit_controller"){
+            return redirect()->route('manager.dashboard');
            }
         }
 

@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('CreditManager.layouts.app')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -7,42 +7,11 @@
           <h1 class="m-0">List of user</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
  </div>
-
- <div class="modal fade" id="delete-saving" tabindex="-1" role="dialog"  aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content ">
-        <div class="modal-header">
-          <h4 class="modal-title">Confirmation</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p class="font-weight-bold " id="me">Are you sure you want to delete?</p>
-        </div>
-        <div class="modal-footer justify-content-between">
-            <form action="{{route('delete.saving')}}" method="POST" id="deleteSavingForm">
-                @csrf
-
-                <input type="hidden" name="saving_id" id="saving_id">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-danger">Yes,Delete</button>
-              </form>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-
 
 
 
@@ -83,8 +52,6 @@
                         <th>Full name</th>
                         <th>Share Amount </th>
                         <th>Sold Date</th>
-                        <th>Action</th>
-
 
                      </tr>
                 </thead>
@@ -100,13 +67,7 @@
                     <td>{{$share->member->firstname}} {{$share->member->middlename}} {{$share->member->lastname}}</td>
                     <td>{{$share->share_amount}} Birr</td>
                     <td>{{date('M j, Y',strtotime($share->created_at))}}</td>
-                    <td>
 
-
-                        <button type="button" value="{{$share->id}}" class="btn btn-danger deletebtn btn-sm" data-toggle="modal">
-                            <i class="fa fa-trash"></i> Delete
-                          </button>
-                    </td>
                     </tr>
                     @endforeach
 

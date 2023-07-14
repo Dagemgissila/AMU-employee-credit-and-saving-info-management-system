@@ -92,13 +92,14 @@
 
 
 
-@if(auth()->user()->role==='manager')
+
         <li class="nav-item">
             <a href="" class="nav-link @if(Request::is('manager/manage-credit/*')) active @endif">
                 <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Manage Loans
                 <i class="fas fa-angle-left right"></i>
+
               </p>
             </a>
             <ul class="nav @if(!Request::is('manager/manage-credit/*')) nav-treeview  @endif ml-3">
@@ -138,7 +139,7 @@
             </ul>
           </li>
 
-@endif
+
 
 
           <li class="nav-item">
@@ -152,7 +153,7 @@
             </a>
             <ul class="nav @if(!Request::is('manager/manage-share/*')) nav-treeview  @endif ml-3 ml-3">
               <li class="nav-item">
-                <a href="{{route('manager.sellshare')}}" class="nav-link @if(Request::is('manager/manage-share/sell-share')) bg-secondary @endif">
+                <a href="/addmembers" class="nav-link @if(Request::is('manager/manage-share/sell-share')) bg-secondary @endif">
                   <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>sell share</p>
                 </a>

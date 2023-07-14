@@ -1,4 +1,4 @@
-@extends('manager.layouts.app')
+@extends('CreditManager.layouts.app')
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
@@ -7,7 +7,9 @@
           <h1 class="m-0">Dashboard</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
 
+          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->

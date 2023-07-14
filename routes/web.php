@@ -23,6 +23,10 @@ use App\Http\Controllers\Manager\ManagerDashboardController;
 use App\Http\Controllers\Admin\AdminChangepasswordController;
 use App\Http\Controllers\Member\MemberChangepasswordController;
 use App\Http\Controllers\Manager\ManagerChangepasswordController;
+use App\Http\Controllers\CreditManager\CreditManagerShareController;
+use App\Http\Controllers\CreditManager\CreditManagerCreditController;
+use App\Http\Controllers\CreditManager\CreditManagerDashboardController;
+use App\Http\Controllers\CreditManager\CreditManagerChangepasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +73,9 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
 });
 
 
+
+
+
 //the following code allow the pages accesed only by manager
 Route::middleware(['auth', 'user-role:manager'])->group(function () {
 
@@ -93,6 +100,8 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::post('manager/manage-credit/addcredit',[CreditController::class,'addcredit'])->name('manager.addcredit');
     Route::post('manager/manage-credit/loan-calculate',[CreditController::class,'calculateLoanSchedule'])->name('manager.loancalculator');
     Route::get('manager/manage-share/view-share',[ShareController::class,'index'])->name('manager.viewshare');
+    Route::get('manager/manage-share/sell-share',[ShareController::class,'shareform'])->name('manager.sellshare');
+    Route::post('manager/manage-share/sell-share',[ShareController::class,'store'])->name('manager.sellshare');
     Route::get('/manager/manage-account/create-account',[ManagerUserController::class,'index'])->name('manager.createaccount');
     Route::post('manager/manage-account/create-account',[ManagerUserController::class,'createAccount'])->name('manager.createaccount');
     Route::get('/manager/manage-account/user-account',[ManagerUserController::class,'listOfAccount'])->name('manager.viewaccount');
@@ -118,5 +127,23 @@ Route::middleware(['auth', 'user-role:member'])->group(function () {
     Route::get('/users/share',[SavingAccountController::class,'share'])->name('member.share');
     Route::get('users/user-credit',[MemberCreditController::class,'index'])->name('member.mycredit');
     Route::get('users/user-profile',[MemberProfileController::class,'index'])->name('member.profile');
+
+});
+
+
+//the following code allow the pages accesed by credit manager
+Route::middleware(['auth', 'user-role:credit_controller'])->group(function () {
+
+    Route::get('credit-manager/dashboard',[CreditManagerDashboardController::class,'index'])->name('creditmanager.dashboard');
+    Route::get('/user/changepassword',[CreditManagerChangepasswordController::class,'index'])->name('creditmanager.changepassword');
+    Route::post('/user/changepassword',[CreditManagerChangepasswordController::class,'changepassword'])->name('creditmanager.changepassword');
+    Route::get('/credit-manager/view-member-info',[CreditManagerCreditController::class,'ViewMemberInfo'])->name('creditmanager.viewmember');
+    Route::get('credit-manager/view-member-share',[CreditManagerShareController::class,'index'])->name('creditmanager.viewshare');
+});
+
+
+//the following code allow the pages accesed only by members
+Route::middleware(['auth', 'user-role:saving_controller'])->group(function () {
+
 
 });

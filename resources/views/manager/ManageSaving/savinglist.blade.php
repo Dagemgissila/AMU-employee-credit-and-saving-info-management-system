@@ -108,7 +108,7 @@
                         @endif
 
                         <td>{{ $saving->saving_amount }} Birr</td>
-                        <td>{{ date('M,j Y', strtotime($saving->saving_month)) }} </td>
+                        <td>{{ date('M j ,Y', strtotime($saving->saving_month)) }} </td>
                         <td class="d-flex">
 
                           <button type="button" value="{{$saving->id}}" class="btn btn-danger deletebtn btn-sm" data-toggle="modal">
