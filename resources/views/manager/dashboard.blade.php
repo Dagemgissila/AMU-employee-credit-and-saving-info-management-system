@@ -88,7 +88,7 @@
         <!-- small box -->
         <div class="small-box bg-secondary">
           <div class="inner">
-            <h3>{{$totalAmountCredit}}</h3>
+            <h3>{{number_format($totalAmountCredit,2)}} Birr</h3>
 
             <p>Total Amount Given Credit</p>
           </div>
@@ -103,7 +103,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{$totalPaidCredit}}</h3>
+            <h3>{{number_format($totalPaidCredit,2)}} Birr</h3>
 
             <p>Total Amount paid Credit</p>
           </div>
@@ -118,7 +118,7 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>{{$totalUnPaidCredit}}</h3>
+            <h3>{{number_format($totalUnPaidCredit,2)}} Birr</h3>
 
             <p>Total Amount UnPaid Credit</p>
           </div>
@@ -133,7 +133,7 @@
       <!-- small box -->
       <div class="small-box bg-warning">
         <div class="inner">
-          <h3>{{$totalSavingAmount}} </h3>
+          <h3>{{number_format($totalSavingAmount,2)}} Birr</h3>
 
           <p>Total Member SavingAmount</p>
         </div>

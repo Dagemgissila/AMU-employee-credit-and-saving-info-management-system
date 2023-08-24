@@ -59,7 +59,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="username"> Amount</label>
-                                            <input type="number" class="form-control" value="{{ old('username') }}" name="share_amount" placeholder=" enter amount e.g 200" >
+                                            <input type="number" class="form-control" min='1' value="{{ old('username') }}" name="share_amount" placeholder=" enter amount e.g 200" >
                                           </div>
                                           @if ($errors->has('share_amount'))
                                           <div class="text-danger">{{ $errors->first('share_amount') }}</div>

@@ -32,10 +32,7 @@ class MemberController extends Controller
       return back();
 
     }
-    public function addSaving(Request $request){
 
-        //return redirect()->with('message','Saving Saved  Succesfully');
-    }
     public function addmember(Request $request){
         $this->validate($request,[
             'firstname'=>'required|string',
@@ -43,7 +40,7 @@ class MemberController extends Controller
             'lastname'=>'required|string',
             'bankaccount'=>'required|numeric|unique:members,bank_account',
             'phonenumber'=>'required|numeric|unique:members,phone_number',
-            'savingpercent'=>'required|numeric',
+            'savingpercent'=>'required|numeric|min:10|max:30',
             'salary'=>'required|numeric',
             'campus'=>'required|string',
             'colleage'=>'string',
@@ -53,7 +50,9 @@ class MemberController extends Controller
                  ],[
 
                     'bank_account'=>'the bank account number already exists',
-                    'phone_number'=>'the phone number already exists'
+                    'phone_number'=>'the phone number already exists',
+                    'savingpercent.max'=>'maximum value must be 30',
+                    'savingpercent.min'=>'minimum value must be 10'
                  ]);
                  DB::beginTransaction();
 
@@ -101,9 +100,10 @@ class MemberController extends Controller
                      $saving->saving_month = Carbon::now();
                      $saving->save();*/
 
-                    /* $share=new Share;
-                     $share->$member_id=$member->user_id;
-                     $share->save();*/
+                    $share=new Share;
+                     $share->member_id=$member->id;
+                     $share->share_amount=100;
+                     $share->save();
 
                      DB::commit();
 
@@ -145,7 +145,13 @@ class MemberController extends Controller
             return redirect()->route('manager.changepassword');
         }
         $member=Member::find($id);
-        return view('manager.ManageMember.edit',compact('member'));
+        if(!$member){
+            return view("error.404");
+        }
+        else{
+            return view('manager.ManageMember.edit',compact('member'));
+        }
+
     }
 
     public function editmember(Request $request,$id){
@@ -201,6 +207,20 @@ class MemberController extends Controller
                 }
                  $member->save();
                 return redirect()->route('manager.viewmember')->with('message','member update  succesfully');
+    }
+
+    public function ViewMember($id)
+    {
+        $member = Member::findOrFail($id);
+        $savingAmount=SavingAccount::query()->where('member_id',$id)->sum('saving_amount');
+        $shareAmount=Share::query()->where('member_id',$id)->sum('share_amount');
+        $response = [
+            'share'=>$shareAmount,
+            'member' => $member,
+            'saving' => $savingAmount,
+        ];
+
+        return response()->json($response);
     }
 
 

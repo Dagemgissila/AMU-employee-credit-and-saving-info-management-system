@@ -40,6 +40,10 @@
             <img src="{{asset ('img/error.gif')}}" class="img-fluid" style="width:500px;height:500px;">
 
            </div>
+           <div style="text-align:center;">
+            <a href="{{route('back')}}" type="button" class="btn btn-primary">BACK HOME</a>
+
+        </div>
 
     </div>
 </body>

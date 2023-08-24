@@ -8,10 +8,7 @@
           <h1 class="m-0">Add credit</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Home</a></li>
 
-          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -54,8 +51,32 @@
                                  <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="firstname">User name</label>
-                                            <input type="text" name="username" value="{{ old('username') }}" required class="form-control" id="username" placeholder="username">
+                                            <label for="firstname">Select Member Name</label>
+                                            <input type="text" name="username" id="member"  value="{{ old ('username')}}" class="form-control" list="Musername">
+                                            <datalist id="Musername">
+                                               //show all members
+
+                                              @if($members->count()>0)
+                                              @foreach($members as $member)
+
+
+
+                                              //show username instead id
+                                              <option value="{{$member->user->username}}" class="d-flex flex-column">
+                                                <div>
+                                                    {{$member->firstname}} {{$member->middlename}} {{$member->lastname}}
+                                                </div>
+                                                <div>
+                                                    @if(Carbon\Carbon::parse($member->registered_date)->diffInMonths(Carbon\Carbon::now()) > 6)
+                                                        <p class="bg-primary" style="background-color: red; color: white;">{{Carbon\Carbon::parse($member->registered_date)->diffInMonths(Carbon\Carbon::now())}} months</p>
+                                                    @else
+                                                        <p class="bg-primary">{{Carbon\Carbon::parse($member->registered_date)->diffInMonths(Carbon\Carbon::now())}} months</p>
+                                                    @endif
+                                                </div>
+                                            </option>
+                                              @endforeach
+                                              @endif
+                                            </datalist>
                                           </div>
                                           @if ($errors->has('username'))
                                               <div class="text-danger">{{ $errors->first('username') }}</div>
@@ -65,13 +86,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="middlename">Credit Amount</label>
-                                            <input type="number" name="credit_amount"  value="{{ old ('credit_amount')}}" required class="form-control" id="saving_percent" placeholder="credit amount">
+                                            <input type="text" name="credit_amount"  value="{{ old ('credit_amount')}}" required class="form-control" id="saving_percent" placeholder="credit amount">
                                           </div>
                                           @if ($errors->has('credit_amount'))
                                           <div class="text-danger">{{ $errors->first('credit_amount') }}</div>
                                        @endif
                                     </div>
-
                                  </div>
 
                                  <div class="row">
@@ -85,23 +105,34 @@
                                        @endif
                                     </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Interest Rate</label>
-                                            <input type="" name="interest_rate" value="{{ old('interest_rate') }}" required class="form-control"  placeholder="interest rate in percent">
-                                          </div>
-                                          @if ($errors->has('interest_rate'))
-                                              <div class="text-danger">{{ $errors->first('interest_rate') }}</div>
-                                           @endif
-                                    </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstname">Credit Start</label>
+                                                <input type="date" name="credit_start" value="{{ old('credit_start') }}" required class="form-control" >
+                                              </div>
+                                              @if ($errors->has('credit_start'))
+                                                  <div class="text-danger">{{ $errors->first('credit_start') }}</div>
+                                               @endif
+                                        </div>
+
                                  </div>
 
                                  <div class="row">
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="firstname">Witness 1</label>
-                                            <input type="text" name="witness_1" value="{{ old('witness_1') }}" required class="form-control"  placeholder="witness 1">
+                                            <label for="firstname">Select Witness 1</label>
+                                            <input type="text" name="witness_1" value="{{ old('witness_1') }}" list="witness1" class="form-control"  placeholder="witness 1">
+                                            <datalist id="witness1">
+                                                //show all members
+                                               @if($members->count()>0)
+                                               @foreach($members as $member)
+                                               //show username instead id
+                                                 <option value="{{$member->user->username}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
+                                               @endforeach
+                                               @endif
+                                             </datalist>
                                           </div>
                                           @if ($errors->has('witness_1'))
                                               <div class="text-danger">{{ $errors->first('witness_1') }}</div>
@@ -110,8 +141,17 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="firstname">Witness 2</label>
-                                            <input type="text" name="witness_2" value="{{ old('witness_2') }}" required class="form-control"  placeholder="witness 1">
+                                            <label for="firstname">Select Witness 2</label>
+                                            <input type="text" name="witness_2" value="{{ old('witness_2') }}" list="witness2" class="form-control"  placeholder="witness 2">
+                                            <datalist id="witness2">
+                                                //show all members
+                                               @if($members->count()>0)
+                                               @foreach($members as $member)
+                                               //show username instead id
+                                                 <option value="{{$member->user->username}}">{{$member->firstname}} {{$member->middlename}} {{$member->lastname}}</option>
+                                               @endforeach
+                                               @endif
+                                             </datalist>
                                           </div>
                                           @if ($errors->has('witness_2'))
                                               <div class="text-danger">{{ $errors->first('witness_2') }}</div>
@@ -119,32 +159,16 @@
                                     </div>
                                  </div>
 
-                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="firstname">Credit Start</label>
-                                            <input type="date" name="credit_start" value="{{ old('credit_start') }}" required class="form-control" >
-                                          </div>
-                                          @if ($errors->has('credit_start'))
-                                              <div class="text-danger">{{ $errors->first('credit_start') }}</div>
-                                           @endif
-                                    </div>
-                                 </div>
+
 
                                  <div class="col-md-3">
                                     <div class="input-group my-1">
                                         <button class="btn btn-primary w-100 fs-6">Add Credit</button>
                                       </div>
                                   </div>
-
                             </form>
-
                         </div>
-
-
                       </div>
-
-
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -165,16 +189,7 @@
 
                               <form action="{{route('manager.loancalculator')}}" method="POST">
                                   @csrf
-                                  @if(session()->has('message'))
-                                  <div class="bg-success text-white">
-                                    <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
-                                  </div>
-                                  @endif
-                                  @if(session()->has('error'))
-                                  <div class="bg-danger text-white">
-                                    <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
-                                  </div>
-                                  @endif
+
                                    <div class="row">
                                       <div class="col-md-12">
                                           <div class="form-group">
@@ -198,17 +213,7 @@
                                       </div>
                                    </div>
 
-                                   <div class="row">
-                                      <div class="col-md-12">
-                                          <div class="form-group">
-                                              <label for="firstname">Interest Rate</label>
-                                              <input type="text" name="interest_rate" value="{{ old('interest_rate') }}" required class="form-control"  placeholder="interest rate in percent">
-                                            </div>
-                                            @if ($errors->has('interest_rate'))
-                                                <div class="text-danger">{{ $errors->first('interest_rate') }}</div>
-                                             @endif
-                                      </div>
-                                   </div>
+
 
                                    <div class="col-md-8">
                                     <div class="input-group">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->float('interest_rate');
             $table->float('interest_amount');
             $table->float('total_payment');
+            $table->integer("duration_in_month");
             $table->datetime('credit_start');
             $table->datetime('credit_end');
             $table->string('witness1')->nullable();

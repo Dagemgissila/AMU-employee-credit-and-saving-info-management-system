@@ -1,76 +1,59 @@
 @extends('manager.layouts.app')
-
 @section('content')
 <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add members</h1>
+          <h1 class="m-0">Add Members</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
  </div>
+<!-- Tab panes -->
 
-
-
-  <!-- Tab panes -->
-
-  @if(session()->has('error'))
+  @if($errors->any())
   <div class="bg-danger text-white">
-    <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
+    @foreach ($errors->all() as $error)
+    <p class="px-2 py-1 my-0 d-flex justify-content-center align-items-center">   {{$error}}</p>
+    @endforeach
   </div>
-  @endif
+@endif
+@if(session()->has('message'))
+<div class="bg-success text-white">
+  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
+</div>
+@endif
+@if(session()->has('error'))
+<div class="bg-danger text-white">
+  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('error')}}</p>
+</div>
+@endif
 
    <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-
         <div class="row">
             <div class="col-md-12">
-
               <div class="card">
                 <div class="card-header">
                     <ul class="nav nav-pills">
                         <li class="nav-item">
-                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>ADD single member</a>
+                          <a class="nav-link active" data-toggle="pill" href="#addsingleuser"><i class="fa fa-plus-circle mr-1"></i>Add Single Member</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" data-toggle="pill" href="#uploadexcel">UPLOAD excel sheet</a>
+                          <a class="nav-link" data-toggle="pill" href="#uploadexcel"><i class="fa fa-upload"></i> Upload Excel File</a>
                         </li>
-
                       </ul>
                  </div>
-
                 <div class="card-body">
-
                     <div class="tab-content" >
                         <div class="tab-pane container-fluid active" id="addsingleuser">
 
                             <form action="{{route('manager.addmembers')}}" method="POST">
                                 @csrf
-                                @if(session()->has('message'))
-                                <div class="bg-success text-white">
-                                  <p class="p-2 d-flex justify-content-center align-items-center">   {{session('message')}}</p>
-                                </div>
-                                @endif
-                                @if($errors->any())
 
-
-                                  <div class="bg-danger text-white">
-                                    @foreach ($errors->all() as $error)
-                                    <p class="px-2 py-1 my-0 d-flex justify-content-center align-items-center">   {{$error}}</p>
-                                    @endforeach
-                                  </div>
-
-
-
-                                @endif
-                                @if(session()->has('error'))
-
-                                @endif
                                  <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
@@ -151,8 +134,6 @@
                                                 <option value="">-- Please select a sex --</option>
                                                 <option value="Female">Female</option>
                                                 <option value="Male">Male</option>
-
-
                                               </select>
                                               @if ($errors->has('sex'))
                                               <div class="text-danger">{{ $errors->first('sex') }}</div>
@@ -172,8 +153,6 @@
                                            @endif
                                           </div>
                                     </div>
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="colleage">colleage</label>
@@ -188,14 +167,12 @@
                                           <div class="text-danger">{{ $errors->first('colleage') }}</div>
                                        @endif
                                     </div>
-
                                  </div>
-
                                  <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="salary">Salary</label>
-                                            <input type="number"name="salary" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 15000.00">
+                                            <input type="text"name="salary" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 15000.00">
                                           </div>
                                           @if ($errors->has('salary'))
                                           <div class="text-danger">{{ $errors->first('salary') }}</div>
@@ -203,15 +180,13 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="salary">Saving Percent</label>
-                                            <input type="number"name="savingpercent" required  value="{{ old ('salary')}}"  class="form-control" id="salary" placeholder=" e.g 10">
+                                            <label for="percent">Saving Percent</label>
+                                            <input type="text"name="savingpercent" required min="10" max="30" value="{{ old ('savingpercent')}}"  class="form-control" id="percent" placeholder=" e.g 10">
                                           </div>
-                                          @if ($errors->has('SavingPercent'))
-                                          <div class="text-danger">{{ $errors->first('SavingPercent') }}</div>
+                                          @if ($errors->has('savingpercent'))
+                                          <div class="text-danger">{{ $errors->first('savingpercent') }}</div>
                                        @endif
                                     </div>
-
-
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="date">Registered Date</label>
@@ -221,7 +196,6 @@
                                          @endif
                                         </div>
                                     </div>
-
                                   <div class="col-md-2">
                                     <div class="input-group my-3">
                                         <button class="btn  btn-primary w-100 fs-6">Add member</button>
@@ -229,36 +203,25 @@
                                   </div>
                                  </div>
                             </form>
-
                         </div>
                         <div class="tab-pane container-fluid fade" id="uploadexcel">
                             <div class="container-fluid">
-                                <div class="panel panel-default">
-                                  <div class="panel-heading"><strong>Upload excel file</strong></div>
-                                  <div class="panel-body">
+                                <div class="panel panel-default ">
 
-                                    <!-- Standar Form -->
-                                    <h5>Select file from your computer</h5>
-                                    <form action="{{route('manager.uploadmember')}}" method="POST" enctype="multipart/form-data">
-                                        @csrf
+                                    <div class="panel-body p-1">
+                                        <!-- Standar Form -->
+                                        <form action="{{route('manager.uploadmember')}}" method="POST" enctype="multipart/form-data">
+                                          @csrf
+                                          <label for="formFileDisabled" class="form-label" style="font-weight: bold;">Upload Excel File</label>
+                                          <div class="input-group mb-3">
+                                            <input class="form-control" type="file" id="formFileDisabled" name="member_excel_data" accept=".xlsx,.xls,.csv" required>
+                                          </div>
+                                          <div class="">
 
-                                      <div class="form-inline">
-                                        <div class="form-group">
-                                            <label for="member_excel_data">Member Data Excel File:</label>
-                                            <input type="file" name="member_excel_data"  class="form-control-file" accept=".xlsx,.xls,.csv" required>
-                                            @error('member_excel_data')
-                                            <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <button type="submit" class="btn btn-sm btn-primary" id="js-upload-submit">Upload files</button>
+                                            <button type="submit" class="btn btn-sm btn-info" id="js-upload-submit" style="padding: 10px 20px;"><i class="fa fa-upload"></i> Upload Files</button>
+                                          </div>
+                                        </form>
                                       </div>
-                                    </form>
-
-
-
-
-
-                                  </div>
                                 </div>
                                 <hr>
                               </div> <!-- /container -->
@@ -271,18 +234,17 @@
                                         The columns in the Excel file should be organized as follows:</li>
                                         <ol>
                                             <li>FirstName</li>
-<li>MiddleName</li>
-<li>LastName</li>
-<li>PhoneNumber</li>
-<li>BankAccount</li>
-<li>Salary</li>
-<li>SavingPercent</li>
-<li>Campus</li>
-<li>College <i>(optional)</i> </li>
-<li>Sex</li>
-<li>MartialStatus</li>
-<li>RegisteredDate</li>
-
+                                            <li>MiddleName</li>
+                                            <li>LastName</li>
+                                            <li>PhoneNumber</li>
+                                            <li>BankAccount</li>
+                                            <li>Salary</li>
+                                            <li>SavingPercent</li>
+                                            <li>Campus</li>
+                                            <li>College <i>(optional)</i> </li>
+                                            <li>Sex</li>
+                                            <li>MartialStatus</li>
+                                            <li>RegisteredDate</li>
                                         </ol>
                                         <li>RegisteredDate column format is mm/dd/yyyy  . month/date/year</li>
                                         <h1>Here Sample File</h1>

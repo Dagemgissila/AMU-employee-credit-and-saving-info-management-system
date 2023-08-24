@@ -15,7 +15,8 @@
            alt="User Image"> --}}
         </div>
         <div class="info">
-          <a href="#" class="d-block">Administrator</a>
+
+          <a href="" class="d-block">Administrator</a>
         </div>
       </div>
 
@@ -50,13 +51,13 @@
               <li class="nav-item @if(Request::is('admin/manage-account/create-account')) bg-secondary @endif">
                 <a href="{{route('admin.create')}}" class="nav-link">
                   <i class="far fas fa-user-shield nav-icon"></i>
-                  <p>create account</p>
+                  <p>Create Account</p>
                 </a>
               </li>
               <li class="nav-item  @if(Request::is('admin/manage-account/list-of-user')) bg-secondary @endif">
                 <a href="{{ route('admin.listofuser')}}" class="nav-link">
                   <i class="far fas fa-user-lock nav-icon"></i>
-                  <p>list of user</p>
+                  <p>List of Account</p>
                 </a>
               </li>
             </ul>
@@ -67,7 +68,7 @@
             <a href="{{route('admin.changepassword')}}" class="nav-link ">
               <i class="nav-icon far fa-comments"></i>
               <p>
-                change password
+                Change Password
 
               </p>
             </a>

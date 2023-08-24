@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\Share;
 use App\Models\Credit;
+use App\Models\RequestCredit;
 use App\Models\SavingAccount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -39,6 +40,10 @@ class Member extends Model
     public function credits()
     {
         return $this->hasMany(Credit::class);
+    }
+
+    public function requestCredits(){
+        return $this->hasMany(RequestCredit::class);
     }
 
     public function shares(){

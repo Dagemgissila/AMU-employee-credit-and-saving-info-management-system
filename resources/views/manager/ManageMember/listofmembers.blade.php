@@ -13,11 +13,6 @@
     </div><!-- /.container-fluid -->
  </div>
 
-
-
-
-
-
                 <div class="modal fade" id="delete-user" tabindex="-1" role="dialog"  aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content ">
@@ -118,13 +113,13 @@
                         <td>{{$member->user->username}}</td>
                         <td>{{$member->phone_number}}</td>
                         <td>{{$member->bank_account}}</td>
-                        <td>{{$member->salary}} Birr</td>
+                        <td>{{number_format($member->salary,2)}} Birr</td>
                         <td>{{ $member->saving_percent }}  %</td>
                         <td>
                             @php
                             //Updated sum('saving_balance') to sum('saving_amount')
                               $totalBalanc = $member->shares->sum('share_amount');
-                              echo $totalBalanc ;
+                              echo number_format($totalBalanc,2) ;
                             @endphp
 
                             Birr
@@ -133,7 +128,7 @@
                             @php
                             //Updated sum('saving_balance') to sum('saving_amount')
                               $totalBalance = $member->savingAccounts->sum('saving_amount');
-                              echo $totalBalance ;
+                              echo number_format($totalBalance ,2);
                             @endphp
 
                             Birr
@@ -149,9 +144,7 @@
                             <a href="{{route('manager.editMember',$member->id)}}"  type="button" class="btn btn-primary d-flex align-items-center editbtn btn-sm mx-1 " >
                                 <i class="fa fa-edit"></i> Edit
                             </a>
-                            <button type="button" class="btn btn-danger d-flex align-items-center deletebtn btn-sm mx-1" data-toggle="modal">
-                                <i class="fa fa-trash"></i> Delete
-                            </button>
+
                         </td>
                      </tr>
 

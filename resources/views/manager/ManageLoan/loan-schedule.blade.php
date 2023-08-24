@@ -32,11 +32,12 @@
           <div class="card">
             <div class="card-header">
                 <h1>Loan Repayment Schedule</h1>
-                <p><strong>Loan Amount:</strong> {{ $loanAmount }} birr</p>
+                <p><strong>Loan Amount:</strong> {{$loanAmount}} birr</p>
                 <p><strong>Loan Term in Months:</strong> {{ $loanTermInMonths }} months</p>
                 <p><strong>Interest Rate:</strong> {{ $interestRate }}%</p>
-                <p><strong>Monthly Payment without Interest:</strong> {{ $principal }} birr</p>
-                <p><strong>Total Payment:</strong> {{ number_format($loanAmount + array_sum(array_column($loanSchedule, 'interest')), 2) }} birr</p>
+                <p><strong>Monthly Payment without Interest:</strong> {{number_format($principal ,2)}} birr</p>
+                <p><strong>Total Payment:</strong> {{ $loanAmount + array_sum(array_column($loanSchedule, 'interest')) }} birr</p>
+
                 <a href="{{route('manager.addcredit')}}" type="submit" class="btn btn-primary">Back</a>
             </div>
 
@@ -88,7 +89,7 @@
                         <td>{{++$i}}</td>
                         <td>{{ $schedule['due_date'] }}</td>
 
-				<td>{{ $schedule['principal'] }}</td>
+				<td>{{ number_format($schedule['principal'] ,2)}}</td>
 				<td>{{ $schedule['interest'] }}</td>
 				<td>{{ $schedule['due'] }}</td>
 				<td>{{ $schedule['principal_balance'] }}</td>

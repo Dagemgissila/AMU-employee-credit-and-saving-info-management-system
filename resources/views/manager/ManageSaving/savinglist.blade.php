@@ -7,10 +7,7 @@
           <h1 class="m-0">Saving Account</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -102,12 +99,12 @@
                         @endif
 
                         @if ($saving->member)
-                          <td>{{ $saving->member->firstname }} {{ $saving->member->middlename }}</td>
+                          <td>{{ $saving->member->firstname }} {{ $saving->member->middlename }} {{$saving->member->lastname}}</td>
                         @else
                           <td>N/A</td>
                         @endif
 
-                        <td>{{ $saving->saving_amount }} Birr</td>
+                        <td>{{ number_format($saving->saving_amount,2) }} Birr</td>
                         <td>{{ date('M j ,Y', strtotime($saving->saving_month)) }} </td>
                         <td class="d-flex">
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminUserConroller;
 use App\Http\Controllers\Manager\CreditController;
 use App\Http\Controllers\Manager\MemberController;
 use App\Http\Controllers\Manager\SavingController;
+use App\Http\Controllers\Member\MemberFindWitness;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\NewpasswordController;
 use App\Http\Controllers\Auth\ResetpasswordController;
@@ -21,6 +22,7 @@ use App\Http\Controllers\Member\SavingAccountController;
 use App\Http\Controllers\Member\MemberDashboardController;
 use App\Http\Controllers\Manager\ManagerDashboardController;
 use App\Http\Controllers\Admin\AdminChangepasswordController;
+use App\Http\Controllers\Member\MemberNotificationController;
 use App\Http\Controllers\Member\MemberChangepasswordController;
 use App\Http\Controllers\Manager\ManagerChangepasswordController;
 use App\Http\Controllers\CreditManager\CreditManagerShareController;
@@ -42,13 +44,16 @@ use App\Http\Controllers\CreditManager\CreditManagerChangepasswordController;
 Route::redirect('/', '/login');
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login',[LoginController::Class,'UserLogin'])->name('login.userlogin');
+Route::get('/back',[LoginController::class,'back'])->name('back');
 
 Route::get('/install',[InstallController::class,'index'])->name('install');
 Route::post('/install',[InstallController::class,'create'])->name('admin.register');
 Route::post('/logout',[LoginController::class,'logout'])->name('logout');
 Route::get('/forget-password',[ForgetpasswordController::class,'index'])->name('forget-password');
-Route::get('/reset-password',[ResetpasswordController::class,'index'])->name('reset-password');
-Route::get('/new-password',[NewpasswordController::class,'index'])->name('new-password');
+Route::post('/forget-password',[ForgetpasswordController::class,'forgetPasswordPost'])->name('forget-passwprd.post');
+Route::get('/reset-password/{token}',[ForgetpasswordController::class,'resetpassword'])->name('reset-passwowrd');
+Route::post('/reset-password-post',[ForgetpasswordController::class,'newpassword'])->name('new-password');
+
 
 
 
@@ -60,16 +65,16 @@ Route::middleware(['auth', 'user-role:admin'])->group(function () {
     Route::get('/admin/manage-account/create-account', [AdminUserConroller::class,'index'])->name('admin.create');
     Route::post('/admin/manage-account/create-account', [AdminUserConroller::class,'create'])->name('admin.create');
     Route::get('/admin/manage-account/list-of-user', [AdminUserConroller::class,'listofuser'])->name('admin.listofuser');
-    Route::post('/status-update/{id}',[AdminUserConroller::class,'updateStatus'])->name('status-update');
+    Route::post('/UpdateStatus/{id}',[AdminUserConroller::class,'updateStatus'])->name('admin.statusUpdate');
     Route::get('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpageview'])->name('admin.resetpassword');
     Route::post('/admin/manage-account/list-of-user/resetpassword/{id}',[AdminUserConroller::class,'resetpassword'])->name('admin.resetpassword');
     Route::delete('/users/{user}',[AdminUserConroller::class,'destroy'])->name('users.destroy');
     Route::get('/updateaccount/{id}',[AdminUserConroller::class,'edit']);
     Route::put('update-account',[AdminUserConroller::class,'updateaccount'])->name('updateaccount');
-   Route::get('/deleteaccount/{id}',[AdminUserConroller::class,'deleteaccount']);
-   Route::delete('deleteuser',[AdminUserConroller::class,'destroy'])->name('deleteaccount');
-   Route::get('/admin/change-password',[AdminChangepasswordController::class,'index'])->name('admin.changepassword');
-   Route::post('/admin/change-password',[AdminChangepasswordController::class,'changepassword'])->name('admin.changepassword');
+    Route::get('/deleteaccount/{id}',[AdminUserConroller::class,'deleteaccount']);
+    Route::delete('deleteuser',[AdminUserConroller::class,'destroy'])->name('admin.deleteaccount');
+    Route::get('/admin/change-password',[AdminChangepasswordController::class,'index'])->name('admin.changepassword');
+    Route::post('/admin/change-password',[AdminChangepasswordController::class,'changepassword'])->name('admin.changepassword');
 });
 
 
@@ -98,7 +103,15 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::post('/manager/manage-saving/upload-deposit',[SavingController::class,'uploaddeposit'])->name('manager.uploaddeposit');
     Route::get('manager/manage-credit/addcredit',[CreditController::class,'index'])->name('manager.creditform');
     Route::post('manager/manage-credit/addcredit',[CreditController::class,'addcredit'])->name('manager.addcredit');
+    Route::get('manager/manage-credit/creditlist',[CreditController::class,'viewCreditList'])->name('manager.creditlist');
+    Route::get('manager/manage-credit/creditdetail/{id}',[CreditController::class,'viewcreditdetail'])->name('manager.creditdetail');
+    Route::get('manager/manage-credit/credit-payment',[CreditController::class,'creditPayment'])->name('manager.creditPayment');
+    Route::post('manager/manage-credit/credit-payment',[CreditController::class,'addCreditPayment'])->name('manager.creditPayment');
+    Route::get('manager/manage-credit/witness-list',[CreditController::class,'witnesslist'])->name('manager.witnesslist');
     Route::post('manager/manage-credit/loan-calculate',[CreditController::class,'calculateLoanSchedule'])->name('manager.loancalculator');
+    Route::post('manager/manage-credit/UpdateCredit/{id}',[CreditController::class,'UpdateCredit'])->name('manager.UpdateCredit');
+    Route::get('manager/manage-credit/view-request-credit',[CreditController::class,'viewCreditRequest'])->name('manager.ViewRequestCredit');
+    Route::post('manager/manager-credit/approve-request/{id}',[CreditController::class,'ApproveRequest'])->name('manager.ApprovedCreditRequest');
     Route::get('manager/manage-share/view-share',[ShareController::class,'index'])->name('manager.viewshare');
     Route::get('manager/manage-share/sell-share',[ShareController::class,'shareform'])->name('manager.sellshare');
     Route::post('manager/manage-share/sell-share',[ShareController::class,'store'])->name('manager.sellshare');
@@ -113,6 +126,8 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::get('download/sample-file',[DownloadController::class,'download'])->name('download.samplefile');
     Route::get('download2/sample-file',[DownloadController::class,'download2'])->name('download2.samplefile');
 
+    Route::get('/manager/member-info/{id}', [MemberController::class,'ViewMember']);
+
 });
 
 
@@ -125,8 +140,13 @@ Route::middleware(['auth', 'user-role:member'])->group(function () {
     Route::post('/users/changepassword',[MemberChangepasswordController::class,'changepassword'])->name('member.changepassword');
     Route::get('/users/saving-account',[SavingAccountController::class,'index'])->name('member.savingaccount');
     Route::get('/users/share',[SavingAccountController::class,'share'])->name('member.share');
-    Route::get('users/user-credit',[MemberCreditController::class,'index'])->name('member.mycredit');
+    Route::get('users/my-credit',[MemberCreditController::class,'index'])->name('member.mycredit');
+    Route::get('users/my-credit-detail/{id}',[MemberCreditController::class,'CreditDetail'])->name('member.creditDetail');
+    Route::get('users/request-credit',[MemberCreditController::class,"ViewRequestPage"])->name('member.ViewRequestPage');
+    Route::post('users/request-credit',[MemberCreditController::class,'RequestCredit'])->name('member.RequestCredit');
+    Route::get('users/my-notification',[MemberNotificationController::class,"viewNotification"])->name('member.notification');
     Route::get('users/user-profile',[MemberProfileController::class,'index'])->name('member.profile');
+    Route::post('users/credit/search-witness',[MemberFindWitness::class,'index'])->name('member.seachWitness');
 
 });
 
@@ -140,6 +160,7 @@ Route::middleware(['auth', 'user-role:credit_controller'])->group(function () {
     Route::get('/credit-manager/view-member-info',[CreditManagerCreditController::class,'ViewMemberInfo'])->name('creditmanager.viewmember');
     Route::get('credit-manager/view-member-share',[CreditManagerShareController::class,'index'])->name('creditmanager.viewshare');
 });
+
 
 
 //the following code allow the pages accesed only by members

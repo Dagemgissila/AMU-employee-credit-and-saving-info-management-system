@@ -47,7 +47,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Username</th>
+
                             <th>Credit Amount</th>
                             <th>Interest Rate</th>
                             <th>Interest Amount</th>
@@ -55,34 +55,37 @@
                             <th>Total Payment</th>
                             <th>Credit Start</th>
                             <th>Credit End</th>
-                            <th>Witness</th>
+
                             <th>Status</th>
                             <th>Action</th>
 
                           </tr>
                     </thead>
                     <tbody>
+                        @php
+                        $i=0;
 
+                    @endphp
                         @foreach ($credits as $credit)
                         <tr>
-                            <td>1</td>
-                            <td>{{auth()->user()->username}}</td>
+                            <td>{{++$i}}</td>
+
                             <td>{{$credit->credit_amount}} birr</td>
                             <td>{{$credit->interest_rate}}  %</td>
                             <td>{{$credit->interest_amount}} birr</td>
                             <td>{{$credit->total_payment}} birr</td>
                             <td>{{ date('F j,Y', strtotime($credit->credit_start)) }}</td>
                             <td>{{ date('F j,Y', strtotime($credit->credit_end)) }}</td>
-                            <td>{{$credit->witness1}}</td>
+
                             @if ($credit->credit_status == 0)
     <td><button type="button" class="btn btn-danger btn-sm">Unpaid</button></td>
 @else
     <td><button type="button" class="btn btn-success btn-sm">Paid</button></td>
 @endif
 <td>
-    <button type="button" class="btn btn-primary btn-sm d-flex align-items-center" >
+    <a href="{{route('member.creditDetail',$credit->id)}}" type="button" class="btn btn-primary btn-sm d-flex align-items-center" >
         <i class="fa fa-eye px-1"></i> Detail
-    </button>
+    </a>
 </td>
                         </tr>
 

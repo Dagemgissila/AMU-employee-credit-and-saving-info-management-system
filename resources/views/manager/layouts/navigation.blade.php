@@ -3,7 +3,7 @@
     <a href="{{route('manager.dashboard')}}" class="brand-link py-3">
         <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:60px;height:60px" alt="ArbaMinch University Logo">
 
-      <span class="brand-text font-weight-light">AMU CSIMS</span>
+      <span class="brand-text font-weight-light">AMU WSCA</span>
     </a>
 
     <!-- Sidebar -->
@@ -40,7 +40,7 @@
             <a href="#" class="nav-link @if(Request::is('manager/manage-member/*')) active @endif">
               <i class="nav-icon fas  fa-users"></i>
               <p>
-                manage members
+                Manage Members
                 <i class="fas fa-angle-left right"></i>
 
               </p>
@@ -49,13 +49,13 @@
               <li class="nav-item  @if(Request::is('manager/manage-member/addmember')) bg-secondary @endif">
                 <a href="{{route('manager.addmembers')}}" class="nav-link">
                   <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>add member</p>
+                  <p>Add Member</p>
                 </a>
               </li>
               <li class="nav-item @if(Request::is('manager/manage-member/view-member-info')) bg-secondary @endif">
                 <a href="{{route('manager.viewmember')}}" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view member info</p>
+                  <p>View Member Info</p>
                 </a>
               </li>
             </ul>
@@ -77,13 +77,13 @@
               <li class="nav-item @if(Request::is('manager/manage-saving/saving-list')) bg-secondary @endif">
                 <a href="{{route('manager.savinglist')}}" class="nav-link">
                     <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>saving list</p>
+                  <p>Saving List</p>
                 </a>
               </li>
               <li class="nav-item @if(Request::is('manager/manage-saving/make-deposit')) bg-secondary @endif">
                 <a href="{{route('manager.makedeposit')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>make deposit</p>
+                  <p>Make Deposit</p>
                 </a>
               </li>
 
@@ -97,7 +97,7 @@
             <a href="" class="nav-link @if(Request::is('manager/manage-credit/*')) active @endif">
                 <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
-                Manage Loans
+                Manage Credit
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -106,34 +106,46 @@
               <li class="nav-item @if(Request::is('manager/manage-credit/addcredit')) bg-secondary @endif">
                 <a href="{{route('manager.creditform')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>add new credit</p>
+                  <p>Add New Credit</p>
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                   <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view credit list</p>
+              <li class="nav-item @if(Request::is('manager/manage-credit/creditlist')) bg-secondary @endif">
+                <a href="{{route('manager.creditlist')}}" class="nav-link">
+                    <i class="far fas fa-align-justify nav-icon"></i>
+                  <p>View Credit List</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+
+
+              <li class="nav-item @if(Request::is('manager/manage-credit/witness-list')) bg-secondary @endif">
+                <a href="{{route('manager.witnesslist')}}" class="nav-link">
                    <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view witness list</p>
+                  <p>View Witness List</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                   <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view credit request</p>
+              <li class="nav-item  @if(Request::is('manager/manage-credit/view-request-credit')) bg-secondary @endif">
+                <a href="{{ route('manager.ViewRequestCredit') }}" class="nav-link">
+                    <i class="far fas fa-align-justify nav-icon"></i>
+                    <p class="position-relative">
+                        Requested Credit
+                        @php
+                            $count = $RequestCredits->where('status', 0)->count();
+                        @endphp
+                        @if ($count > 0)
+                        <span class="badge bg-danger">{{$count}}</span>
+                        @endif
+                    </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+            </li>
+              <li class="nav-item @if(Request::is('manager/manage-credit/credit-payment')) bg-secondary @endif">
+                <a href="{{route('manager.creditPayment')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>add credit repayment</p>
+                  <p>Add Credit Payment</p>
                 </a>
               </li>
+
+
 
             </ul>
           </li>
@@ -154,13 +166,13 @@
               <li class="nav-item">
                 <a href="{{route('manager.sellshare')}}" class="nav-link @if(Request::is('manager/manage-share/sell-share')) bg-secondary @endif">
                   <i class="far fa fa-plus-circle nav-icon"></i>
-                  <p>sell share</p>
+                  <p>Sell Share</p>
                 </a>
               </li>
               <li class="nav-item @if(Request::is('manager/manage-share/view-share')) bg-secondary @endif">
                 <a href="{{route('manager.viewshare')}}" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>view sold share</p>
+                  <p>View Sold Share</p>
                 </a>
               </li>
             </ul>
@@ -179,13 +191,13 @@
               <li class="nav-item @if(Request::is('manager/manage-account/create-account')) bg-secondary @endif">
                 <a href="{{route('manager.createaccount')}}" class="nav-link">
                   <i class="far fas fa-user-shield nav-icon"></i>
-                  <p>create account</p>
+                  <p>Create Account</p>
                 </a>
               </li>
               <li class="nav-item  @if(Request::is('manager/manage-account/user-account')) bg-secondary @endif">
                 <a href="{{route('manager.viewaccount')}}" class="nav-link">
                   <i class="far fas fa-user-lock nav-icon"></i>
-                  <p>list of user</p>
+                  <p>List Of Account</p>
                 </a>
               </li>
             </ul>
@@ -196,32 +208,13 @@
             <a href="{{route('manager.changepassword')}}" class="nav-link @if(Request::is('manager/changepassword')) bg-primary @endif">
                 <i class="nav-icon fas  fas fa-unlock-alt"></i>
               <p>
-                 change password
+                 Change Password
 
               </p>
             </a>
 
           </li>
-          <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon far fa-bell"></i>
-              <p>
-                Notification
 
-              </p>
-            </a>
-
-          </li>
-          <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon far fa-comments"></i>
-              <p>
-                Feed Back
-
-              </p>
-            </a>
-
-          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -28,7 +28,12 @@
 <div class="card-body">
     <div class="row ">
         <div class="col-6">
-            <h4 class="font-weight-bold">Fullname : {{$user->member->firstname}} {{$user->member->middlename}}  {{$user->member->lastname}}</h4>
+            <h4 class="font-weight-bold">Fullname : @if($user->role == 'member')
+                {{$user->member->firstname}} {{$user->member->middlename}}  {{$user->member->lastname}}
+                                                    @else
+                                                    No name Found
+                                                    @endif
+             </h4>
             <h4 class="font-weight-bold">Username : {{$user->username}}</h4>
 
 <div class="my-3">

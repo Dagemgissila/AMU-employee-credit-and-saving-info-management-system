@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Member;
+use App\Models\CreditPayment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Credit extends Model
 {
@@ -25,5 +27,9 @@ class Credit extends Model
 
     public function member(){
         return $this->belongsTo(Member::class);
+    }
+
+    public function creditpayment(){
+        return $this->hasMany(CreditPayment::class);
     }
 }

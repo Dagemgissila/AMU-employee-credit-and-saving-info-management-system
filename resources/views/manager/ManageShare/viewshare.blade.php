@@ -98,7 +98,7 @@
                     <td>{{++$s}}</td>
                     <td>{{$share->member->user->username}}</td>
                     <td>{{$share->member->firstname}} {{$share->member->middlename}} {{$share->member->lastname}}</td>
-                    <td>{{$share->share_amount}} Birr</td>
+                    <td>{{number_format($share->share_amount,2)}} Birr</td>
                     <td>{{date('M j, Y',strtotime($share->created_at))}}</td>
                     <td>
 

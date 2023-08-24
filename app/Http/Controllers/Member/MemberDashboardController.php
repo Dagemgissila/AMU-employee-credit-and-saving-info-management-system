@@ -20,9 +20,10 @@ class MemberDashboardController extends Controller
         $totalAmount=$savingAccounts->sum('saving_amount');
 
          $salary=Member::where('user_id',auth()->user()->id)->first();
-         //$savingbalance=SavingAccount::query()->where('member_id','==',auth()->user()->member->id)->sum('saving_amount');
+         $shareBalance=$member->shares()->sum('share_amount');
+
          //to display saving percent on dashboard
          $savingPercent=Member::where('user_id',auth()->user()->id)->first();
-        return view('members.dashboard',compact('salary','savingPercent','totalAmount'));
+        return view('members.dashboard',compact('salary','savingPercent','totalAmount','shareBalance'));
     }
 }

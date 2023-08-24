@@ -7,10 +7,7 @@
           <h1 class="m-0">List of user</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -65,7 +62,7 @@
                           <p class="font-weight-bold " id="me">Are you sure you want to delete this user?</p>
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <form action="{{route('deleteaccount')}}" method="POST" id="deleteForm">
+                            <form action="{{route('admin.deleteaccount')}}" method="POST" id="deleteForm">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="user_id" id="userr_id">
@@ -91,23 +88,27 @@
 
           <div class="card">
 
-            @if(session()->has('message'))
+                          @if(session()->has('message'))
                              <div class="bg-success p-1 d-flex justify-content-center  align-items-center text-white">
                                <p class=" ">   {{session('message')}}</p>
                              </div>
                              @endif
 
-                             @if ($errors->has('email'))
-                             <div class="bg-danger text-white">
-                                <p class="p-2 d-flex justify-content-center font-weight-bold align-items-center lead"> {{ $errors->first('email') }}</p>
-                             </div>
-@endif
-                             @if ($errors->has('username'))
-                             <div class="bg-danger text-white">
-                                <p class="p-2 d-flex justify-content-center font-weight-bold align-items-center lead"> {{ $errors->first('username') }}</p>
-                             </div>
 
+                         @if($errors->has('email'))
+                         <div class="bg-danger p-1 d-flex justify-content-center  align-items-center text-white">
+                           <p class=" ">   {{$errors->first('email')}}</p>
+                         </div>
                          @endif
+
+                         @if($errors->has('username'))
+                         <div class="bg-danger p-1 d-flex justify-content-center  align-items-center text-white">
+                           <p class=" ">   {{$errors->first('username')}}</p>
+                         </div>
+                         @endif
+
+
+
             <!-- /.card-header -->
             <div class="card-body table-responsive">
               <table class="table table-hover"  id="usertable">
@@ -137,7 +138,7 @@
                   <td>{{$user->getCreatedAt()}}</td>
                   <td>{{$user->getUpdatedAt()}}</td>
                   <td>
-                    <form action="{{route('status-update',$user->id)}}" method="POST">
+                    <form action="{{route('admin.statusUpdate',$user->id)}}" method="POST">
                         @csrf
                         @if($user->account_status == 1)
                             <button type="submit" class="btn btn-success btn-sm" onclick="document.getElementById('status-input').value = 1;">Active</button>

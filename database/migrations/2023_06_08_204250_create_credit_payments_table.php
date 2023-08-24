@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('credit_id'); // foreign key column
             $table->foreign('credit_id')->references('id')->on('credits')->onDelete('cascade')->oUpdate('cascade');
-            $table->float('credit_amount');
-            $table->date('credit_month');
+            $table->float('paid_amount');
+            $table->float('principal');
+            $table->float('interest');
+            $table->float('principal_balance');
+            $table->date('paid_month');
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }

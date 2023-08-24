@@ -6,18 +6,12 @@
           <span class="px-2 m-0">AMU CSIMS</span>
       </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a href="{{route('member.dashboard')}}" class="nav-link">Home</a>
           </li>
-
-
           <li class="nav-item">
             <a href="{{route('member.savingaccount')}}" class="nav-link">Saving Account</a>
           </li>
@@ -26,11 +20,7 @@
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Credit</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
               <li><a href="{{route('member.mycredit')}}" class="dropdown-item">View My Credit </a></li>
-              <li><a href="#" class="dropdown-item">Request Credit</a></li>
-
-
-
-
+              <li><a href="{{route('member.ViewRequestPage')}}" class="dropdown-item">Request Credit</a></li>
             </ul>
           </li>
 
@@ -38,20 +28,15 @@
             <a href="{{route('member.share')}}" class="nav-link">Share</a>
           </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link">Notification</a>
+           <li class="nav-item">
+            <a href="{{route('member.notification')}}" class="nav-link">Notification</a>
           </li>
-
-
 
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Feedback</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
               <li><a href="#" class="dropdown-item">Send Feedback </a></li>
-              <li><a href="#" class="dropdown-item">View Replay</a></li>
-
-
-
+              <li><a href="" class="dropdown-item">View Replay</a></li>
 
             </ul>
           </li>
@@ -59,11 +44,14 @@
 
 
       </div>
+      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
       <!-- Right navbar links -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
          <li class="nav-item">
-        <a href="index3.html" class="nav-link">{{Auth::user()->username}}</a>
+        <a href="{{route('member.dashboard')}}" class="nav-link">{{Auth::user()->username}}</a>
       </li>
 
       <li class="nav-item d-flex align-items-center">
