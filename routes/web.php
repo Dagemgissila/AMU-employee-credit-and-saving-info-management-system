@@ -112,6 +112,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::post('manager/manage-credit/UpdateCredit/{id}',[CreditController::class,'UpdateCredit'])->name('manager.UpdateCredit');
     Route::get('manager/manage-credit/view-request-credit',[CreditController::class,'viewCreditRequest'])->name('manager.ViewRequestCredit');
     Route::post('manager/manager-credit/approve-request/{id}',[CreditController::class,'ApproveRequest'])->name('manager.ApprovedCreditRequest');
+    Route::get('manager/manage-credit/missed-credit-payment',[CreditController::class,'missedPaymentList'])->name('manager.missedPayment');
     Route::get('manager/manage-share/view-share',[ShareController::class,'index'])->name('manager.viewshare');
     Route::get('manager/manage-share/sell-share',[ShareController::class,'shareform'])->name('manager.sellshare');
     Route::post('manager/manage-share/sell-share',[ShareController::class,'store'])->name('manager.sellshare');
@@ -127,6 +128,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::get('download2/sample-file',[DownloadController::class,'download2'])->name('download2.samplefile');
 
     Route::get('/manager/member-info/{id}', [MemberController::class,'ViewMember']);
+
 
 });
 

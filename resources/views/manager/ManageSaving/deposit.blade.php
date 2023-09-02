@@ -78,26 +78,7 @@
                                             </datalist>
                                           </div>
                                     </div>
-                                     <!--
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="firstname">User name</label>
-                                            <input type="text" name="username" value="{{ old('username') }}" required class="form-control" id="username" placeholder="username">
-                                          </div>
-                                          @if ($errors->has('username'))
-                                              <div class="text-danger">{{ $errors->first('username') }}</div>
-                                           @endif
-                                    </div>
-
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="middlename">Saving Amount</label>
-                                                <input type="text" name="saving_amount" value="{{ old ('saving_amount')}}" required class="form-control" id="saving_percent" placeholder="saving amount">
-                                            </div>
-                                            @if ($errors->has('saving_amount'))
-                                            <div class="text-danger">{{ $errors->first('saving_amount') }}</div>
-                                            @endif
-                                        </div>
+                         
                                         -->
                                         <div class="col-md-4">
                                             <div class="form-group">

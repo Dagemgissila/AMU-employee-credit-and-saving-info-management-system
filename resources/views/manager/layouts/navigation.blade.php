@@ -55,7 +55,7 @@
               <li class="nav-item @if(Request::is('manager/manage-member/view-member-info')) bg-secondary @endif">
                 <a href="{{route('manager.viewmember')}}" class="nav-link">
                   <i class="far fas fa-align-justify nav-icon"></i>
-                  <p>View Member Info</p>
+                  <p>View Member </p>
                 </a>
               </li>
             </ul>
@@ -116,6 +116,20 @@
                   <p>View Credit List</p>
                 </a>
               </li>
+
+              <li class="nav-item @if(Request::is('manager/manage-credit/missed-credit-payment')) bg-secondary @endif">
+
+                <a href="{{ route('manager.missedPayment') }}" class="nav-link">
+
+                    <i class="far fas fa-align-justify nav-icon"></i>
+                    <p>Payment Alert
+
+                    </p>
+                    @if(isset($missedPaymentCount) && $missedPaymentCount > 0)
+                    <span class="badge badge-danger">{{ $missedPaymentCount }}</span>
+                @endif
+                </a>
+            </li>
 
 
               <li class="nav-item @if(Request::is('manager/manage-credit/witness-list')) bg-secondary @endif">

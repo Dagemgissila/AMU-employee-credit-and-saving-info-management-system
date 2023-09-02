@@ -414,6 +414,18 @@ class CreditController extends Controller
             return view('manager.ManageLoan.CreditRequest',compact('RequestCredits'));
         }
 
+        public function missedPaymentList(){
+            $missedPayment = CreditPayment::where('status', 0)
+            ->where('paid_month', '<=', Carbon::now()->toDateString())
+            ->get();
+
+
+             return view("manager.ManageLoan.missedpayment",compact("missedPayment"));
+
+
+
+        }
+
         public function ApproveRequest(Request $request,$id){
             $userId = $request->user_id;
             $user = User::find($userId);

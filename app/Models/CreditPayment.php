@@ -10,7 +10,8 @@ class CreditPayment extends Model
 {
     use HasFactory;
 
-    public function credits(){
-        return $this->belongsTo(Credit::class);
+    public function credits()
+    {
+        return $this->belongsTo(Credit::class, 'credit_id');
     }
 }
