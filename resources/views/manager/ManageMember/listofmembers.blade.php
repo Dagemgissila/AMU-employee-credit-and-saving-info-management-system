@@ -80,6 +80,7 @@
                         <th>MiddleName</th>
                         <th>LastName</th>
                         <th>UserName</th>
+                        <th>Email</th>
                         <th>PhoneNumber </th>
                         <th>BankAccount</th>
                         <th> Salary </th>
@@ -87,7 +88,7 @@
                         <th>ShareBalance</th>
                         <th>SavingBalance</th>
                         <th>Campus</th>
-                        <th>Colleage</th>
+
                         <th>Sex</th>
                         <th>MartialStatus</th>
                         <th>RegisteredDate</th>
@@ -111,6 +112,7 @@
                         <td>{{$member->middlename}}</td>
                         <td>{{$member->lastname}}</td>
                         <td>{{$member->user->username}}</td>
+                        <td>{{$member->user->email}}</td>
                         <td>{{$member->phone_number}}</td>
                         <td>{{$member->bank_account}}</td>
                         <td>{{number_format($member->salary,2)}} Birr</td>
@@ -136,7 +138,7 @@
 
 
                         <td>{{$member->campus}}</td>
-                        <td>{{$member->colleage}}</td>
+
                         <td>{{$member->sex}}</td>
                         <td>{{$member->martial_status}}</td>
                         <td>{{date('M j, Y,',strtotime($member->registered_date))}}</td>

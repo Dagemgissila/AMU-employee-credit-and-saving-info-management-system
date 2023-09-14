@@ -28,18 +28,49 @@
             <a href="{{route('member.share')}}" class="nav-link">Share</a>
           </li>
 
-           <li class="nav-item">
-            <a href="{{route('member.notification')}}" class="nav-link">Notification</a>
-          </li>
+          <li class="nav-item">
+            <a href="{{ route('member.notification') }}" class="nav-link">
+                Notification
+                @if($notificationCount > 0)
 
-          <li class="nav-item dropdown">
+                    <span class="badge bg-danger">{{$notificationCount}}</span>
+                @endif
+                <div class="toast-container">
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small class="text-muted">just now</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      See? Just like this.
+    </div>
+  </div>
+
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <img src="..." class="rounded me-2" alt="...">
+      <strong class="me-auto">Bootstrap</strong>
+      <small class="text-muted">2 seconds ago</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Heads up, toasts will stack automatically
+    </div>
+  </div>
+</div>
+            </a>
+        </li>
+
+          {{-- <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Feedback</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
               <li><a href="#" class="dropdown-item">Send Feedback </a></li>
               <li><a href="" class="dropdown-item">View Replay</a></li>
 
             </ul>
-          </li>
+          </li> --}}
         </ul>
 
 
@@ -55,7 +86,7 @@
       </li>
 
       <li class="nav-item d-flex align-items-center">
-        <img src="{{ asset('img/avator.avif')}}" alt="" class="rounded-circle" style="width: 40px; height: 40px;">
+
       </li>
 
 

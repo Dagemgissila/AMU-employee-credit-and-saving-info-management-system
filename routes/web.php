@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\notification;
 use App\Http\Controllers\InstallController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\Auth\LoginController;
@@ -124,7 +125,7 @@ Route::middleware(['auth', 'user-role:manager'])->group(function () {
     Route::delete('/manager/manage-account-deleteuser',[ManagerUserController::class,'destroy'])->name('deleteaccount');
     Route::get('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpageview'])->name('manager.resetpassword');
     Route::post('/manager/manage-account/resetpassword/{id}',[ManagerUserController::class,'resetpassword'])->name('manager.resetpassword');
-    Route::get('download/sample-file',[DownloadController::class,'download'])->name('download.samplefile');
+    Route::post('download/sample-file',[DownloadController::class,'download'])->name('download.data');
     Route::get('download2/sample-file',[DownloadController::class,'download2'])->name('download2.samplefile');
 
     Route::get('/manager/member-info/{id}', [MemberController::class,'ViewMember']);
@@ -149,24 +150,21 @@ Route::middleware(['auth', 'user-role:member'])->group(function () {
     Route::get('users/my-notification',[MemberNotificationController::class,"viewNotification"])->name('member.notification');
     Route::get('users/user-profile',[MemberProfileController::class,'index'])->name('member.profile');
     Route::post('users/credit/search-witness',[MemberFindWitness::class,'index'])->name('member.seachWitness');
+    Route::post("users/n",[MemberNotificationController::class,"read"])->name("seeNotification");
+
 
 });
 
 
 //the following code allow the pages accesed by credit manager
-Route::middleware(['auth', 'user-role:credit_controller'])->group(function () {
+// Route::middleware(['auth', 'user-role:credit_controller'])->group(function () {
 
-    Route::get('credit-manager/dashboard',[CreditManagerDashboardController::class,'index'])->name('creditmanager.dashboard');
-    Route::get('/user/changepassword',[CreditManagerChangepasswordController::class,'index'])->name('creditmanager.changepassword');
-    Route::post('/user/changepassword',[CreditManagerChangepasswordController::class,'changepassword'])->name('creditmanager.changepassword');
-    Route::get('/credit-manager/view-member-info',[CreditManagerCreditController::class,'ViewMemberInfo'])->name('creditmanager.viewmember');
-    Route::get('credit-manager/view-member-share',[CreditManagerShareController::class,'index'])->name('creditmanager.viewshare');
-});
-
-
-
-//the following code allow the pages accesed only by members
-Route::middleware(['auth', 'user-role:saving_controller'])->group(function () {
+//     Route::get('credit-manager/dashboard',[CreditManagerDashboardController::class,'index'])->name('creditmanager.dashboard');
+//     Route::get('/user/changepassword',[CreditManagerChangepasswordController::class,'index'])->name('creditmanager.changepassword');
+//     Route::post('/user/changepassword',[CreditManagerChangepasswordController::class,'changepassword'])->name('creditmanager.changepassword');
+//     Route::get('/credit-manager/view-member-info',[CreditManagerCreditController::class,'ViewMemberInfo'])->name('creditmanager.viewmember');
+//     Route::get('credit-manager/view-member-share',[CreditManagerShareController::class,'index'])->name('creditmanager.viewshare');
+// });
 
 
-});
+

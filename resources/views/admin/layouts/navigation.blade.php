@@ -3,7 +3,7 @@
     <a href="{{route('admin.dashboard')}}" class="brand-link py-3">
         <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid" style="width:60px;height:60px" alt="ArbaMinch University Logo">
 
-      <span class="brand-text font-weight-light">AMU CSIMS</span>
+      <span class="brand-text font-weight-light">AMU WSCA</span>
     </a>
 
     <!-- Sidebar -->

@@ -16,7 +16,7 @@
                     <div class="row ">
 
                         <div class="col-lg-12">
-                            <div class="p-3">
+                            <div class="p-2">
                                 <div class="header-text d-flex  justify-content-around align-items-center mt-2" style="width:100%;">
                                     <img src="{{asset ('img/ArbaMinchUniversity-logo_0.gif')}}" class="img-fluid d-none d-md-flex" style="width:16vw;height:17vh;">
                                     <h2 class="text-primary" style="margin-left:1.3em">A.M.U Workers Saving & Credit Association</h2>
@@ -24,7 +24,7 @@
                                   <hr style="border:1px solid rgb(38, 38, 38);width:100%">
 
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-2">Admin Registration Page</h1>
+                                    <h1 class="h4 text-gray-900 mb-1">Admin Registration Page</h1>
                                 </div>
                                 <div class="text-center ">
                                     <p class="text-danger m-0 font-weight-bold ">this page can not display again once you create account,
@@ -71,7 +71,7 @@
                                   @if ($errors->has('confirm_password'))
                                   <div class="text-danger">{{ $errors->first('confirm_password') }}</div>
                               @endif
-                                  <div class="input-group mb-3">
+                                  <div class="input-group mb-2">
                                     <button class="btn btn-lg btn-primary w-100 fs-6">Create Account</button>
                                   </div>
 

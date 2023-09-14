@@ -86,8 +86,17 @@
                                  <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" value="{{$member->user->email}}"  class="form-control" id="email" placeholder="email">
+                                          </div>
+                                          @if ($errors->has('email'))
+                                          <div class="text-danger">{{ $errors->first('email') }}</div>
+                                       @endif
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label for="username">Saving percent</label>
-                                            <input type="text" name="SavingPercent" value="{{ $member->saving_percent}}" required class="form-control" id="username" placeholder="e.g. 1364">
+                                            <input type="text" name="SavingPercent" min="10" max="30" value="{{ $member->saving_percent}}" required class="form-control" id="username" placeholder="e.g. 1364">
 
                                           </div>
                                           @if ($errors->has('SavingPercent'))
@@ -103,6 +112,11 @@
                                           <div class="text-danger">{{ $errors->first('bankaccount') }}</div>
                                        @endif
                                     </div>
+
+                                 </div>
+                                 <hr>
+
+                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="phonenumber">Phone Number</label>
@@ -112,10 +126,6 @@
                                           <div class="text-danger">{{ $errors->first('phonenumber') }}</div>
                                        @endif
                                     </div>
-                                 </div>
-                                 <hr>
-
-                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="salary">Salary</label>
@@ -142,20 +152,7 @@
                                           <div class="text-danger">{{ $errors->first('campus') }}</div>
                                        @endif
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="colleage">colleage</label>
-                                            <select class="form-control " required name="colleage" style="width: 100%;">
-                                                <option value="">-- Please select a colleage --</option>
-                                                <option value="Amit" {{$member->colleage == "Amit"? ' selected' : ''}}>Amit</option>
-                                                <option value="Awit" {{$member->colleage == 'Awit' ? 'selected' : ''}}>Awit</option>
-                                                <option value="Medical" {{$member->colleage == 'Medical' ? 'selected' : ''}}>Medical</option>
-                                              </select>
-                                          </div>
-                                          @if ($errors->has('colleage'))
-                                          <div class="text-danger">{{ $errors->first('colleage') }}</div>
-                                       @endif
-                                    </div>
+
                                  </div>
 
                                  <div class="row">

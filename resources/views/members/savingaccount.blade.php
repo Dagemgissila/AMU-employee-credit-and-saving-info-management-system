@@ -22,7 +22,7 @@
               <!-- /.card -->
               <div class="card">
                 <div class="card-header">
-                    <p class="m-0 font-weight-bold">Member Name : {{ $member->firstname}} {{$member->middlename}} {{$member->lastname}}  </small></p>
+
                     <p class="m-0 font-weight-bold">Total Savings  : {{ $totalAmount}}  ETB</small></p>
                 </div>
                  @if(session()->has('message'))

@@ -45,7 +45,7 @@
                   <!-- small box -->
                   <div class="small-box bg-success">
                     <div class="inner">
-                      <h3>00</h3>
+                      <h3>{{$credit}} Birr</h3>
 
                       <p>My credit</p>
                     </div>
@@ -101,7 +101,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-6">
+                  {{-- <div class="col-lg-4 col-md-6">
                     <!-- small box -->
                     <div class="small-box bg-primary">
                       <div class="inner">
@@ -114,7 +114,7 @@
                       </div>
                       <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
-                  </div>
+                  </div> --}}
 
 
                 <!-- ./col -->

@@ -126,7 +126,7 @@
 <script src="{{asset('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <!-- AdminLTE App -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 <!-- JavaScript code to play notification sound -->
 <script>

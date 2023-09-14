@@ -98,6 +98,15 @@
                 <i class="nav-icon far fa-money-bill-alt"></i>
               <p>
                 Manage Credit
+                @if(isset($missedPaymentCount) && $missedPaymentCount > 0)
+
+                @endif
+                @php
+                $count = $RequestCredits->where('status', 0)->count();
+            @endphp
+            @if ($count > 0)
+            <span class="badge bg-danger">{{$count + $missedPaymentCount}}</span>
+            @endif
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -152,12 +161,13 @@
                     </p>
                 </a>
             </li>
-              <li class="nav-item @if(Request::is('manager/manage-credit/credit-payment')) bg-secondary @endif">
+
+              {{-- <li class="nav-item @if(Request::is('manager/manage-credit/credit-payment')) bg-secondary @endif">
                 <a href="{{route('manager.creditPayment')}}" class="nav-link">
                     <i class="far fa fa-plus-circle nav-icon"></i>
                   <p>Add Credit Payment</p>
                 </a>
-              </li>
+              </li> --}}
 
 
 
@@ -192,7 +202,7 @@
             </ul>
           </li>
 
-          <li class="nav-item ">
+          {{-- <li class="nav-item ">
             <a href="#" class="nav-link @if(Request::is('manager/manage-account/*')) bg-primary @endif">
               <i class="nav-icon fas  fas fa-unlock-alt"></i>
               <p>
@@ -215,7 +225,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> --}}
 
 
           <li class="nav-item ">

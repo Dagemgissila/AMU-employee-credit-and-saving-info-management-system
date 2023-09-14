@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use DB;
 use Carbon\Carbon;
 use App\Models\CreditPayment;
 use App\Models\RequestCredit;
@@ -34,5 +35,17 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with("missedPaymentCount", $missedPaymentCount);
         });
+
+
+            View::composer("*", function($view) {
+                $notificationCount = DB::table('notifications')
+                    ->where('notifiable_id', auth()->user()->id)
+                    ->whereNull('read_at')
+                    ->count();
+
+
+                $view->with("notificationCount", $notificationCount);
+            });
+
     }
 }

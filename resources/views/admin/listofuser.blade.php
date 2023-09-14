@@ -133,7 +133,11 @@
                 <tr>
                   <td>{{$user->username}}
                   </td>
-                  <td>{{$user->email}}</td>
+                  <td>@if ($user->email !=null)
+                       {{$user->email}}
+                       @else
+                       <p>no email</p>
+                  @endif</td>
                   <td> {{$user->role}}</td>
                   <td>{{$user->getCreatedAt()}}</td>
                   <td>{{$user->getUpdatedAt()}}</td>
@@ -141,9 +145,9 @@
                     <form action="{{route('admin.statusUpdate',$user->id)}}" method="POST">
                         @csrf
                         @if($user->account_status == 1)
-                            <button type="submit" class="btn btn-success btn-sm" onclick="document.getElementById('status-input').value = 1;">Active</button>
+                            <p class="font-weight-bold text-success">active</p>
                         @else
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="document.getElementById('status-input').value = 0;">Restricted</button>
+                        <p class="font-weight-bold text-danger">restricted</p>
                         @endif
                         <input type="hidden" name="status" id="status-input" value="{{ $user->account_status }}">
                     </form>
@@ -154,16 +158,23 @@
                   {{-- action --}}
                   <td class="d-flex">
                      <!-- Update button with edit icon -->
-                <button  type="button" value="{{$user->id}}" class="btn btn-primary editbtn btn-sm mx-1" data-toggle="modal" >
-                    <i class="fa fa-edit"></i> Edit
-                </button>
+                     <form action="{{route('admin.statusUpdate',$user->id)}}" method="POST">
+                        @csrf
+                        @if($user->account_status == 0)
+                            <button type="submit" class="btn btn-success btn-sm mx-1" onclick="document.getElementById('status-input').value = 1;">Active</button>
+                        @else
+                            <button type="submit" class="btn btn-danger btn-sm mx-1" onclick="document.getElementById('status-input').value = 0;">Restrict</button>
+                        @endif
+                        <input type="hidden" name="status" id="status-input" value="{{ $user->account_status }}">
+                    </form>
+                    <a href="{{route('admin.resetpassword',$user->id)}}" type="button" class="btn btn-warning btn-sm mx-1">
+                        <i class="fas fa-key"></i> Reset Password
+                    </a>
                 <button type="button" value="{{$user->id}}" class="btn btn-danger deletebtn btn-sm"  data-toggle="modal" >
                     <i class="fa fa-trash"></i> Delete
                   </button>
 
-                    <a href="{{route('admin.resetpassword',$user->id)}}" type="button" class="btn btn-warning btn-sm mx-1">
-                        <i class="fas fa-key"></i> Reset Password
-                    </a>
+
 
 {{-- endaction --}}
                </td>

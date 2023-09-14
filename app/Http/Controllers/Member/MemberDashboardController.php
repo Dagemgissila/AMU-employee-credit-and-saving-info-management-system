@@ -17,6 +17,8 @@ class MemberDashboardController extends Controller
         $user = auth()->user();
         $member = $user->member;
         $savingAccounts = $member->savingAccounts()->orderBy('saving_month')->get();
+        $credit=$member->credits->sum("credit_amount");
+
         $totalAmount=$savingAccounts->sum('saving_amount');
 
          $salary=Member::where('user_id',auth()->user()->id)->first();
@@ -24,6 +26,6 @@ class MemberDashboardController extends Controller
 
          //to display saving percent on dashboard
          $savingPercent=Member::where('user_id',auth()->user()->id)->first();
-        return view('members.dashboard',compact('salary','savingPercent','totalAmount','shareBalance'));
+        return view('members.dashboard',compact('salary',"credit",'savingPercent','totalAmount','shareBalance'));
     }
 }

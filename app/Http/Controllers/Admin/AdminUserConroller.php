@@ -32,7 +32,7 @@ class AdminUserConroller extends Controller
 
     public function listofuser(){
         $users=User::query()
-        ->where('role','=','manager')
+        ->where('role','!=','admin')
         ->orderBy('created_at', 'desc')
         ->get();
 

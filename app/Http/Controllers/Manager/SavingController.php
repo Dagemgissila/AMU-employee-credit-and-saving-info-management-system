@@ -60,7 +60,7 @@ class SavingController extends Controller
 
     public function deposit(){
         if(auth()->user()->password_status == 0){
-            return redirect()->route('manager.savingdetail');
+            return redirect()->route('manager.changepassword');
         }
         //to display all members as drop down
          $members=Member::all();
@@ -82,7 +82,7 @@ class SavingController extends Controller
             return back()->with('error','the member is not found');
         }
         $member=Member::where('user_id',$user->id)->first();
-         $member2=SavingAccount::where('member_id',$member->id)->first();
+         $member2=SavingAccount::where('member_id',$member->id)->get();
          //get registered date
          //dd($member2);
         $reg_date=$member->registered_date;
@@ -90,14 +90,22 @@ class SavingController extends Controller
         //access previous month - recorded saving date
         if($member2!=null)
         {
-            $previous_saving_date=$member2->saving_month;
-            $prev_month_year=date('m-Y', strtotime($previous_saving_date));
-            //dd($prev_month_year);
-            $user_input_month=date('m-Y',strtotime($validatedData['saving_month']));
-            //dd($user_input_month);
+            $previous_saving_date=[];
+            $prev_month_year = '';
+            foreach ($member2 as $m) {
+
+
+                $previous_saving_date = $m->saving_month;
+                $prev_month_year = date('m-Y', strtotime($previous_saving_date));
+
+            }
+            $user_input_month = date('m-Y', strtotime($validatedData['saving_month']));
+
+
             if( $prev_month_year!= $user_input_month){
             if($validatedData['saving_month']<=Carbon::now()){
-            if($validatedData['saving_month']>=$reg_date){
+                $date = substr($reg_date, 0, 10);
+            if($validatedData['saving_month']>=$date){
             //calculated saving monthly amount
             $monthly_saving_amount=$member->salary*($member->saving_percent/100);
 
@@ -134,8 +142,12 @@ class SavingController extends Controller
             }
             }
     else{
-           if($validatedData['saving_month']<=Carbon::now()){
-            if($validatedData['saving_month']>=$reg_date){
+
+           if($validatedData['saving_month']<=Carbon::now()->format('Y-m-d')){
+            $date = substr($reg_date, 0, 10);
+
+            if($validatedData['saving_month']>=$date){
+
             //calculated saving monthly amount
             $monthly_saving_amount=$member->salary*($member->saving_percent/100);
 
@@ -160,6 +172,8 @@ class SavingController extends Controller
             //if user is trying to deposit for past month/year / le Tinant
             return redirect()->back()->with('error', 'Please select date equal to or after '.$reg_date);
             }
+
+
             }
             else{
             //if user tries to deposit for future month/year  / le Nege

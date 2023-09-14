@@ -39,6 +39,7 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
                 // insert a new user
                 $user = new User();
                 $user->username = $username;
+                $user->email=$row['email'];
                 $user->password = Hash::make(12345678);
                 $user->role = 'member';
                 $user->save();
@@ -53,14 +54,13 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
                 $member->phone_number = $row['phonenumber'];
                 $member->salary = $row['salary'];
                 $member->campus = ucfirst(strtolower($row['campus']));
-                $member->colleage = ucfirst(strtolower($row['colleage']));
+
                 $member->sex = ucfirst(strtolower($row['sex']));
                 $member->martial_status = ucfirst(strtolower($row['martialstatus']));
 
-                $dateValue = $row['registereddate'];
-                $unixTimestamp = ($dateValue - 25569) * 86400;
-                $date = Carbon::createFromFormat('U', $unixTimestamp)->format('Y-m-d H:i:s');
-                $member->registered_date = $date;
+
+
+                $member->registered_date = Carbon::now();
 
                 $member->user_id = $user->id; // set the user_id foreign key
                 $member->save();
@@ -100,10 +100,10 @@ class MembersImport implements ToCollection,WithHeadingRow,WithValidation
             'savingpercent'=>'required|numeric|min:10|max:30',
             'salary'=>'required|numeric',
             'campus'=>'required|string',
-            'colleage'=>'string',
+            'email'=>'required|unique:users',
             'sex'=>'required|string',
             'martialstatus'=>'required|string',
-            'registereddate' => 'required',
+
 
         ];
     }

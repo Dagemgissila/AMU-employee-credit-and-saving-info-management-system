@@ -43,10 +43,10 @@ class MemberController extends Controller
             'savingpercent'=>'required|numeric|min:10|max:30',
             'salary'=>'required|numeric',
             'campus'=>'required|string',
-            'colleage'=>'string',
+             'email'=>'required|unique:users',
             'sex'=>'required|string',
             'martial_status'=>'required|string',
-            'registered_date'=>'required'
+
                  ],[
 
                     'bank_account'=>'the bank account number already exists',
@@ -71,6 +71,7 @@ class MemberController extends Controller
                      // insert a new user
                      $user = new User();
                      $user->username = $username;
+                     $user->email=$request->email;
                      $user->password = Hash::make(12345678);
                      $user->role = 'member';
                      $user->save();
@@ -88,17 +89,11 @@ class MemberController extends Controller
                      $member->sex =ucfirst(strtolower($request->sex));
                      $member->colleage = ucfirst(strtolower($request->colleage));
                      $member->martial_status = ucfirst(strtolower($request->martial_status));
-                     $member->registered_date = $request->registered_date;
+                     $member->registered_date = Carbon::now();
                      $member->user_id = $user->id; // set the user_id foreign key
                      $member->save();
 
-                     //insert a new savings account
-                    /*$saving = new SavingAccount;
-                     $saving->member_id = $member->id;
-                     //$saving->saving_amount = 0;
-                     $saving->saving_amount=($member->salary* ($member->saving_percent/100));
-                     $saving->saving_month = Carbon::now();
-                     $saving->save();*/
+
 
                     $share=new Share;
                      $share->member_id=$member->id;
@@ -163,9 +158,9 @@ class MemberController extends Controller
             'bankaccount' => 'required|numeric|unique:members,bank_account,' . $member->id,
             'phonenumber' => 'required|numeric|unique:members,phone_number,' . $member->id,
             'salary' => 'required|numeric',
-            'SavingPercent'=>'required|numeric|',
+            'SavingPercent'=>'required|numeric|min:10|max:30',
             'campus' => 'required|string',
-            'colleage' => 'string',
+            'email'=>'required|unique:users,email,'.$member->user->id,
             'sex' => 'required|string',
             'martial_status' => 'required|string',
             'registered_date' => 'required',
@@ -205,6 +200,9 @@ class MemberController extends Controller
                     $member->user->username = $username;
                     $member->user->save();
                 }
+                User::whereId($member->user->id)->update([
+                    'email'=>$request->email
+                ]);
                  $member->save();
                 return redirect()->route('manager.viewmember')->with('message','member update  succesfully');
     }

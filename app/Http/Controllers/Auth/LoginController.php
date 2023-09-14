@@ -34,8 +34,8 @@ class LoginController extends Controller
 
     public function UserLogin(Request $request){
         $this->validate($request,[
-            'username'=>'required',
-            'password'=>'required'
+            'username'=>'required|string|max:20',
+            'password'=>'required|string|max:20'
         ]);
 
 

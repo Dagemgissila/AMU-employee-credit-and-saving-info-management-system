@@ -31,8 +31,8 @@
               <div class="card">
 
                 <div class="card-header">
-                    <p class="m-0 font-weight-bold">Member Name : {{ $member->firstname}} {{$member->middlename}} {{$member->lastname}}  </small></p>
-                    <p class="m-0 font-weight-bold">Total Savings  : {{ $shareAmount}}  ETB</small></p>
+
+                    <p class="m-0 font-weight-bold">Total Share  : {{ $shareAmount}}  ETB</small></p>
                 </div>
                  @if(session()->has('message'))
                 <div class="bg-success text-white">

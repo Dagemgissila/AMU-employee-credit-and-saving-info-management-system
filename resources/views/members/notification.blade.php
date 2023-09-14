@@ -8,7 +8,7 @@
           <div class="container">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0"> Request Credit</small></h1>
+
               </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -17,30 +17,22 @@
 
         <div class="content">
             <div class="container">
+
                 <section class="content">
                     @foreach ($data as $notification)
-                    <div class="d-flex p-1 flex-column rounded" style="background-color: #F0F8FF">
-                        <div class="p-0">
-                            <span>Title: {{ $notification['subject'] }}</span>
-                        </div>
-                        <div class="d-md-flex flex-md-row flex-md-wrap flex-sm-column align-">
-                            <span>{{ $notification['Message'] }}.</span>
-                            <p class="d-flex p-0">{{$notification['loan amount']}} Birr is Allowed for {{$notification['duration']}} months .
-                                <p class="p-0 m-0">You Can find Your Witness Using This Link
-                                     <form action="{{route('member.seachWitness')}}" method="POST">
-                                          @csrf
-                                        <input type="hidden" name="credit_amount" value="{{$notification['loan amount']}}" id="">
-                                        <input type="hidden" name="credit_duration" value="{{$notification['duration']}}">
-                                        <button class="btn btn-sm p-0 btn-info">Find Witness</button>
-
-                                     </form>
-                                </p>
-                            </p>
+                    <div class="d-flex flex-column">
+                        <div class="alert alert" role="alert" style="background-color: rgb(155, 218, 243)">
+                            <div class="p-0">
+                                <p class="fs-5">Title: {{ $notification['subject'] }}</p>
+                            </div>
+                            <div class="d-md-flex flex-md-row flex-md-wrap flex-sm-column align-">
+                                <span class="fs-4">{{ $notification['Message'] }}.</span>
+                                <p class="d-flex p-0 fs-4">{{$notification['loan_amount']}} Birr is Allowed for {{$notification['duration']}} months.</p>
+                            </div>
                         </div>
                     </div>
-                      </div>
-
                 @endforeach
+
                 </section>
             </div>
         </div>

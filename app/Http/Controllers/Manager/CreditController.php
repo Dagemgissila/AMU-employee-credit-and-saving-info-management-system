@@ -278,9 +278,56 @@ class CreditController extends Controller
                     $credit->credit_end = Carbon::createFromFormat('m/d/Y', $dueDate)->format('Y-m-d');
                     $credit->witness1=$request->witness_1;
                     $credit->witness2=$request->witness_2;
+                    $credit->duration_in_month=$request->credit_duration;
                     $credit->save();
 
-                    return back()->with('message','the loan is succesfully given');
+                    $loanAmount = $request->credit_amount;
+                    $loanTermInMonths = $request->credit_duration;
+                    $principal = $loanAmount / $loanTermInMonths;
+                    $creditStartDate = Carbon::parse($request->credit_start)->startOfDay();
+                    $monthlyInterestRate = ($interestRate / 12) / 100;
+
+                    // Prepare loan schedule data
+                    $loanSchedule = [];
+                    $balance = $loanAmount;
+                    $totalInterest = 0;
+
+                    for ($i = 1; $i <= $loanTermInMonths; $i++) {
+                        $interest = $balance * $monthlyInterestRate; // Monthly interest
+                        $dueDate = $creditStartDate->copy()->addMonths($i)->format('m/d/Y');
+                        $due = $principal + $interest;
+                        $principalBalance = $balance - $principal;
+                        $loanSchedule[] = [
+                            'due_date' => $dueDate,
+                            'principal' => $principal,
+                            'interest' => $interest,
+                            'due' => $due,
+                            'principal_balance' => $principalBalance,
+                        ];
+
+                        $balance = $principalBalance;
+                        $totalInterest += $interest;
+                    }
+
+
+                    // Insert loan schedule data into the database
+                    $creditPayments = [];
+                    foreach ($loanSchedule as $schedule) {
+                        $creditPayments[] = [
+                            'credit_id' => $credit->id,
+                            'paid_amount' => $schedule['due'],
+                            'interest' => $schedule['interest'],
+                            'principal_balance' => $schedule['principal_balance'],
+                            'principal' => $schedule['principal'],
+                            'paid_month' => Carbon::createFromFormat('m/d/Y', $schedule['due_date'])->format('Y-m-d'),
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ];
+                    }
+
+                    CreditPayment::insert($creditPayments);
+
+                    return back()->with('message', 'The loan has been successfully given');
                 }
             }
                 else if($request->witness_1){
@@ -314,6 +361,7 @@ class CreditController extends Controller
                         $credit->member_id=$memberId;
                         $credit->credit_amount=$request->credit_amount;
                         $credit->interest_rate=$interestRate;
+                        $credit->duration_in_month=$request->credit_duration;
                         $credit->interest_amount=$totalInterest;
                         $credit->total_payment=$loanAmount + array_sum(array_column($loanSchedule, 'interest'));
                         $credit->credit_start=$request->credit_start;
@@ -321,7 +369,53 @@ class CreditController extends Controller
                         $credit->witness1=$request->witness_1;
                         $credit->save();
 
-                        return back()->with('message','the loan is succesfully given');
+                        $loanAmount = $request->credit_amount;
+        $loanTermInMonths = $request->credit_duration;
+        $principal = $loanAmount / $loanTermInMonths;
+        $creditStartDate = Carbon::parse($request->credit_start)->startOfDay();
+        $monthlyInterestRate = ($interestRate / 12) / 100;
+
+        // Prepare loan schedule data
+        $loanSchedule = [];
+        $balance = $loanAmount;
+        $totalInterest = 0;
+
+        for ($i = 1; $i <= $loanTermInMonths; $i++) {
+            $interest = $balance * $monthlyInterestRate; // Monthly interest
+            $dueDate = $creditStartDate->copy()->addMonths($i)->format('m/d/Y');
+            $due = $principal + $interest;
+            $principalBalance = $balance - $principal;
+            $loanSchedule[] = [
+                'due_date' => $dueDate,
+                'principal' => $principal,
+                'interest' => $interest,
+                'due' => $due,
+                'principal_balance' => $principalBalance,
+            ];
+
+            $balance = $principalBalance;
+            $totalInterest += $interest;
+        }
+
+
+        // Insert loan schedule data into the database
+        $creditPayments = [];
+        foreach ($loanSchedule as $schedule) {
+            $creditPayments[] = [
+                'credit_id' => $credit->id,
+                'paid_amount' => $schedule['due'],
+                'interest' => $schedule['interest'],
+                'principal_balance' => $schedule['principal_balance'],
+                'principal' => $schedule['principal'],
+                'paid_month' => Carbon::createFromFormat('m/d/Y', $schedule['due_date'])->format('Y-m-d'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
+        }
+
+        CreditPayment::insert($creditPayments);
+
+        return back()->with('message', 'The loan has been successfully given');
                     }
 
                 }
@@ -359,11 +453,59 @@ class CreditController extends Controller
                         $credit->credit_amount=$request->credit_amount;
                         $credit->interest_rate= $interestRate;
                         $credit->interest_amount=$totalInterest;
+                        $credit->duration_in_month=$request->credit_duration;
                         $credit->total_payment=$loanAmount + array_sum(array_column($loanSchedule, 'interest'));
                         $credit->credit_start=$request->credit_start;
                         $credit->credit_end = Carbon::createFromFormat('m/d/Y', $dueDate)->format('Y-m-d');
                         $credit->witness1=$request->witness_2;
                         $credit->save();
+                        $loanAmount = $request->credit_amount;
+                        $loanTermInMonths = $request->credit_duration;
+                        $principal = $loanAmount / $loanTermInMonths;
+                        $creditStartDate = Carbon::parse($request->credit_start)->startOfDay();
+                        $monthlyInterestRate = ($interestRate / 12) / 100;
+
+                        // Prepare loan schedule data
+                        $loanSchedule = [];
+                        $balance = $loanAmount;
+                        $totalInterest = 0;
+
+                        for ($i = 1; $i <= $loanTermInMonths; $i++) {
+                            $interest = $balance * $monthlyInterestRate; // Monthly interest
+                            $dueDate = $creditStartDate->copy()->addMonths($i)->format('m/d/Y');
+                            $due = $principal + $interest;
+                            $principalBalance = $balance - $principal;
+                            $loanSchedule[] = [
+                                'due_date' => $dueDate,
+                                'principal' => $principal,
+                                'interest' => $interest,
+                                'due' => $due,
+                                'principal_balance' => $principalBalance,
+                            ];
+
+                            $balance = $principalBalance;
+                            $totalInterest += $interest;
+                        }
+
+
+                        // Insert loan schedule data into the database
+                        $creditPayments = [];
+                        foreach ($loanSchedule as $schedule) {
+                            $creditPayments[] = [
+                                'credit_id' => $credit->id,
+                                'paid_amount' => $schedule['due'],
+                                'interest' => $schedule['interest'],
+                                'principal_balance' => $schedule['principal_balance'],
+                                'principal' => $schedule['principal'],
+                                'paid_month' => Carbon::createFromFormat('m/d/Y', $schedule['due_date'])->format('Y-m-d'),
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ];
+                        }
+
+                        CreditPayment::insert($creditPayments);
+
+                        return back()->with('message', 'The loan has been successfully given');
 
                         return back()->with('message','the loan is succesfully given');
                     }

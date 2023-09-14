@@ -79,7 +79,7 @@
                     <th>Fullname</th>
                     <th>Saving Amount</th>
                     <th>Saving Date</th>
-                    <th>Action</th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -108,9 +108,7 @@
                         <td>{{ date('M j ,Y', strtotime($saving->saving_month)) }} </td>
                         <td class="d-flex">
 
-                          <button type="button" value="{{$saving->id}}" class="btn btn-danger deletebtn btn-sm" data-toggle="modal">
-                            <i class="fa fa-trash"></i> Delete
-                          </button>
+
                         </td>
                       </tr>
                     @endforeach

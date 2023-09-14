@@ -71,6 +71,7 @@
                         <th>username</th>
                         <th>Credit Amount</th>
                         <th> Total Payment </th>
+                        <th>Duration </th>
                         <th>Credit Start</th>
                         <th>Credit End</th>
                         <th>Credit Status</th>
@@ -98,6 +99,7 @@
                         <td>{{$credit->member->user->username}}</td>
                         <td>{{number_format($credit->credit_amount,2)}} Birr</td>
                         <td>{{ $credit->total_payment }}  Birr </td>
+                        <td>{{$credit->duration_in_month}} Months</td>
                         <td>
                          {{$credit->credit_start}}
                           </td>

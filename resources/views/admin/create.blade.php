@@ -62,7 +62,7 @@
                                             <label for="campus">Role</label>
                                             <select name="role" value="{{old('role')}}" class="form-control" style="width: 100%;" id="role-select" required>
                                                 <option value="">-- Please select a role --</option>
-                                                <option value="admin">Admin</option>
+
                                                 <option value="manager">Manager</option>
                                             </select>
 
