@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Add credit</h1>
+          <h1 class="m-0">Requsted Credit</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
 

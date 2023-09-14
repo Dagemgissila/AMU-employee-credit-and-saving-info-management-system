@@ -20,10 +20,10 @@ class MemberNotificationController extends Controller
             $data[] = [
                 'read_at'=>$notification->read_at,
                 'id' => $notification->id,
-                'subject' => $notification->data['subject'],
+                 'Greeting'=>$notification->data['Greeting'],
+                'Subject' => $notification->data['Subject'],
                 'Message' => $notification->data['Message'],
-                'loan_amount' => $notification->data['loan amount'],
-                'duration' => $notification->data['duration']
+
                 // Add more columns as needed
             ];
 

@@ -45,7 +45,7 @@ class MemberController extends Controller
             'campus'=>'required|string',
              'email'=>'required|unique:users',
             'sex'=>'required|string',
-            'martial_status'=>'required|string',
+            'marital_status'=>'required|string',
 
                  ],[
 

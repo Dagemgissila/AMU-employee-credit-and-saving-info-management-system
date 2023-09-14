@@ -552,7 +552,7 @@ class CreditController extends Controller
         }
 
         public function viewCreditRequest(){
-            $RequestCredits = RequestCredit::orderBy('created_at', 'asc')->get();
+            $RequestCredits = RequestCredit::query()->orderBy('created_at', 'asc')->get();
             return view('manager.ManageLoan.CreditRequest',compact('RequestCredits'));
         }
 

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Member;
 use App\Models\SavingAccount;
+use App\Notifications\Saving;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -52,12 +53,14 @@ class DepositmoneyImport implements ToCollection,WithHeadingRow,WithValidation
         $savingAccount->saving_month = Carbon::now();
         // Set the default saving percent here
         $savingAccount->save();
+
       }
     }
 
     if (!empty($errors)) {
         return back()->withErrors($errors);
     }
+    $user->notify(new Saving($monthly_saving_amount));
 
     return redirect()->back()->with('message', 'Deposit money successfully');
 }

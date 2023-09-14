@@ -19,8 +19,8 @@ class InstallController extends Controller
 
     public function create(Request $request){
         $this->validate($request, [
-            'username' => 'required|min:4',
-            'email' => 'required|email',
+            'username' => 'required|min:4|unique:users',
+            'email' => 'required|email|unique:users',
             //tha password must be min 8 char,at least 1 upper case, 1 lower case ,1 number, 1 special char
             'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
             'confirm_password' => 'required|min:8|same:password',

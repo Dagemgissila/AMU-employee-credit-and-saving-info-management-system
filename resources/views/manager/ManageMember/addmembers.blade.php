@@ -158,9 +158,9 @@
                                                 <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Married</option>
                                                 <option value="Single" {{ old('marital_status') == 'Single' ? 'selected' : '' }}>Single</option>
                                             </select>
-                                            @error('marital_status')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                            @if ($errors->has('salary'))
+                                            <div class="text-danger">{{ $errors->first('salary') }}</div>
+                                         @endif
                                         </div>
                                     </div>
                                 </div>

@@ -5,6 +5,7 @@ use DB;
 use Carbon\Carbon;
 use App\Models\CreditPayment;
 use App\Models\RequestCredit;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,7 +38,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
+
             View::composer("*", function($view) {
+                if(Auth::check()){
                 $notificationCount = DB::table('notifications')
                     ->where('notifiable_id', auth()->user()->id)
                     ->whereNull('read_at')
@@ -45,7 +48,9 @@ class AppServiceProvider extends ServiceProvider
 
 
                 $view->with("notificationCount", $notificationCount);
+                }
             });
+
 
     }
 }

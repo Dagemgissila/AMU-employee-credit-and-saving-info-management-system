@@ -31,8 +31,8 @@
                           </div>
                           <div class="col-md-6">
                             <div class="d-flex">
-                              <strong>College:</strong>
-                              <p class="text-muted ml-2"><i class="fas fa-university px-1"></i> {{$member->colleage}}</p>
+
+
                             </div>
                             <hr>
                             <div class="d-flex">

@@ -4,13 +4,10 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">List of user</h1>
+          <h1 class="m-0">Sold Share</h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
 
-          </ol>
         </div><!-- /.col -->
       </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -83,7 +80,7 @@
                         <th>Full name</th>
                         <th>Share Amount </th>
                         <th>Sold Date</th>
-                        <th>Action</th>
+
 
 
                      </tr>
@@ -100,13 +97,7 @@
                     <td>{{$share->member->firstname}} {{$share->member->middlename}} {{$share->member->lastname}}</td>
                     <td>{{number_format($share->share_amount,2)}} Birr</td>
                     <td>{{date('M j, Y',strtotime($share->created_at))}}</td>
-                    <td>
 
-
-                        <button type="button" value="{{$share->id}}" class="btn btn-danger deletebtn btn-sm" data-toggle="modal">
-                            <i class="fa fa-trash"></i> Delete
-                          </button>
-                    </td>
                     </tr>
                     @endforeach
 

@@ -6,10 +6,10 @@ use Excel;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Member;
-use App\Models\Saving;
 use App\Models\SavingDetail;
 use Illuminate\Http\Request;
 use App\Models\SavingAccount;
+use App\Notifications\Saving;
 use Illuminate\Validation\Rule;
 use App\Imports\DepositmoneyImport;
 use App\Http\Controllers\Controller;
@@ -121,6 +121,9 @@ class SavingController extends Controller
 
             // Access the related User object
             $fullname = $user->member->firstname . " ". $user->member->middlename;
+
+
+                $user->notify(new Saving($monthly_saving_amount));
 
 
             // Redirect back to the form with a success message

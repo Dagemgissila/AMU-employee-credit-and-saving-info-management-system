@@ -53,11 +53,11 @@ class CreditApproved extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            "subject"=>"Loan Approved",
-            'Greeting'=>"Loan is Approved",
-            'Message'=>"Your loan Appilication is Approved",
-            "loan amount"=>$this->creditAmount,
-            "duration"=>$this->creditDuration
+            "Subject"=>"Loan Approved",
+            'Greeting'=>"Congragulation!!! Your Loan Request is Approved",
+            "Message"=>"We are Please to inform you that your loan request for
+            " . $this->creditAmount ." Birr for  ".$this->creditDuration.  "  Month has been approved. inorder to receive money we kindly request you to visit our office",
+
         ];
     }
 }
