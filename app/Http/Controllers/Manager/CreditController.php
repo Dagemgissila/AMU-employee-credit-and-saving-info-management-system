@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Manager;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Share;
 use App\Models\Credit;
 use App\Models\Member;
 use Illuminate\Http\Request;
@@ -60,6 +61,9 @@ class CreditController extends Controller
          $memberId=$member->id;
          $MemberRegisteredDate=$member->registered_date;
          $MemberSavingAmount=SavingAccount::where('member_id',$memberId)->sum('saving_amount');
+         $MemberShareBalance=Share::where("member_id",$memberId)->sum("share_amount");
+
+
          $status=null;
 
          if( $request->credit_duration <= 12){
@@ -119,6 +123,102 @@ class CreditController extends Controller
          if($monthsDifference < 6){
             return back()->with('error', 'Member must be at least a 6-month stay to be eligible for a loan.');
          }
+         if(($request->credit_amount) > ( 3 * $MemberSavingAmount)){
+            return back()->with('error', 'maximum allowed loan ' ." ". 3 * $MemberSavingAmount . "birr");
+         }
+         //requested
+         $loanAmount =$request->credit_amount;
+         $loanTermInMonths = $request->credit_duration;
+
+         $principal = $loanAmount / $loanTermInMonths;
+         $creditStartDate = Carbon::parse($request->credit_start)->startOfDay();
+         $monthlyInterestRate = ($interestRate / 12) / 100;
+
+         //loan schedule calculation
+         $loanSchedule = [];
+         $balance = $loanAmount;
+         $totalInterest = 0;
+         $interestCount = 0;
+         for ($i = 1; $i <= $loanTermInMonths; $i++) {
+             $interest = $balance * $monthlyInterestRate;//monthly interest
+             $dueDate = $creditStartDate->copy()->addMonths($i)->format('m/d/Y');
+             $due = $principal + $interest;
+             $principalBalance = $balance - $principal;
+             $loanSchedule[] = [
+                 'due_date' => $dueDate,
+                 'principal' => $principal,
+                 'interest' =>$interest,
+                 'due' => $due,
+                 'principal_balance' => $principalBalance,
+             ];
+
+             $balance = $principalBalance;
+             $totalInterest += $interest;
+             $interestCount++;
+
+         }
+         if(($MemberShareBalance + $MemberSavingAmount ) >= ($request->credit_amount) ){
+            $credit = new Credit();
+
+            $credit->member_id = $memberId;
+            $credit->credit_amount = $request->credit_amount;
+            $credit->interest_rate = $interestRate;
+            $credit->interest_amount = $totalInterest;
+            $credit->witness1="share balance";
+            $credit->duration_in_month=$request->credit_duration;
+            $credit->total_payment = $loanAmount + array_sum(array_column($loanSchedule, 'interest'));
+            $credit->credit_start = $request->credit_start;
+            $credit->credit_end = Carbon::createFromFormat('m/d/Y', $dueDate)->format('Y-m-d');
+            $credit->save();
+
+            $loanAmount = $request->credit_amount;
+            $loanTermInMonths = $request->credit_duration;
+            $principal = $loanAmount / $loanTermInMonths;
+            $creditStartDate = Carbon::parse($request->credit_start)->startOfDay();
+            $monthlyInterestRate = ($interestRate / 12) / 100;
+
+            // Prepare loan schedule data
+            $loanSchedule = [];
+            $balance = $loanAmount;
+            $totalInterest = 0;
+
+            for ($i = 1; $i <= $loanTermInMonths; $i++) {
+                $interest = $balance * $monthlyInterestRate; // Monthly interest
+                $dueDate = $creditStartDate->copy()->addMonths($i)->format('m/d/Y');
+                $due = $principal + $interest;
+                $principalBalance = $balance - $principal;
+                $loanSchedule[] = [
+                    'due_date' => $dueDate,
+                    'principal' => $principal,
+                    'interest' => $interest,
+                    'due' => $due,
+                    'principal_balance' => $principalBalance,
+                ];
+
+                $balance = $principalBalance;
+                $totalInterest += $interest;
+            }
+
+
+            // Insert loan schedule data into the database
+            $creditPayments = [];
+            foreach ($loanSchedule as $schedule) {
+                $creditPayments[] = [
+                    'credit_id' => $credit->id,
+                    'paid_amount' => $schedule['due'],
+                    'interest' => $schedule['interest'],
+                    'principal_balance' => $schedule['principal_balance'],
+                    'principal' => $schedule['principal'],
+                    'paid_month' => Carbon::createFromFormat('m/d/Y', $schedule['due_date'])->format('Y-m-d'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            }
+
+            CreditPayment::insert($creditPayments);
+
+            return back()->with('message', 'The loan has been successfully given');
+        }
 
                //when member requested credit greater than saving amount the witness is required
        if(($request->credit_amount > $MemberSavingAmount) and ((!$request->witness_1) and (!$request->witness_2) )){
@@ -221,6 +321,7 @@ class CreditController extends Controller
 
         return back()->with('message', 'The loan has been successfully given');
     }
+
 
            if(($request->witness_1) or ($request->witness_2)){
 
