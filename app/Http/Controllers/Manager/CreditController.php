@@ -157,6 +157,7 @@ class CreditController extends Controller
              $interestCount++;
 
          }
+         //share
          if(($MemberShareBalance + $MemberSavingAmount ) >= ($request->credit_amount) ){
             $credit = new Credit();
 
